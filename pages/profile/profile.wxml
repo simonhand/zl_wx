@@ -1,0 +1,25 @@
+<!--pages/profile/profile.wxml-->
+<view class="body">
+    <view class="userInfo">
+        <view class="avatar">
+            <image src="https://avatars.githubusercontent.com/u/51045251?v=4" alt=""/>
+        </view>
+        <view class="username">
+            <text>张乐</text>
+        </view>
+    </view>
+    <view class="choose">
+        <view class="userchoose">
+            <text>个人信息</text>
+        </view>
+        <view class="userchoose">
+            <text>我的班级</text>
+        </view>
+        <view class="userchoose">
+            <text>关于程序</text>
+        </view>
+        <view class="userchoose">
+            <text>退出登录</text>
+        </view>
+    </view>
+</view>

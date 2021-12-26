@@ -1,0 +1,74 @@
+/* pages/profile/profile.wxss */
+page{
+    height: 100%;
+}
+.body{
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+    height: 100%;
+    background: #ECF0F3;
+}
+
+.userInfo {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.userInfo .avatar {
+    position: relative;
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    box-shadow: 27px 27px 45px #d1d9e6, -27px -27px 45px #fff;
+}
+
+.userInfo .username {
+    width: 80px;
+    height: 50px;
+    text-align: center;
+    line-height: 50px;
+    font-weight: 1000;
+    color: #666;
+    border-radius: 20%;
+    box-shadow: 27px 27px 45px #d1d9e6, -27px -27px 45px #fff;
+}
+
+.body .choose {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.userchoose {
+    margin-top: 15px;
+    border-radius: 50px;
+    width: 80%;
+    color: #666;
+    height: 40px;
+    line-height: 40px;    
+    box-shadow: -7px -7px 20px 0px #fff9,
+                -4px -4px 5px 0px #fff9,
+                7px 7px 20px 0px #0002,
+                4px 4px 5px 0px #0001;
+    
+}
+
+.userchoose text {
+    position: relative;
+    left: 20px;
+}
+
+.userInfo image{
+    position: relative;
+    width: 80px;
+    height: 80px;
+    top:50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    border-radius: 50%;
+}
