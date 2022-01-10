@@ -20,4 +20,9 @@
   <view plain="true" class="calcbutton" bindtap="calcClick">
     口算
   </view>
+  <view class="calcbutton" bindtap="loginClick">
+    你可算来了
+  </view>
+  <zl-input ></zl-input>
+  <i-button/>
 </view>

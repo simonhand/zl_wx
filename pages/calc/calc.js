@@ -1,4 +1,6 @@
 // pages/calc/calc.js
+import { randomNum }  from "../../utils/random"
+
 Page({
 
     /**
@@ -9,17 +11,32 @@ Page({
         operand_1:null,
         operand_2:null,
         solvtion:null,
-        num_list: [1,2,3,4,5,6,7,8,9],
+        userClickNum:null,
+        solvtionString: '',
+        userSolvtionString:'',
+        solvtionLen:null,
+        num_list: [1,2,3,4,5,6,7,8,9],  
     },
 
     numClick(e){
         const props = e.currentTarget.dataset;
         console.log("props",props);
+        console.log("userClickNum",this.data.solvtionLen);
         // this.data.selecedtNum = props.index;
-        this.setData({ selecedtNum : props.index });
+        if (props.num != "del") {
+            this.setData({ 
+                selecedtNum : props.index ,
+                userSolvtionString : this.data.userSolvtionString + props.num,
+            });
+        }else{
+            this.setData({
+                selecedtNum : props.index ,
+                userSolvtionString: this.data.userSolvtionString.substr(0,this.data.userSolvtionString.length - 1)
+            })
+        }
         setTimeout( () => {
             this.setData({            
-                selecedtNum : null,        
+                selecedtNum : null,
             })
         },100)
     },
@@ -35,7 +52,15 @@ Page({
      * 生命周期函数--监听页面初次渲染完成
      */
     onReady: function () {
-        
+        this.setData({
+            operand_1: randomNum(2),
+            operand_2: randomNum(2),
+        })
+        this.setData({
+            solvtion: this.data.operand_1 + this.data.operand_2,
+            solvtionString: ( this.data.operand_1 + this.data.operand_2 ).toString(),
+            solvtionLen:  ( this.data.operand_1 + this.data.operand_2 ).toString().length,
+        })
     },
 
     /**

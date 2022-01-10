@@ -1,3 +1,6 @@
 {
-  "usingComponents": {}
+  "usingComponents": {
+    "zl-input":"../../components/zl-input",
+    "i-button":"../../components/Iview/button"
+  }
 }

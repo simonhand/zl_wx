@@ -1,2 +1,37 @@
-<!--pages/login/login.wxml-->
-<text>pages/login/login.wxml</text>
+<view style="width: 100%; display: flex; flex-direction: row; justify-content: center; margin-top: 30px;">
+    <image src="../../assets/login/logo.png" class="logo"></image>
+</view>
+<view class="card">
+    <view class="front {{ flag === false ? '.front-turn':''}}">
+        <form>
+            <view class="inputText" id="id" >
+                <input type="text" required maxlength="15" data-index="0"  bindtap="inputClick"/>
+                <span data-placeholder="你的姓名"></span>
+            </view>
+            <view class="inputText" id="password">
+                <input type="password" required pattern=".{6,}" title="Password less than six digits" maxlength="16" />
+                <span data-placeholder="别偷看"></span>
+            </view>
+            <view type="submit" value="Login" class="button" style="line-height: 55px; color: #666;">登录</view>
+            <p class="register"  bindtap="cardClick" >没有账号？</p>
+        </form>
+    </view>
+    <view class="back {{ flag === false ? '.back-turn':''}}">
+        <form>
+            <view class="inputText" id="email">
+                <input type="email" required maxlength="30" />
+                <span data-placeholder="你的姓名"></span>
+            </view>
+            <view class="inputText" id="email">
+                <input type="email" required maxlength="30" />
+                <span data-placeholder="别偷看"></span>
+            </view>
+            <view class="inputText" id="email">
+                <input type="email" required maxlength="30" />
+                <span data-placeholder="再输入一次"></span>
+            </view>
+            <view type="submit" value="Register" class="button" style="line-height: 55px;">注册</view>
+            <p class="login_"   bindtap="cardClick" >我又想起账号了！</p>
+        </form>
+    </view>
+</view>

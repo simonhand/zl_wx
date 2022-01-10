@@ -8,16 +8,16 @@
        </view>
        <view class="calcWindowSolvtion">
         <text>
-          {{solvtion}}
+          {{userSolvtionString}}
         </text>
        </view>
     </View>
     <view class="calcTopButton">
-        <view wx:for="{{num_list}}" wx:for-item="num" wx:key="num" data-index="{{index}}" data-num="{{num}}" class="calcTopButtonItem {{ selecedtNum === index  ? 'num_selected' : ''}}" bindtap="numClick">{{ index }}</view>
+        <view wx:for="{{num_list}}" wx:for-item="num" wx:key="num" data-index="{{index}}" data-num="{{num}}" class="calcTopButtonItem {{ selecedtNum === index  ? 'num_selected' : ''}}" bindtap="numClick">{{ num }}</view>
     </view>
     <view class="calcBottomButton">
         <view bindtap="NumClick_0" data-index="{{10}}" data-num="{{0}}"  class="num_zero {{ selecedtNum === 10  ? 'num_selected' : ''}}" bindtap="numClick">0</view>
-        <view bindtap="NumClick_." data-index="{{ -1 }}" data-num="."  class="num_point {{ selecedtNum === -1  ? 'num_selected' : ''}}" bindtap="numClick">
+        <view bindtap="NumClick_." data-index="{{ -1 }}" data-num="del"  class="num_point {{ selecedtNum === -1  ? 'num_selected' : ''}}" bindtap="numClick">
             <image src="../../assets/calc/backspace.png" ></image>
         </view>
     </view>

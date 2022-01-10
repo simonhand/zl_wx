@@ -5,9 +5,22 @@ Page({
      * 页面的初始数据
      */
     data: {
-
+        flag: true,
+        inputIndex: null,
     },
 
+    // 事件监听函数
+    // cardClick: () => {
+    //     this.setData({
+    //         flag:!flag,
+    //     })
+    // },
+    cardClick: function () {
+        console.log("->>>>>>",this.data.flag);
+        this.setData({
+            flag:!this.data.flag
+        })
+    },
     /**
      * 生命周期函数--监听页面加载
      */
@@ -19,7 +32,12 @@ Page({
      * 生命周期函数--监听页面初次渲染完成
      */
     onReady: function () {
-
+        const query = wx.createSelectorQuery();
+        query.selectAll('input');
+        query.exec((res)=> {
+            res.map()
+        })
+        console.log("query",query);
     },
 
     /**

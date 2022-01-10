@@ -3,6 +3,7 @@
     "pages/index/index",
     "pages/logs/logs",
     "pages/login/login",
+    "pages/register/register",
     "pages/home/home",
     "pages/record/record",
     "pages/profile/profile",

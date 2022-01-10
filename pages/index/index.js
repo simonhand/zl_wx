@@ -27,6 +27,13 @@ Page({
       url: '../calc/calc',
     })
   },
+
+  loginClick(){
+    wx.navigateTo({
+      url: '../login/login',
+    })
+  },
+
   bindViewTap() {
     wx.navigateTo({
       url: '../home/home'
