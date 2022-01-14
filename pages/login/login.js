@@ -21,6 +21,13 @@ Page({
             flag:!this.data.flag
         })
     },
+    inputClick:function (e) {
+        const props = e.currentTarget.dataset;
+        console.log("props",props.index);
+        this.setData({
+            inputIndex: props.index,
+        })
+    },
     /**
      * 生命周期函数--监听页面加载
      */
@@ -32,12 +39,12 @@ Page({
      * 生命周期函数--监听页面初次渲染完成
      */
     onReady: function () {
-        const query = wx.createSelectorQuery();
-        query.selectAll('input');
-        query.exec((res)=> {
-            res.map()
-        })
-        console.log("query",query);
+        // const query = wx.createSelectorQuery();
+        // query.selectAll('input');
+        // query.exec((res)=> {
+        //     res.map()
+        // })
+        // console.log("query",query);
     },
 
     /**
