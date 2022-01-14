@@ -5,11 +5,11 @@
     <view class="front {{ flag === false ? '.front-turn':''}}">
         <form>
             <view class="inputText" id="id" >
-                <input type="text" required maxlength="15" data-index="0"  bindtap="inputClick"/>
+                <input type="text" required maxlength="15" data-index="{{0}}"  class="{{ inputIndex === 0 ? 'focus':'' }}" bindtap="inputClick"/>  
                 <span data-placeholder="你的姓名"></span>
             </view>
             <view class="inputText" id="password">
-                <input type="password" required pattern=".{6,}" title="Password less than six digits" maxlength="16" />
+                <input type="password" required pattern=".{6,}" title="Password less than six digits" maxlength="16" data-index="{{1}}"  class="{{ inputIndex === 1 ? 'focus':'' }}" bindtap="inputClick"/>
                 <span data-placeholder="别偷看"></span>
             </view>
             <view type="submit" value="Login" class="button" style="line-height: 55px; color: #666;">登录</view>
@@ -19,15 +19,15 @@
     <view class="back {{ flag === false ? '.back-turn':''}}">
         <form>
             <view class="inputText" id="email">
-                <input type="email" required maxlength="30" />
+                <input type="email" required maxlength="30" data-index="{{2}}"  class="{{ inputIndex === 2 ? 'focus':'' }}" bindtap="inputClick"/>
                 <span data-placeholder="你的姓名"></span>
             </view>
             <view class="inputText" id="email">
-                <input type="email" required maxlength="30" />
+                <input type="email" required maxlength="30" data-index="{{3}}"  class="{{ inputIndex === 3 ? 'focus':'' }}" bindtap="inputClick"/>
                 <span data-placeholder="别偷看"></span>
             </view>
             <view class="inputText" id="email">
-                <input type="email" required maxlength="30" />
+                <input type="email" required maxlength="30" data-index="{{4}}"  class="{{ inputIndex === 4 ? 'focus':'' }}" bindtap="inputClick"/>
                 <span data-placeholder="再输入一次"></span>
             </view>
             <view type="submit" value="Register" class="button" style="line-height: 55px;">注册</view>

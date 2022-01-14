@@ -85,7 +85,7 @@ body{
 }
 .login_{
     color: skyblue;
-    font-size: 12px;
+    font-size: 13px;
     position: relative;
     top: 100px;
     cursor:pointer;
@@ -119,7 +119,7 @@ body{
 
 .register{
     color: skyblue;
-    font-size: 12px;
+    font-size: 13px;
     position: relative;
     top: 100px;
     cursor:pointer;
