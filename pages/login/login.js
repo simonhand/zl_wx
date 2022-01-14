@@ -39,12 +39,12 @@ Page({
      * 生命周期函数--监听页面初次渲染完成
      */
     onReady: function () {
-        const query = wx.createSelectorQuery();
-        query.selectAll('input');
-        query.exec((res)=> {
-            res.map()
-        })
-        console.log("query",query);
+        // const query = wx.createSelectorQuery();
+        // query.selectAll('input');
+        // query.exec((res)=> {
+        //     res.map()
+        // })
+        // console.log("query",query);
     },
 
     /**
