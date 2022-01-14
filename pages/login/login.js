@@ -21,6 +21,13 @@ Page({
             flag:!this.data.flag
         })
     },
+    inputClick:function (e) {
+        const props = e.currentTarget.dataset;
+        console.log("props",props.index);
+        this.setData({
+            inputIndex: props.index,
+        })
+    },
     /**
      * 生命周期函数--监听页面加载
      */
