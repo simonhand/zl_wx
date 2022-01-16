@@ -5,14 +5,14 @@
     <view class="front {{ flag === false ? '.front-turn':''}}">
         <form>
             <view class="inputText" id="id" >
-                <input type="text" required maxlength="15" data-index="{{0}}"  class="{{ inputIndex === 0 ? 'focus':'' }}" bindtap="inputClick"/>  
+                <input type="text" required maxlength="15" data-index="{{0}}"  class="{{ inputIndex === 0 ? 'focus':'' }}" bindtap="inputClick" bindinput="unameInput"/>  
                 <span data-placeholder="你的姓名"></span>
             </view>
             <view class="inputText" id="password">
-                <input type="password" required pattern=".{6,}" title="Password less than six digits" maxlength="16" data-index="{{1}}"  class="{{ inputIndex === 1 ? 'focus':'' }}" bindtap="inputClick"/>
+                <input type="password" required pattern=".{6,}" title="Password less than six digits" maxlength="16" data-index="{{1}}"  class="{{ inputIndex === 1 ? 'focus':'' }}" bindtap="inputClick" bindinput="pwdInput"/>
                 <span data-placeholder="别偷看"></span>
             </view>
-            <view type="submit" value="Login" class="button" style="line-height: 55px; color: #666;">登录</view>
+            <view type="submit" formType="submit" value="Login" class="button" style="line-height: 55px; color: #666;" bindtap="loginClick">登录</view>
             <p class="register"  bindtap="cardClick" >没有账号？</p>
         </form>
     </view>

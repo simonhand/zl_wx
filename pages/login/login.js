@@ -1,4 +1,6 @@
 // pages/login/login.js
+import { baseUrl} from '../../config/network'
+import {zlrequest } from '../../utils/zlGraphql'
 Page({
 
     /**
@@ -7,6 +9,21 @@ Page({
     data: {
         flag: true,
         inputIndex: null,
+        loginuname:"",
+        loginpwd:"",
+        registeruname:"",
+        registerpwd:""
+    },
+    // input事件
+    unameInput:function(v) {
+        this.setData({
+            loginuname:v.detail.value
+        })
+    },
+    pwdInput:function(v) {
+        this.setData({
+            loginpwd:v.detail.value
+        })
     },
 
     // 事件监听函数
@@ -27,6 +44,36 @@ Page({
         this.setData({
             inputIndex: props.index,
         })
+    },
+    loginClick:function(e) {
+        console.log(this.data.loginuname+this.data.loginpwd);
+        const payload = JSON.stringify({
+            query:`
+            query loginuser {
+                loginuser(uname:"${this.data.loginuname}",pwd:"${this.data.loginpwd}"){
+                 uname
+                 pwd
+                 classNo
+                }
+              }
+            `
+          })
+          zlrequest(payload,"POST").then((res) => {
+              console.log("res------",res);
+          })
+        //  wx.request({
+        //    url: baseUrl,
+        //    method: 'POST',
+        //    data:payload,
+        //    header:{
+        //     "Content-Type": "application/json"
+        //   },
+        //   success(res) {
+        //     console.log(
+        //         "loginres",res
+        //     );
+        //   }
+        //  })
     },
     /**
      * 生命周期函数--监听页面加载
