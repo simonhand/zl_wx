@@ -1,6 +1,11 @@
 <!--logs.wxml-->
 <view class="container log-list">
-  <block wx:for="{{logs}}" wx:key="timeStamp" wx:for-item="log">
-    <text class="log-item">{{index + 1}}. {{log.date}}</text>
-  </block>
+  <i-toast id="toast" />
+
+  <button bindtap="setStorge">
+    存储缓存
+  </button>
+  <button bindtap="getStorge">
+    打印缓存
+  </button>
 </view>
