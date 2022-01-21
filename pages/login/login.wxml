@@ -1,6 +1,7 @@
 <view style="width: 100%; display: flex; flex-direction: row; justify-content: center; margin-top: 30px;">
     <image src="../../assets/login/logo.png" class="logo"></image>
 </view>
+<i-toast id="toast" />
 <view class="card">
     <view class="front {{ flag === false ? '.front-turn':''}}">
         <form>
@@ -19,18 +20,18 @@
     <view class="back {{ flag === false ? '.back-turn':''}}">
         <form>
             <view class="inputText" id="email">
-                <input type="email" required maxlength="30" data-index="{{2}}"  class="{{ inputIndex === 2 ? 'focus':'' }}" bindtap="inputClick"/>
+                <input type="email" required maxlength="30" data-index="{{2}}"  class="{{ inputIndex === 2 ? 'focus':'' }}" bindtap="inputClick" bindinput="registerUnameInput"/>
                 <span data-placeholder="你的姓名"></span>
             </view>
             <view class="inputText" id="email">
-                <input type="email" required maxlength="30" data-index="{{3}}"  class="{{ inputIndex === 3 ? 'focus':'' }}" bindtap="inputClick"/>
+                <input type="email" required maxlength="30" data-index="{{3}}"  class="{{ inputIndex === 3 ? 'focus':'' }}" bindtap="inputClick" bindinput="registerpwdInput"/>
                 <span data-placeholder="别偷看"></span>
             </view>
             <view class="inputText" id="email">
-                <input type="email" required maxlength="30" data-index="{{4}}"  class="{{ inputIndex === 4 ? 'focus':'' }}" bindtap="inputClick"/>
+                <input type="email" required maxlength="30" data-index="{{4}}"  class="{{ inputIndex === 4 ? 'focus':'' }}" bindtap="inputClick" bindinput="registerPwdInputAgain"/>
                 <span data-placeholder="再输入一次"></span>
             </view>
-            <view type="submit" value="Register" class="button" style="line-height: 55px;">注册</view>
+            <view type="submit" value="Register" class="button" style="line-height: 55px; color:#666" bindtap="registeClick">注册</view>
             <p class="login_"   bindtap="cardClick" >我又想起账号了！</p>
         </form>
     </view>
