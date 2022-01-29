@@ -115,9 +115,9 @@ Page({
                  url: 'https://api.weixin.qq.com/sns/jscode2session',
                  data:{
                    //小程序唯一标识
-                   appid: 'wx3bb76eddabb904bb',
+                   appid: '',
                    //小程序的 app secret
-                   secret: 'c09e2539e68d698e3ed65bd61da44e24',
+                   secret: '',
                    grant_type: 'authorization_code',
                    js_code: res.code
                  },
