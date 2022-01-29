@@ -1,9 +1,20 @@
 <!--pages/calc/calc.wxml-->
 <view class="body">
     <View style="background-color: #ECF0F3;" class="calcWindow">
+        <view style="color: #9382da;margin-top: 20px;">
+            {{num_of_pre}}/20
+        </view>
+        <view>
+            score:{{score}}
+        </view>
+        <view>
+            {{
+                solvtion
+            }}
+        </view>
        <view class="calcWindowProblem">
         <text>{{operand_1}}</text>
-        <image src="../../assets/calc/add.png" style="width: 40px; height: 40px;" />
+        <image src="{{symbolType[symbol].url}}" style="width: 40px; height: 40px;" />
         <text>{{operand_2}}</text>
        </view>
        <view class="calcWindowSolvtion">
@@ -13,10 +24,10 @@
        </view>
     </View>
     <view class="calcTopButton">
-        <view wx:for="{{num_list}}" wx:for-item="num" wx:key="num" data-index="{{index}}" data-num="{{num}}" class="calcTopButtonItem {{ selecedtNum === index  ? 'num_selected' : ''}}" bindtap="numClick">{{ num }}</view>
+        <view wx:for="{{num_list}}" wx:for-item="num" wx:key="num" data-index="{{index}}" data-num="{{num}}" class="calcTopButtonItem {{ selecedtNum === index  ? 'num_selected' : ''}}" bindtap="numClick"><text>{{ num }}</text></view>
     </view>
     <view class="calcBottomButton">
-        <view bindtap="NumClick_0" data-index="{{10}}" data-num="{{0}}"  class="num_zero {{ selecedtNum === 10  ? 'num_selected' : ''}}" bindtap="numClick">0</view>
+        <view bindtap="NumClick_0" data-index="{{10}}" data-num="{{0}}"  class="num_zero {{ selecedtNum === 10  ? 'num_selected' : ''}}" bindtap="numClick"><text>0</text></view>
         <view bindtap="NumClick_." data-index="{{ -1 }}" data-num="del"  class="num_point {{ selecedtNum === -1  ? 'num_selected' : ''}}" bindtap="numClick">
             <image src="../../assets/calc/backspace.png" ></image>
         </view>

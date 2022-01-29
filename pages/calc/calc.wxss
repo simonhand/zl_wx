@@ -15,6 +15,7 @@ page {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
+    align-items: center;
     color: #666;
 }
 
@@ -27,13 +28,15 @@ page {
 }
 
 .calcTopButtonItem {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     margin-left: 10%;
     width: 20%;
     height: 25%;
     color: #666;
     font-weight: 1000;
     text-align: center;
-    line-height: 4.5;
     border-radius: 50%;
     box-shadow: -7px -7px 20px 0px #fff9,
     -4px -4px 5px 0px #fff9,
@@ -49,13 +52,15 @@ page {
 }
 
 .num_point {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     margin-left: 10%;
     width: 20%;
     height: 50%;
     color: #666;
     font-weight: 1000;
-    text-align: center;
-    line-height: 4.5;
     border-radius: 50%;
     box-shadow: -7px -7px 20px 0px #fff9,
     -4px -4px 5px 0px #fff9,
@@ -66,10 +71,12 @@ page {
 .num_point image {
     height: 50%; 
     width: 50%;
-    transform: translateY(35%);
 }
 
 .num_zero {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     margin-left: 10%;
     width: 50%;
     height: 50%;
