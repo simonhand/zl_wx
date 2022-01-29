@@ -8,4 +8,7 @@
   <button bindtap="getStorge">
     打印缓存
   </button>
+  <button bindtap="getUserStorge">
+    打印用户缓存
+  </button>
 </view>

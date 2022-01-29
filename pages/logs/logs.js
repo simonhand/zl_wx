@@ -28,6 +28,21 @@ Page({
       }
     })
   },
+  getUserStorge:function(params) {
+    wx.getStorage({
+      key:"user",
+      encryptL:true,
+      success(res){
+        console.log(res);
+        $Toast({
+          content:res.data
+        })
+      },
+      fail(){
+        console.log("无用户缓存");
+      }
+    })
+  },
   // 页面显示触发
   onShow(){
     if (typeof this.getTabBar === 'function' &&

@@ -1,6 +1,10 @@
 // pages/login/login.js
 import { $Toast } from '../../components/Iview/base/index'
-import {zlrequest } from '../../utils/zlGraphql'
+import { isNullObj } from '../../utils/util'
+import { loginUser, registerUser,checkUser } from "./servies.js";
+const {baseUrl} = require('../../config/network')
+
+let hasRegister = false;
 Page({
 
     /**
@@ -13,7 +17,7 @@ Page({
         loginpwd:"",
         registeruname:"",
         registerpwd:"",
-        registerpwdAgain:""
+        registerpwdAgain:"",
     },
     // input事件
     unameInput:function(v) {
@@ -27,7 +31,7 @@ Page({
         })
     },
     registerUnameInput:function (v) {
-      
+        hasRegister = false
         this.setData({
             registeruname:v.detail.value
         })
@@ -42,13 +46,19 @@ Page({
             registerpwd:v.detail.value
         })
     },
+    registeUsernameClick:async function (v) {
+        const userInputName = v.detail.value;
+        const checkedUser =await checkUser({ userInputName });
+        if (!!checkedUser) {
+            hasRegister = true;
+            $Toast({
+                content:"用户名已注册",
+                type:"error"
+            })
+        }
+    },
 
     // 事件监听函数
-    // cardClick: () => {
-    //     this.setData({
-    //         flag:!flag,
-    //     })
-    // },
     cardClick: function () {
         this.setData({
             flag:!this.data.flag
@@ -56,7 +66,6 @@ Page({
     },
     inputClick:function (e) {
         const props = e.currentTarget.dataset;
-        console.log("props",props.index);
         this.setData({
             inputIndex: props.index,
         })
@@ -69,42 +78,17 @@ Page({
             })
             return;
         }
-        const payload = JSON.stringify({
-            query:`
-            query loginuser {
-                loginuser(uname:"${this.data.loginuname}",pwd:"${this.data.loginpwd}"){
-                 uname
-                 pwd
-                 classNo
-                 _id
-                }
-              }
-            `
-          })
-          zlrequest(payload,"POST").then((res) => {
-              const userInfo = res.data.data.loginuser;
-              if (!userInfo) {
-                  // 登录失败的处理
-                $Toast({
-                    type:'error',
-                    content:"用户名或密码错误",
-                    mask: false
-                })
-                return;
-              }
-              // 登录成功后缓存用户数据
-              wx.setStorage({
-                  key:"user",
-                  data:userInfo,
-                  encrypt: true, // 若开启加密存储，setStorage 和 getStorage 需要同时声明 encrypt 的值为 true
-              })
-              wx.switchTab({
-                url: '../../pages/index/index',
-              })
-          })
+        loginUser({loginuname:this.data.loginuname,loginpwd:this.data.loginpwd});
     },
 
     registeClick:function() {
+        if (hasRegister) {
+                $Toast({
+                    type:'error',
+                    content:'该用户名已被注册'
+                })
+                return;
+            }
         if (!(this.data.registeruname && this.data.registerpwd
         )) {
             $Toast({
@@ -120,39 +104,63 @@ Page({
             });
             return;
         }
-        const payload = JSON.stringify({
-            query:`
-            mutation {
-                setUser(post:{
-                  uname: "${this.data.registeruname}",
-                  pwd:"${this.data.registerpwd}",
-                }){
-                    uname,
-                    pwd,
-                    _id,
-                }
-              }
-            `
+        registerUser({registeruname:this.data.registeruname,hasRegister:this.data.registerpwd,hasRegister});
+    },
+
+    wechatloginClick:function(params) {
+       const wxLogin = new Promise((resolve,reject) => {
+        wx.login({
+            success(res) {
+               wx.request({
+                 url: 'https://api.weixin.qq.com/sns/jscode2session',
+                 data:{
+                   //小程序唯一标识
+                   appid: 'wx3bb76eddabb904bb',
+                   //小程序的 app secret
+                   secret: 'c09e2539e68d698e3ed65bd61da44e24',
+                   grant_type: 'authorization_code',
+                   js_code: res.code
+                 },
+                 method:"GET",
+                 success(res){
+                   resolve(res)
+                 },
+                 fail(error){
+                    reject(error)
+                 }
+               })
+            },
+          }) 
+       })
+       const wxGetUserPrpfile = new Promise((resolve,reject) => {
+        wx.getUserProfile({
+            desc: '是否授权微信信息登录学小易',
+            success(res){
+                resolve(res);
+            },
+            fail(error){
+               reject(error)
+            }
           })
-          zlrequest(payload,"POST").then((res) => {
-              const userInfo = res.data.data.setUser;
-              console.log("register",userInfo);
-              // 注册成功后缓存用户数据
-              wx.setStorage({
-                  key:"user",
-                  data:userInfo,
-                  encrypt: true, // 若开启加密存储，setStorage 和 getStorage 需要同时声明 encrypt 的值为 true
-              })
-              $Toast({
-                  type:"success",
-                  content:'注册成功'
-              })
-              setTimeout(()=> {
-                wx.switchTab({
-                    url: '../../pages/index/index',
-                  })
-              },500) 
-          })
+       })
+      Promise.all([wxLogin,wxGetUserPrpfile]).then(async (res) => {
+        const openId = res[0].data.openid;
+        const user ={ openid:res[0].data.openid, ...res[1].userInfo }
+        const _checkUser =await checkUser({userOpenId:openId});
+        console.log("_checkUser",_checkUser);
+        // user为空是第一次登录进行注册
+        if (isNullObj(_checkUser)) {
+            registerUser({...user,hasRegister:false,isWxUser:true});
+        }else{
+            // 这里说明不是第一次登录
+            wx.setStorage({
+                key:"user",
+                data:_checkUser,
+                encrypt: true, // 若开启加密存储，setStorage 和 getStorage 需要同时声明 encrypt 的值为 true
+            })
+        }
+
+      })
     },
     /**
      * 生命周期函数--监听页面加载
