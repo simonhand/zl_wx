@@ -1,17 +1,24 @@
 <!--index.wxml-->
 <view class="container">
-    <image src="../../assets/home/home3.png" class="imgtitle"></image>
+  <image src="../../assets/home/home3.png" class="imgtitle"></image>
   <view class="box">
-  
   </view>
   <image src="../../assets/home/home2.png" class="imgtitle"></image>
   <view class="box">
+    <i-badge count="{{examCount}}" style="margin-top: 20px;">
+      <view plain="true" class="examButton" bindtap="handleOpenModalToExam">
+        小测验来咯
+      </view>
+    </i-badge>
+    <view plain="true" class="examButton"  style="margin-top: 21px;" bindtap="handleOpenModalToCreateExam">
+        创建小测验
+      </view>
   </view>
   <image src="../../assets/home/home1.png" class="imgtitle1"></image>
   <view class="box">
     <view plain="true" class="calcbutton" bindtap="calcClick">
-    口算
-   </view>
+      口算
+    </view>
     <view class="calcbutton" bindtap="loginClick">
       你可算来了
     </view>

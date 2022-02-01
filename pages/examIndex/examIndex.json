@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+    "zl-card":"../../components/zl-card",
+    "i-divider": "../../components/Iview/divider/index",
+    "i-load-more": "../../components/Iview/load-more/index"
+  }
+}

@@ -1,0 +1,4 @@
+/* pages/examIndex/examIndex.wxss */
+page{
+    background-color: #ECF0F3;
+}

@@ -1,6 +1,8 @@
 {
   "usingComponents": {
     "zl-input":"../../components/zl-input",
-    "i-button":"../../components/Iview/button"
+    "i-button":"../../components/Iview/button",
+    "i-badge": "../../components/Iview/badge",
+    "i-modal": "../../components/Iview/modal"
   }
 }

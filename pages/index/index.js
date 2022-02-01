@@ -1,15 +1,16 @@
 // index.js
 // 获取应用实例
 const app = getApp()
-
 Page({
   data: {
     motto: 'Hello World',
     userInfo: {},
-    hasUserInfo: false,
+    modelVisible:false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
     canIUseGetUserProfile: false,
-    canIUseOpenData: wx.canIUse('open-data.type.userAvatarUrl') && wx.canIUse('open-data.type.userNickName') // 如需尝试获取用户信息可改为false
+    canIUseOpenData: wx.canIUse('open-data.type.userAvatarUrl') && wx.canIUse('open-data.type.userNickName'),// 如需尝试获取用户信息可改为false
+    examCount:4,
+    hasUserInfo: false,
   },
   // 页面显示触发
   onShow(){
@@ -33,12 +34,24 @@ Page({
       url: '../login/login',
     })
   },
-
   bindViewTap() {
     wx.navigateTo({
       url: '../home/home'
     })
   },
+
+  handleOpenModalToExam({detail}){
+    // console.log(detail);
+     wx.navigateTo({
+       url: '../examIndex/examIndex',
+     })
+  },
+  handleOpenModalToCreateExam(){
+    wx.navigateTo({
+      url: '../createExam/createExam',
+    })
+  },
+
   onLoad() {
     if (wx.getUserProfile) {
       this.setData({

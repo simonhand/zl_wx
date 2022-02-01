@@ -1,4 +1,4 @@
-import { $Toast } from '../../components/Iview/base/index'
+import { $Message  } from '../../components/Iview/base/index'
 import {zlrequest } from '../../utils/zlGraphql'
 export const loginUser = ({loginuname,loginpwd}) => {
     const payload = JSON.stringify({
@@ -17,7 +17,7 @@ export const loginUser = ({loginuname,loginpwd}) => {
           const userInfo = res.data.data.loginuser;
           if (!userInfo) {
               // 登录失败的处理
-            $Toast({
+            $Message ({
                 type:'error',
                 content:"用户名或密码错误",
                 mask: false
@@ -30,7 +30,7 @@ export const loginUser = ({loginuname,loginpwd}) => {
               data:userInfo,
               encrypt: true, // 若开启加密存储，setStorage 和 getStorage 需要同时声明 encrypt 的值为 true
           })
-          $Toast({
+          $Message ({
             type:'success',
             content:"登录成功",
             mask: false
@@ -46,7 +46,7 @@ export const loginUser = ({loginuname,loginpwd}) => {
 
 export const registerUser = ({registeruname = "",registerpwd ="",hasRegister=false,openid="",nickName="",avatarUrl="",isWxUser=false}) => {
     if (hasRegister) {
-        $Toast({
+        $Message ({
             type:"error",
             content:"该用户已经存在"
         })
@@ -83,7 +83,7 @@ export const registerUser = ({registeruname = "",registerpwd ="",hasRegister=fal
               data:userInfo,
               encrypt: true, // 若开启加密存储，setStorage 和 getStorage 需要同时声明 encrypt 的值为 true
           })
-          $Toast({
+          $Message ({
               type:"success",
               content:'注册成功'
           })
