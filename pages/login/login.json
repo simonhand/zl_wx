@@ -1,5 +1,5 @@
 {
   "usingComponents": {
-    "i-toast":"../../components/Iview/toast/index"
+    "i-message":"../../components/Iview/message/index"
   }
 }

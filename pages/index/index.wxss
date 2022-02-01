@@ -24,6 +24,19 @@ page{
   7px 7px 20px 0px #0002,
   4px 4px 5px 0px #0001;
 }
+.examButton {
+  height: 40px;
+  width: 100px;
+  margin-left: 20px;
+  color: #666;
+  font-weight: 1000;
+  line-height: 40px;
+  text-align: center;
+  box-shadow: -7px -7px 20px 0px #fff9,
+  -4px -4px 5px 0px #fff9,
+  7px 7px 20px 0px #0002,
+  4px 4px 5px 0px #0001;
+}
 
 .imgtitle{
   width: 600rpx;
@@ -55,3 +68,6 @@ page{
   margin-top: 200px;
 }
 
+.examButton{
+
+}

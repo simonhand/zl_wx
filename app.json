@@ -4,10 +4,12 @@
     "pages/logs/logs",
     "pages/login/login",
     "pages/register/register",
-    "pages/home/home",
+    "pages/examIndex/examIndex",
     "pages/record/record",
     "pages/profile/profile",
-    "pages/calc/calc"
+    "pages/calc/calc",
+    "pages/exam/exam",
+    "pages/createExam/createExam"
   ],
   "window":{
     "backgroundTextStyle":"light",

@@ -1,5 +1,5 @@
 // pages/login/login.js
-import { $Toast } from '../../components/Iview/base/index'
+import { $Message  } from '../../components/Iview/base/index'
 import { isNullObj } from '../../utils/util'
 import { loginUser, registerUser,checkUser } from "./servies.js";
 const {baseUrl} = require('../../config/network')
@@ -51,7 +51,7 @@ Page({
         const checkedUser =await checkUser({ userInputName });
         if (!!checkedUser) {
             hasRegister = true;
-            $Toast({
+            $Message ({
                 content:"用户名已注册",
                 type:"error"
             })
@@ -72,7 +72,7 @@ Page({
     },
     loginClick:function(e) {
         if (!(this.data.loginuname && this.data.loginpwd)) {
-            $Toast({
+            $Message ({
                 type:'warning',
                 content:'用户名或密码不可为空'
             })
@@ -83,7 +83,7 @@ Page({
 
     registeClick:function() {
         if (hasRegister) {
-                $Toast({
+                $Message ({
                     type:'error',
                     content:'该用户名已被注册'
                 })
@@ -91,14 +91,14 @@ Page({
             }
         if (!(this.data.registeruname && this.data.registerpwd
         )) {
-            $Toast({
+            $Message ({
                 type:'warning',
                 content:'注册用户名或密码不可为空'
             })
             return;
         }
         if (this.data.registerpwdAgain !== this.data.registerpwd ) {
-            $Toast({
+            $Message ({
                 type:"warning",
                 content:"两次输入密码不一致"
             });
