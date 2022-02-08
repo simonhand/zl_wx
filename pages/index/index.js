@@ -47,9 +47,12 @@ Page({
      })
   },
   handleOpenModalToCreateExam(){
-    wx.navigateTo({
-      url: '../createExam/createExam',
+    this.setData({
+      modelVisible:true
     })
+    // wx.navigateTo({
+    //   url: '../createExam/createExam',
+    // })
   },
 
   onLoad() {
@@ -79,7 +82,14 @@ Page({
       userInfo: e.detail.userInfo,
       hasUserInfo: true
     })
-  }
+  },
+  handleClose () {
+    this.setData({
+        modelVisible: false
+    });
+},
+
+
 })
 
 
