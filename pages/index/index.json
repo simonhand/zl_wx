@@ -3,6 +3,7 @@
     "zl-input":"../../components/zl-input",
     "i-button":"../../components/Iview/button",
     "i-badge": "../../components/Iview/badge",
-    "i-modal": "../../components/Iview/modal"
+    "i-modal": "../../components/zl-modal",
+    "zl-select":"../../components/zl-select"
   }
 }

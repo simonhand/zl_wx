@@ -23,6 +23,9 @@
       你可算来了
     </view>
   </view>
+  <i-modal title="请选择班级" visible="{{ modelVisible }}" tips="若无对应班级，请前往我的班级创建" bind:ok="handleClose" bind:cancel="handleClose">
+    <zl-select/>
+  </i-modal>
 </view>
 
 <!-- <view class="userinfo">
