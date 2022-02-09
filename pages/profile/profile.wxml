@@ -1,7 +1,7 @@
 <!--pages/profile/profile.wxml-->
 <view class="body">
     <view class="userInfo">
-        <view class="avatar">
+        <view class="avatar" bindtap="showAction">
             <image src="https://avatars.githubusercontent.com/u/51045251?v=4" alt=""/>
         </view>
         <view class="username">
