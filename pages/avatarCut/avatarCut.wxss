@@ -1,0 +1,14 @@
+/* pages/avatarCut/avatarCut.wxss */
+page{
+    background-color: #000;
+}
+.chooseBox{
+    position: fixed;
+    width: 100%;
+    bottom: 40px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    font-size: 18px;
+    background-color: #000;
+}

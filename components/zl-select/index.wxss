@@ -2,6 +2,7 @@
 /* fenlei */
 .fenlei{
   margin: 0 25rpx;
+  margin-top: 20px;
   height: 90rpx;
   line-height: 90rpx;
   border-bottom: 1rpx #e6e6e6;
