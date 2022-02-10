@@ -2,16 +2,11 @@
 const app = getApp()
 //引入的组件
 import WeCropper from '../../components/we-cropper/we-cropper.js'
-const COS = require('../../utils/cos-wx-sdk-v5')
+import {cos} from '../../utils/cos'
 const device = wx.getSystemInfoSync()
 const width = device.windowWidth
 const height = device.windowHeight - 150
 const token = wx.getStorageSync('token')
-
-var cos = new COS({
-    SecretId: '*',
-    SecretKey: '*',
-})
 Page({
     data: {
         cropperOpt: {
@@ -46,10 +41,6 @@ Page({
         var that = this
         this.wecropper.getCropperImage((avatar) => {
             if (avatar) {
-                // that.getCanvasImg(0, 0, avatar);    //进行压缩
-                // that.uploadImage(avatar, (res) => {
-                //     console.log("上传结果", res);
-                // })
                 that.UploadImgToCos(avatar, (res) => {
                     console.log("res", res);
                 });
