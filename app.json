@@ -10,7 +10,8 @@
     "pages/calc/calc",
     "pages/exam/exam",
     "pages/createExam/createExam",
-    "pages/avatarCut/avatarCut"
+    "pages/avatarCut/avatarCut",
+    "pages/personalInfo/personalInfo"
   ],
   "window":{
     "backgroundTextStyle":"light",

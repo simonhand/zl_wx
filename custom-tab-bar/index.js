@@ -27,13 +27,33 @@ Component({
   attached() {
   },
   methods: {
-    switchTab(e) {
-      const data = e.currentTarget.dataset
+      switchTab(e) {
+      const data = e.currentTarget.dataset;
       const url = data.path
-      wx.switchTab({url})
-      this.setData({
-        selected: data.index
-      })
+      const that = this;
+      console.log("e",data);
+      if (data.index === 2) {
+         wx.getStorage({
+          key:"user",
+          encryptL:true,
+          success(res){
+            wx.switchTab({url})
+            that.setData({
+              selected: data.index
+            })
+          },
+          fail(){
+            wx.navigateTo({
+              url: '../login/login',
+            })
+          }
+        })    
+      }else{
+        wx.switchTab({url})
+        this.setData({
+          selected: data.index
+        })
+      }
     }
   }
 })
