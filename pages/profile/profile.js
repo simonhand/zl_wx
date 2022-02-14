@@ -1,11 +1,12 @@
 // pages/profile/profile.js
+const app = getApp()
 Page({
-
   /**
    * 页面的初始数据
    */
   data: {
     user: null,
+    avatar:"",
     modalVisible: false,
     actions: [{
         name: '取消'
@@ -17,7 +18,19 @@ Page({
       }
     ]
   },
+
   // 事件监听函数
+  // 跳转函数
+  MyclassClick(){
+    wx.navigateTo({
+      url: '../myClass/myClass',
+    })
+  },
+  PersonalInfoClick(){
+    wx.navigateTo({
+      url: '../personalInfo/personalInfo',
+    })
+  },
   // modal窗取消函数
   handleCloseModal() {
     this.setData({
@@ -83,20 +96,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    const that = this
-    wx.getStorage({
-      key: "user",
-      encryptL: true,
-      success(res) {
-        that.setData({
-          user: res.data
-        })
-      },
-      fail() {
-        console.log("无用户缓存");
-      }
-    })
-
+   
   },
 
   /**
@@ -110,6 +110,23 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    // const that = this
+    // wx.getStorage({
+    //   key: "user",
+    //   encryptL: true,
+    //   success(res) {
+    //     that.setData({
+    //       user: res.data
+    //     })
+    //   },
+    //   fail() {
+    //     console.log("无用户缓存");
+    //   }
+    // })
+    this.setData({
+      user:app.globalData.userInfo,
+      avatar:app.globalData.userInfo.avatarUrl
+    })
     if (typeof this.getTabBar === 'function' &&
       this.getTabBar()) {
       this.getTabBar().setData({

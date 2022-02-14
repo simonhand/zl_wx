@@ -3,18 +3,18 @@
     <i-modal title="登出确认" visible="{{ modalVisible }}" actions="{{ action }}" tips="登出后重新登录" bind:cancel="handleCloseModal" bind:ok="handleOKModal"/>
     <view class="userInfo">
         <view class="avatar" bindtap="showAction">
-            <image src="{{ user.avatarUrl || '../../assets/profile/avatar.png'}}" alt=""/>
+            <image src="{{ avatar || '../../assets/profile/avatar.png'}}" alt=""/>
         </view>
         <view class="username">
             <text>{{user.realName || user.nickName || user.uname}}</text>
         </view>
     </view>
     <view class="choose">
-        <view class="userchoose">
+        <view class="userchoose" bindtap="PersonalInfoClick">
             <text>个人信息</text>
         </view>
-        <view class="userchoose">
-            <text>我的班级</text>
+        <view class="userchoose" bindtap="MyclassClick">
+            <text>我的课程</text>
         </view>
         <view class="userchoose">
             <text>关于程序</text>

@@ -31,7 +31,6 @@ Component({
       const data = e.currentTarget.dataset;
       const url = data.path
       const that = this;
-      console.log("e",data);
       if (data.index === 2) {
          wx.getStorage({
           key:"user",

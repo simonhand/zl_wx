@@ -11,7 +11,8 @@
     "pages/exam/exam",
     "pages/createExam/createExam",
     "pages/avatarCut/avatarCut",
-    "pages/personalInfo/personalInfo"
+    "pages/personalInfo/personalInfo",
+    "pages/myClass/myClass"
   ],
   "window":{
     "backgroundTextStyle":"light",
