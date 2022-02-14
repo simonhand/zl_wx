@@ -2,11 +2,14 @@
 const app = getApp()
 //引入的组件
 import WeCropper from '../../components/we-cropper/we-cropper.js'
-import {cos} from '../../utils/cos'
+import {
+    cos
+} from '../../utils/cos'
+import { graphqlSetAvatar } from './service'
 const device = wx.getSystemInfoSync()
 const width = device.windowWidth
 const height = device.windowHeight - 150
-const token = wx.getStorageSync('token')
+
 Page({
     data: {
         cropperOpt: {
@@ -38,12 +41,13 @@ Page({
     },
     //这个是保存上传裁剪后的图片的方法
     getCropperImage() {
-        var that = this
+        const that = this
         this.wecropper.getCropperImage((avatar) => {
             if (avatar) {
                 that.UploadImgToCos(avatar, (res) => {
-                    console.log("res", res);
+                    graphqlSetAvatar(res.Location);
                 });
+              
             } else {
                 console.log('获取图片失败，请稍后重试')
             }
@@ -135,10 +139,11 @@ Page({
             Key: filename,
             FilePath: filePath,
             onProgress: function (info) {
-                console.log("zhangle",JSON.stringify(info));
+                console.log("zhangle", JSON.stringify(info));
             }
         }, function (err, data) {
-            console.log("success",err || data);
+            cb(data);
+            console.log("success", err || data);
         });
     },
 })

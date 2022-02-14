@@ -1,5 +1,6 @@
 import { $Message  } from '../../components/Iview/base/index'
 import {zlrequest } from '../../utils/zlGraphql'
+const app = getApp()
 export const loginUser = ({loginuname,loginpwd}) => {
     const payload = JSON.stringify({
         query:`
@@ -9,6 +10,10 @@ export const loginUser = ({loginuname,loginpwd}) => {
              pwd
              classNo
              _id
+             nickName
+             avatarUrl
+             openid
+             isWxUser
             }
           }
         `
@@ -29,6 +34,9 @@ export const loginUser = ({loginuname,loginpwd}) => {
               key:"user",
               data:userInfo,
               encrypt: true, // 若开启加密存储，setStorage 和 getStorage 需要同时声明 encrypt 的值为 true
+              success(){
+                app.globalData.userInfo = userInfo
+              }
           })
           $Message ({
             type:'success',
@@ -82,6 +90,9 @@ export const registerUser = ({registeruname = "",registerpwd ="",hasRegister=fal
               key:"user",
               data:userInfo,
               encrypt: true, // 若开启加密存储，setStorage 和 getStorage 需要同时声明 encrypt 的值为 true
+              success(){
+                app.globalData.userInfo = userInfo
+              }
           })
           $Message ({
               type:"success",

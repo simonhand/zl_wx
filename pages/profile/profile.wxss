@@ -1,8 +1,9 @@
 /* pages/profile/profile.wxss */
-page{
+page {
     height: 100%;
 }
-.body{
+
+.body {
     display: flex;
     justify-content: space-around;
     flex-direction: column;
@@ -27,7 +28,8 @@ page{
 }
 
 .userInfo .username {
-    width: 80px;
+    max-width: 300px;
+    padding:0 8px;
     height: 50px;
     text-align: center;
     line-height: 50px;
@@ -50,12 +52,12 @@ page{
     width: 80%;
     color: #666;
     height: 40px;
-    line-height: 40px;    
+    line-height: 40px;
     box-shadow: -7px -7px 20px 0px #fff9,
-                -4px -4px 5px 0px #fff9,
-                7px 7px 20px 0px #0002,
-                4px 4px 5px 0px #0001;
-    
+        -4px -4px 5px 0px #fff9,
+        7px 7px 20px 0px #0002,
+        4px 4px 5px 0px #0001;
+
 }
 
 .userchoose text {
@@ -63,12 +65,12 @@ page{
     left: 20px;
 }
 
-.userInfo image{
+.userInfo image {
     position: relative;
     width: 80px;
     height: 80px;
-    top:50%;
+    top: 50%;
     left: 50%;
-    transform: translate(-50%,-50%);
+    transform: translate(-50%, -50%);
     border-radius: 50%;
 }
