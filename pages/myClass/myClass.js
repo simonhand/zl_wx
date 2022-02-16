@@ -1,13 +1,34 @@
-// pages/myClass/myClass.js
+// pages/personalInfo/personalInfo.js
 Page({
 
     /**
      * 页面的初始数据
      */
     data: {
-
+        //小程序没有refs，所以只能用动态布尔值控制关闭
+        swiperout_list:[1,2,3,4,5,6,7,8,9],
+        modalVisible:false,
+        actions2: [{
+            name: '删除',
+            color: '#ed3f14'
+        }],
+        actions: [{
+                name: '退出课程',
+                color: '#fff',
+                fontsize: '20',
+                width: 100,
+                icon: 'close',
+                background: '#FF7F00'
+            }
+        ]
     },
-
+    // 事件函数触发
+    addClick(){
+        this.setData({
+            modalVisible:true
+        })
+        console.log("哈哈哈哈");
+    } ,
     /**
      * 生命周期函数--监听页面加载
      */

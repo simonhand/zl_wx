@@ -1,4 +1,4 @@
-const baseUrl = 'http://127.0.0.1:3000/graphql'
+const baseUrl = 'http://192.168.2.110:3000/graphql'
 module.exports = {
     baseUrl
 }

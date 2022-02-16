@@ -23,12 +23,12 @@ Page({
   // 跳转函数
   MyclassClick(){
     wx.navigateTo({
-      url: '../myClass/myClass',
+      url: '../myclass/myclass',
     })
   },
   PersonalInfoClick(){
     wx.navigateTo({
-      url: '../personalInfo/personalInfo',
+      url: '../personalinfos/personalinfos',
     })
   },
   // modal窗取消函数
