@@ -1,27 +1,11 @@
-// pages/personalInfo/personalInfo.js
+// pages/myClass/myClass.js
 Page({
 
     /**
      * 页面的初始数据
      */
     data: {
-        visible2: false,
-        //小程序没有refs，所以只能用动态布尔值控制关闭
-        toggle: false,
-        toggle2: false,
-        actions2: [{
-            name: '删除',
-            color: '#ed3f14'
-        }],
-        actions: [{
-                name: '退出',
-                color: '#fff',
-                fontsize: '20',
-                width: 100,
-                icon: 'like',
-                background: '#FF7F00'
-            }
-        ]
+
     },
 
     /**

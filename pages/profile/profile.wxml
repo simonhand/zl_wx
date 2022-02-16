@@ -10,11 +10,11 @@
         </view>
     </view>
     <view class="choose">
-        <view class="userchoose" bindtap="PersonalInfoClick">
-            <text>个人信息</text>
-        </view>
         <view class="userchoose" bindtap="MyclassClick">
             <text>我的课程</text>
+        </view>
+        <view class="userchoose" bindtap="PersonalInfoClick">
+            <text>个人信息</text>
         </view>
         <view class="userchoose">
             <text>关于程序</text>

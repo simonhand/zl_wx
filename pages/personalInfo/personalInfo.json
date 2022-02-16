@@ -1,7 +1,0 @@
-{
-  "usingComponents": {
-    "zl-card":"../../components/Iview/card",
-    "i-swipeout":"../../components/Iview/swipeout/index",
-    "i-cell":"../../components/Iview/cell/index"
-  }
-}

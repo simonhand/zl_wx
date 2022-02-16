@@ -1,2 +1,31 @@
-<!--pages/myClass/myClass.wxml-->
-<text>pages/myClass/myClass.wxml</text>
+<!--pages/personalInfo/personalInfo.wxml-->
+<view class="personalInfoPage">
+    <zl-modal title="请输入班级邀请码" visible="{{ modalVisible }}" tips="若不知道,请向授课教师询问" bind:ok="handleClose" bind:cancel="handleClose">
+    <input type="text" bindinput="invitationClick" class="invitation-input"/>
+    </zl-modal>
+    <view class="title">
+        <view class="title-left"></view>
+        <view class="title-center">我的课程</view>
+        <view class="title-right">
+            <image src="../../assets/profile/add.png" style="width: 20px; height: 20px;" bindtap="addClick"></image>
+        </view>
+    </view>
+    <scroll-view class="i-swipeout">
+        <!-- <zl-card ></zl-card> -->
+        <i-swipeout i-class="i-swipeout-demo-item" actions="{{actions}}" wx:for="{{swiperout_list}}" wx:key="index">
+            <view slot="content" style="height: 60px;">
+                <view class="classCard">
+                    <view class="left-class-card">
+                        <image src="https://thirdwx.qlogo.cn/mmopen/vi_32/MD8lzDvuib0wTI8bTBAN70Y7PgZqu89u5c03bfzub7YG7fcXYfIpWBYRf0XVtUP6hrFlKD31FvCVicgaibc7Urxyw/132" class="imageClass"></image>
+                    </view>
+                    <view class="right-class-card">
+                        <view class="right-class-card-top"><text>英语</text> <text>48人</text></view>
+                        <view class="right-class-card-bottom">
+                            <view>授课教师:张乐</view>
+                        </view>
+                    </view>
+                </view>
+            </view>
+        </i-swipeout>
+    </scroll-view>
+</view>
