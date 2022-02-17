@@ -1,4 +1,5 @@
 // pages/personalInfo/personalInfo.js
+import { randomString } from '../../utils/random'
 Page({
 
     /**
@@ -6,6 +7,7 @@ Page({
      */
     data: {
         //小程序没有refs，所以只能用动态布尔值控制关闭
+        userType:0,
         swiperout_list:[1,2,3,4,5,6,7,8,9],
         modalVisible:false,
         actions2: [{
@@ -27,8 +29,24 @@ Page({
         this.setData({
             modalVisible:true
         })
-        console.log("哈哈哈哈");
     } ,
+    handleOk(){
+        this.setData({
+
+        })
+    },
+    handleClose(){
+        this.setData({
+            modalVisible:false
+        })
+    },
+    changeUserTypeClick(){
+        console.log(randomString(6));
+        const that = this
+        this.setData({
+            userType: that.data.userType === 0 ? 1 : 0
+        })
+    },
     /**
      * 生命周期函数--监听页面加载
      */
