@@ -1,10 +1,21 @@
 <!--pages/personalInfo/personalInfo.wxml-->
 <view class="personalInfoPage">
-    <zl-modal title="请输入班级邀请码" visible="{{ modalVisible }}" tips="若不知道,请向授课教师询问" bind:ok="handleClose" bind:cancel="handleClose">
-    <input type="text" bindinput="invitationClick" class="invitation-input"/>
+    <zl-modal title="{{userType === 0 ? '创建新的班级':'请输入班级邀请码'}}" visible="{{ modalVisible }}" tips="{{userType === 0 ? '学生可通过邀请码加入班级' : '若不知道,请向授课教师询问'}}" bind:ok="handleOk" bind:cancel="handleClose">
+        <input wx:if="{{userType}}" type="text" bindinput="invitationClick" class="invitation-input" />
+        <form wx:else class="createClassForm">
+            <view>
+                <text>课程名称:</text> <input type="text" name="className" />
+            </view>
+            <view>
+                <text>授课教师:</text>
+                <input type="text" name="teacherName" />
+            </view>
+        </form>
     </zl-modal>
     <view class="title">
-        <view class="title-left"></view>
+        <view class="title-right">
+            <image src="../../assets/profile/add.png" style="width: 20px; height: 20px;" bindtap="changeUserTypeClick"></image>
+        </view>
         <view class="title-center">我的课程</view>
         <view class="title-right">
             <image src="../../assets/profile/add.png" style="width: 20px; height: 20px;" bindtap="addClick"></image>

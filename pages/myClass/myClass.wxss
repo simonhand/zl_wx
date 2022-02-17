@@ -95,8 +95,23 @@ page {
     color: #888888;
 }
 
-
 .invitation-input{
     margin-top: 8px;
     border-bottom: 1px solid #666666;
 }
+.createClassForm{
+    height: 240rpx;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 81%;
+}
+.createClassForm view{
+   display: flex;
+   flex-direction: row;
+   margin-top: 50rpx;
+}
+.createClassForm view input{
+    border-bottom: 1px solid #666;
+ }
+ 
