@@ -4,10 +4,26 @@ Component({
      * 组件的属性列表
      */
     properties: {
-        inputIndex: "",
-        lable:"",
-        inputNumIndex: -1,
-        content:"",
+        inputIndex: {
+            type:Number,
+            value:""
+        },
+        lable: {
+            type:String,
+            value:""
+        },
+        inputNumIndex: {
+            type:Number,
+            value:-1
+        },
+        content:{
+            type:String,
+            value:""
+        },
+        inputValue:{
+            type:String,
+            value:""
+        }
     },
 
     /**
@@ -22,7 +38,10 @@ Component({
      */
     methods: {
         inputClick:function (e) {
-            this.triggerEvent("inputClick")
+            this.triggerEvent("inputClick");
+        },
+        getInputValue:function (e) {
+            this.triggerEvent("getInputValue");
         },
     }
 })
