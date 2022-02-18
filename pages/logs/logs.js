@@ -3,7 +3,8 @@ const util = require('../../utils/util.js')
 import { $Toast } from '../../components/Iview/base/index'
 Page({
   data: {
-    logs: []
+    logs: [],
+    userInputIndex:""
   },
 
   setStorge:function (e) {
@@ -61,5 +62,11 @@ Page({
         }
       })
     })
+  },
+  inputClick(e){
+    const props = e.currentTarget.dataset;
+    this.setData({
+      userInputIndex: props.index,
+  })
   }
 })

@@ -1,2 +1,5 @@
 <!--components/zl-input/index.wxml-->
-<text>hello ahut</text>
+<view class="inputText" id="id">
+    <input type="text" required maxlength="15" data-index="{{0}}" class="{{ inputIndex === inputNumIndex || content ? 'focus':'' }}" bindtap="inputClick" bindinput="getInputValue" model:value = "{{inputValue}}"/>
+    <span data-placeholder="{{lable}}"></span>
+</view>

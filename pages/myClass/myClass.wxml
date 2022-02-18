@@ -1,15 +1,10 @@
 <!--pages/personalInfo/personalInfo.wxml-->
 <view class="personalInfoPage">
-    <zl-modal title="{{userType === 0 ? '创建新的班级':'请输入班级邀请码'}}" visible="{{ modalVisible }}" tips="{{userType === 0 ? '学生可通过邀请码加入班级' : '若不知道,请向授课教师询问'}}" bind:ok="handleOk" bind:cancel="handleClose">
+    <zl-modal title="{{userType === 0 ? '创建新的班级':'请输入班级邀请码'}}" visible="{{ modalVisible }}" tips="{{userType === 0 ? '学生可通过邀请码加入班级' : '若不知道,请向授课教师询问'}}" bind:ok="handleOk" bind:cancel="handleClose" needMoveTop="{{ inputIndex === 1 ? true :false}}">
         <input wx:if="{{userType}}" type="text" bindinput="invitationClick" class="invitation-input" />
         <form wx:else class="createClassForm">
-            <view>
-                <text>课程名称:</text> <input type="text" name="className" />
-            </view>
-            <view>
-                <text>授课教师:</text>
-                <input type="text" name="teacherName" />
-            </view>
+            <zl-input lable="课程名称" inputIndex="{{inputIndex}}" inputNumIndex="{{0}}" data-index="{{0}}" bind:inputClick="inputClick" bind:getInputValue='getClassNameValue'model:input-value="{{className}}" content="{{className}}"/>
+            <zl-input lable="授课教师" inputIndex="{{inputIndex}}" inputNumIndex="{{1}}" data-index="{{1}}" bind:inputClick="inputClick" model:input-value="{{teacherName}}" content="{{teacherName}}"/>
         </form>
     </zl-modal>
     <view class="title">

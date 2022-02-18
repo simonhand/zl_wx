@@ -11,4 +11,7 @@
   <button bindtap="getUserStorge">
     打印用户缓存
   </button>
+  // zl-input组件引用示例
+  <zl-input lable="姓名" inputIndex="{{userInputIndex}}" inputNumIndex="{{0}}" data-index="{{0}}" bind:inputClick="inputClick" />
+  <zl-input lable="住址" inputIndex="{{userInputIndex}}" inputNumIndex="{{1}}"  data-index="{{1}}" bind:inputClick="inputClick"/>
 </view>
