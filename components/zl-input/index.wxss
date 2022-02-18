@@ -1,1 +1,46 @@
 /* components/zl-input/index.wxss */
+.inputText{
+    border-bottom: 2px solid #adadad;
+    position: relative;
+    margin: 30px 0;
+}
+
+.inputText input{
+    font-size: 15px;
+    color: #333;
+    border: none;
+    width: 100%;
+    outline: none;
+    background: none;
+    padding: 0 5px;
+    height: 40px;
+}
+
+.inputText span::before{
+    content: attr(data-placeholder);
+    position: absolute;
+    top: 50%;
+    left: 5px;
+    color: #333;
+    transform: translateY(-50%);
+    transition: .5s;
+}
+
+.inputText span::after{
+    content: '';
+    position: absolute;
+    left: 0%;
+    top: 100%;
+    width: 0%;
+    height: 2px;
+    background: linear-gradient(120deg, #3498db, #8e44ad);
+    transition: .5s;
+}
+
+.focus + span::before{
+    top: -5px;
+}
+.focus + span::after{
+    width: 100%;
+}
+

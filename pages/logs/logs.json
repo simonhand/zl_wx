@@ -1,6 +1,7 @@
 {
   "navigationBarTitleText": "查看启动日志",
   "usingComponents": {
-    "i-toast":"../../components/Iview/toast/index"
+    "i-toast":"../../components/Iview/toast/index",
+    "zl-input":"../../components/zl-input/index"
   }
 }

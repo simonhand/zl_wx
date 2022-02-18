@@ -8,6 +8,7 @@ Page({
     data: {
         //小程序没有refs，所以只能用动态布尔值控制关闭
         userType:0,
+        inputIndex:"",
         swiperout_list:[1,2,3,4,5,6,7,8,9],
         modalVisible:false,
         actions2: [{
@@ -25,7 +26,15 @@ Page({
         ]
     },
     // 事件函数触发
+    inputClick:function (e) {
+        const that = this
+        const props = e.currentTarget.dataset;
+        this.setData({
+            inputIndex: props.index,
+        })
+    },
     addClick(){
+        console.log("sss");
         this.setData({
             modalVisible:true
         })

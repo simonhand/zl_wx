@@ -1,6 +1,10 @@
 Component({
-    externalClasses: ['i-class', 'i-class-mask'],
+    externalClasses: ['i-class', 'i-class-mask','zl-class'],
     properties: {
+        needMoveTop:{
+            type:Boolean,
+            value:false
+        },
         classes:{
             type:Array,
             value:["未获取班级数据"]

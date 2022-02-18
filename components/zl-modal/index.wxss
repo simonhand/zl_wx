@@ -15,7 +15,8 @@
     justify-content: center;
     transform: translateZ(1px);
     opacity: 0;
-    visibility: hidden
+    visibility: hidden;
+    transition: .5s;
 }
 
 .i-modal-show {
@@ -166,4 +167,8 @@
     100% {
         transform: rotate(360deg)
     }
+}
+
+.moveClassForm{
+    transform: translateY(-20%);
 }
