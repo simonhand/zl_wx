@@ -5,6 +5,7 @@
     "i-cell":"../../components/Iview/cell/index",
     "i-icon":"../../components/Iview/icon/index",
     "zl-modal":"../../components/zl-modal",
-    "zl-input":"../../components/zl-input"
+    "zl-input":"../../components/zl-input",
+    "i-message":"../../components/Iview/message/index"
   }
 }
