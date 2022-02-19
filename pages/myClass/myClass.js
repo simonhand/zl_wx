@@ -2,7 +2,8 @@
 import {
     randomString
 } from '../../utils/random'
-import { createClass } from './service'
+import { createClass,getTeacherCourse } from './service'
+import { $Message  } from '../../components/Iview/base/index'
 Page({
 
     /**
@@ -14,8 +15,9 @@ Page({
         inputIndex: "-1",
         swiperout_list: [1, 2, 3, 4, 5, 6, 7, 8, 9],
         modalVisible: false,
-        teacherName: "",
-        className:"",
+        teacherName: "", // 创建课程教师名称
+        className:"",  // 创建课程名称
+        courseList:[],
         actions2: [{
             name: '删除',
             color: '#ed3f14'
@@ -30,10 +32,26 @@ Page({
         }]
     },
      // input事件函数
-     getClassNameValue(e) {
-       
-    },
     // 事件函数触发
+    copyClick(e) {
+        const that = this
+        const index = e.currentTarget.dataset.index;
+        wx.setClipboardData({
+          data: that.data.courseList[index].invitationCode,
+        //   success(){
+        //       $Message({
+        //           content:"邀请码复制成功",
+        //           type:"success"
+        //       })
+        //   },
+        //   fail(){
+        //     $Message({
+        //         content:"邀请码复制失败",
+        //         type:"error"
+        //     })
+        // }
+        })
+    },
     inputClick: function (e) {
         const props = e.currentTarget.dataset;
         this.setData({
@@ -58,7 +76,26 @@ Page({
                 teacherName:this.data.teacherName,
                 invitationCode:randomString(6)
             }
-            createClass(palyLoad);
+            createClass(palyLoad,this).then((value) => {
+                // console.log(value);
+                this.setData({
+                    modalVisible: false,
+                    teacherName:"",
+                    className:"",
+                    inputIndex:"-1",
+                    courseList:[...this.data.courseList, {...value.data.data.createCourse,students:[]}]
+                })
+                $Message ({
+                    content:"课程创建成功",
+                    type:"success"
+                })
+            }).catch( (error) => {
+                console.log(error);
+                $Message ({
+                    content:"课程创建失败",
+                    type:"error"
+                })
+            });;
         }
     },
     handleClose() {
@@ -85,7 +122,14 @@ Page({
      * 生命周期函数--监听页面初次渲染完成
      */
     onReady: function () {
+        getTeacherCourse(getApp().globalData.userInfo ._id).then(
+            ( res ) => {
+               this.setData({
+                   courseList:[...res.data.data.queryCourse]
+               })
 
+            }
+        )
     },
 
     /**

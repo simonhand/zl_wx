@@ -115,4 +115,10 @@ page {
 .moveClassForm{
     transform: translateY(-20%);
 }
- 
+.copyImage{
+    width: 15px;
+    height: 15px;
+    position: relative;
+    top: 4rpx;
+    left: 15rpx;
+} 
