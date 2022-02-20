@@ -43,3 +43,13 @@ export const getTeacherCourse = (palyLoad) => {
     })
     return zlrequest(sql,"POST");
 }
+
+export const addCourse = (palyLoad) => {
+    const sql = JSON.stringify({
+        query:`
+            query {
+                
+            }
+        `
+    })
+}

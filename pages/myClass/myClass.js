@@ -15,6 +15,7 @@ Page({
         inputIndex: "-1",
         swiperout_list: [1, 2, 3, 4, 5, 6, 7, 8, 9],
         modalVisible: false,
+        invitationCode:"",
         teacherName: "", // 创建课程教师名称
         className:"",  // 创建课程名称
         courseList:[],
@@ -38,18 +39,6 @@ Page({
         const index = e.currentTarget.dataset.index;
         wx.setClipboardData({
           data: that.data.courseList[index].invitationCode,
-        //   success(){
-        //       $Message({
-        //           content:"邀请码复制成功",
-        //           type:"success"
-        //       })
-        //   },
-        //   fail(){
-        //     $Message({
-        //         content:"邀请码复制失败",
-        //         type:"error"
-        //     })
-        // }
         })
     },
     inputClick: function (e) {
@@ -66,8 +55,11 @@ Page({
     handleOk() {
         // userType === 0代表老师反之是学生
         if (this.data.userType) {
-            console.log("我是小学生");
+            // 学生端的处理
+            
+            console.log(this.data.invitationCode);
         }else{
+            // 教师端的处理
             const user = getApp().globalData.userInfo;
             const palyLoad = {
                 createrAvatarUrl:user.avatarUrl,
@@ -100,7 +92,8 @@ Page({
     },
     handleClose() {
         this.setData({
-            modalVisible: false
+            modalVisible: false,
+            inputIndex:"-1"
         })
     },
     changeUserTypeClick() {
