@@ -8,7 +8,7 @@ export const graphqlSetAvatar = async (avatarUrl) => {
         query: `
         mutation {
             updateUserInfo(post:{
-              _id:"${app.globalData.userInfo}",
+              _id:"${app.globalData.userInfo._id}",
               avatarUrl:"${postAvatarUrl}"
             }){
                 uname

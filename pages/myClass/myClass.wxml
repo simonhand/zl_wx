@@ -19,16 +19,16 @@
     </view>
     <scroll-view class="i-swipeout" wx:if="{{userType}}">
         <!-- <zl-card ></zl-card> -->
-        <i-swipeout i-class="i-swipeout-demo-item" actions="{{actions}}" wx:for="{{swiperout_list}}" wx:key="index">
+        <i-swipeout i-class="i-swipeout-demo-item" actions="{{actions}}" wx:for="{{studentsCourseList}}" wx:key="index">
             <view slot="content" style="height: 60px;">
                 <view class="classCard">
                     <view class="left-class-card">
-                        <image src="https://thirdwx.qlogo.cn/mmopen/vi_32/MD8lzDvuib0wTI8bTBAN70Y7PgZqu89u5c03bfzub7YG7fcXYfIpWBYRf0XVtUP6hrFlKD31FvCVicgaibc7Urxyw/132" class="imageClass"></image>
+                        <image src="{{item.createrAvatarUrl}}" class="imageClass"></image>
                     </view>
                     <view class="right-class-card">
-                        <view class="right-class-card-top"><text>英语</text> <text>48人</text></view>
+                        <view class="right-class-card-top"><text>{{item.courseName}}</text> <text>48人</text></view>
                         <view class="right-class-card-bottom">
-                            <view>授课教师:张乐</view>
+                            <view>授课教师:{{item.teacherName}}</view>
                         </view>
                     </view>
                 </view>

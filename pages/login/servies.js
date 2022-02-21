@@ -14,6 +14,7 @@ export const loginUser = ({loginuname,loginpwd}) => {
              avatarUrl
              openid
              isWxUser
+             course
             }
           }
         `
@@ -77,7 +78,8 @@ export const registerUser = ({registeruname = "",registerpwd ="",hasRegister=fal
                 openid,
                 nickName,
                 avatarUrl,
-                isWxUser
+                isWxUser,
+                course
             }
           }
         `
@@ -120,6 +122,7 @@ export const checkUser = async ({userInputName="",userOpenId=""}) => {
            nickName,
            avatarUrl,
            isWxUser
+           course
           }
         }
       `
