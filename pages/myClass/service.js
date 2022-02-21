@@ -44,12 +44,24 @@ export const getTeacherCourse = (palyLoad) => {
     return zlrequest(sql,"POST");
 }
 
-export const addCourse = (palyLoad) => {
+export const addCourse = ({invitationCode,_id}) => {
     const sql = JSON.stringify({
         query:`
             query {
-                
+                addCourse(_id:"${_id}",invitationCode:"${invitationCode}"){
+                    _id,
+                    createrAvatarUrl,
+                    createrId,
+                    courseName,
+                    teacherName,
+                    invitationCode
+            }
             }
         `
     })
+    return zlrequest(sql,"POST");
+}
+
+export const getStudentCourse = () => {
+
 }
