@@ -67,7 +67,7 @@ export const registerUser = ({registeruname = "",registerpwd ="",hasRegister=fal
             setUser(post:{
               uname: "${registeruname}",
               pwd:"${registerpwd}",
-              openid:"${openid}",
+              openId:"${openid}",
               nickName:"${nickName}",
               avatarUrl:"${avatarUrl}",
               isWxUser:${isWxUser}
@@ -75,7 +75,7 @@ export const registerUser = ({registeruname = "",registerpwd ="",hasRegister=fal
                 uname,
                 pwd,
                 _id,
-                openid,
+                openId,
                 nickName,
                 avatarUrl,
                 isWxUser,
@@ -112,7 +112,7 @@ export const checkUser = async ({userInputName="",userOpenId=""}) => {
           checkuser(uname:"${userInputName}",openId:"${userOpenId}"){
            uname,
            _id,
-           openid,
+           openId,
            nickName,
            avatarUrl,
            isWxUser
