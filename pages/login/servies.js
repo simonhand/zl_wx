@@ -79,7 +79,6 @@ export const registerUser = ({registeruname = "",registerpwd ="",hasRegister=fal
                 nickName,
                 avatarUrl,
                 isWxUser,
-                course
             }
           }
         `
@@ -96,10 +95,7 @@ export const registerUser = ({registeruname = "",registerpwd ="",hasRegister=fal
                 app.globalData.userInfo = userInfo
               }
           })
-          $Message ({
-              type:"success",
-              content:'注册成功'
-          })
+
           setTimeout(()=> {
             wx.switchTab({
                 url: '../../pages/index/index',
@@ -112,27 +108,30 @@ export const checkUser = async ({userInputName="",userOpenId=""}) => {
   let user = null;
   const payload = JSON.stringify({
       query:`
-      query loginuser {
+      query {
           checkuser(uname:"${userInputName}",openId:"${userOpenId}"){
-           uname
-           nickName
            uname,
            _id,
            openid,
            nickName,
            avatarUrl,
            isWxUser
-           course
+           course{
+            invitationCode
+           }
           }
         }
       `
     })
   await zlrequest(payload,"POST").then((res) => {
+    console.log(res);
       const userInfo = res.data.data.checkuser;
       console.log("userInfo",userInfo);
       if (!!userInfo) {
         user = userInfo;
       }
+  }).catch((e) => {
+    console.log("error",e);
   })
   return user
 }

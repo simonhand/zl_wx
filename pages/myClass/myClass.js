@@ -67,6 +67,16 @@ Page({
         // userType === 0代表老师反之是学生
         if (this.data.userType) {
             // 学生端的处理
+            // 先检测该学生是否添加过该课程
+            for (const iterator of app.globalData.userInfo.course) {
+                if (iterator.invitationCode === this.data.invitationCode) {
+                    $Message({
+                        content:"该课程已被添加",
+                        type:"error"
+                    });
+                    return;
+                }
+            }
             addCourse({
                 _id: user._id,
                 invitationCode: this.data.invitationCode
@@ -102,6 +112,7 @@ Page({
                 invitationCode: randomString(6)
             }
             createClass(palyLoad, this).then((value) => {
+                console.log(value);
                 // console.log(value);
                 this.setData({
                     modalVisible: false,
