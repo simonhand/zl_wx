@@ -14,6 +14,9 @@ const formatNumber = n => {
 }
 
 export const isNullObj = (obj) => {
+  if (!obj) {
+    return true;
+  }
   if (Object.keys(obj).length === 0) {
     return true;
   }

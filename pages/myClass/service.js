@@ -31,14 +31,15 @@ export const createClass = (palyLoad) => {
 
 export const getTeacherCourse = (palyLoad) => {
     const sql = JSON.stringify({
-        query: `query { queryCourse(createrId:"${palyLoad}"){
+        query: `query { 
+                      queryCourse(createrId:"${palyLoad}"){
                       _id,
                       createrId,
                       createrAvatarUrl,
                       courseName,
                       teacherName,
                       invitationCode,
-                      students           
+                      studentsNumber      
           } }`
     })
     return zlrequest(sql,"POST");
