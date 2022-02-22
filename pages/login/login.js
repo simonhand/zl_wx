@@ -3,7 +3,7 @@ import { $Message  } from '../../components/Iview/base/index'
 import { isNullObj } from '../../utils/util'
 import { loginUser, registerUser,checkUser } from "./servies.js";
 const {baseUrl} = require('../../config/network')
-
+const app = getApp();
 let hasRegister = false;
 Page({
 
@@ -48,6 +48,7 @@ Page({
     },
     registeUsernameClick:async function (v) {
         const userInputName = v.detail.value;
+        console.log("------",userInputName);
         const checkedUser =await checkUser({ userInputName });
         if (!!checkedUser) {
             hasRegister = true;
@@ -104,7 +105,7 @@ Page({
             });
             return;
         }
-        registerUser({registeruname:this.data.registeruname,hasRegister:this.data.registerpwd,hasRegister});
+        registerUser({registeruname:this.data.registeruname,registerpwd:this.data.registerpwd,hasRegister});
     },
 
     wechatloginClick:function(params) {
@@ -144,13 +145,19 @@ Page({
           })
        })
       Promise.all([wxLogin,wxGetUserPrpfile]).then(async (res) => {
+        console.log(res);
         const openId = res[0].data.openid;
         const user ={ openid:res[0].data.openid, ...res[1].userInfo }
         const _checkUser =await checkUser({userOpenId:openId});
         console.log("_checkUser",_checkUser);
         // user为空是第一次登录进行注册
         if (isNullObj(_checkUser)) {
+            console.log("执行了");
             registerUser({...user,hasRegister:false,isWxUser:true});
+            $Message({
+                content:"注册成功",
+                type:"success"
+              });
         }else{
             // 这里说明不是第一次登录
             wx.setStorage({
@@ -158,8 +165,11 @@ Page({
                 data:_checkUser,
                 encrypt: true, // 若开启加密存储，setStorage 和 getStorage 需要同时声明 encrypt 的值为 true
             })
+            app.globalData.userInfo = _checkUser;
         }
-
+        wx.switchTab({
+          url: '../index/index',
+        })
       })
     },
     /**
