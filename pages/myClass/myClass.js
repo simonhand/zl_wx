@@ -82,6 +82,13 @@ Page({
                 invitationCode: this.data.invitationCode
             }).then(
                 (value) => {
+                   if (!value.data.data.addCourse) {
+                    $Message({
+                        content:"该课程不存在",
+                        type:"error"
+                    })
+                    return
+                   }
                     this.setData({
                         studentsCourseList: [...this.data.studentsCourseList, {
                             ...value.data.data.addCourse
@@ -164,7 +171,9 @@ Page({
     onReady: function () {
         if (this.data.userType) {
             // 学生角色处理方法
-            getStudentCourse()
+            getStudentCourse().then(() => {
+                
+            })
         }else{
             // 教师处理方法
             getTeacherCourse(app.globalData.userInfo._id).then(
