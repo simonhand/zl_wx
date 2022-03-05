@@ -4,9 +4,11 @@
     <zl-modal title="{{userType === 0 ? '创建新的班级':'请输入班级邀请码'}}" visible="{{ modalVisible }}" tips="{{userType === 0 ? '学生可通过邀请码加入班级' : '若不知道,请向授课教师询问'}}" bind:ok="handleOk" bind:cancel="handleClose" needMoveTop="{{ inputIndex === 1 ? true :false}}">
         <zl-input wx:if="{{userType}}" lable="邀请码" inputIndex="{{inputIndex}}" inputNumIndex="{{2}}" data-index="{{2}}" bind:inputClick="inputClick" model:input-value="{{invitationCode}}" content="{{invitationCode}}" />
         <form wx:else class="createClassForm">
-            <zl-input lable="课程名称" inputIndex="{{inputIndex}}" inputNumIndex="{{0}}" data-index="{{0}}" bind:inputClick="inputClick" model:input-value="{{className}}" content="{{className}}"/>
-            <zl-input lable="授课教师" inputIndex="{{inputIndex}}" inputNumIndex="{{1}}" data-index="{{1}}" bind:inputClick="inputClick" model:input-value="{{teacherName}}" content="{{teacherName}}"/>
+            <zl-input lable="课程名称" inputIndex="{{inputIndex}}" inputNumIndex="{{0}}" data-index="{{0}}" bind:inputClick="inputClick" model:input-value="{{className}}" content="{{className}}" />
+            <zl-input lable="授课教师" inputIndex="{{inputIndex}}" inputNumIndex="{{1}}" data-index="{{1}}" bind:inputClick="inputClick" model:input-value="{{teacherName}}" content="{{teacherName}}" />
         </form>
+    </zl-modal>
+    <zl-modal title="{{userType === 0 ? '解散课程确认':'退出课程确认'}}" visible="{{ tipVisible }}"  bind:click="handleClick5" tips="退出后需要重新加入哦" bind:ok="handleOk1" bind:cancel="handleClose1">
     </zl-modal>
     <view class="title">
         <view class="title-right">
@@ -19,7 +21,7 @@
     </view>
     <scroll-view class="i-swipeout" wx:if="{{userType}}">
         <!-- <zl-card ></zl-card> -->
-        <i-swipeout i-class="i-swipeout-demo-item" actions="{{actions}}" wx:for="{{studentsCourseList}}" wx:key="index">
+        <i-swipeout i-class="i-swipeout-demo-item" actions="{{actions}}" wx:for="{{studentsCourseList}}" wx:key="index" data-index="{{index}}" bind:change="swipeoutClick">
             <view slot="content" style="height: 60px;">
                 <view class="classCard">
                     <view class="left-class-card">
@@ -37,14 +39,14 @@
     </scroll-view>
     <scroll-view class="i-swipeout" wx:else>
         <!-- <zl-card ></zl-card> -->
-        <i-swipeout i-class="i-swipeout-demo-item" actions="{{actions}}" wx:for="{{studentsCourseList}}" wx:key="index">
+        <i-swipeout i-class="i-swipeout-demo-item" actions="{{actions}}" wx:for="{{courseList}}" wx:key="index" data-index="{{index}}" bind:change="swipeoutClick">
             <view slot="content" style="height: 60px;">
                 <view class="classCard">
                     <view class="left-class-card">
                         <image src="{{item.createrAvatarUrl}}" class="imageClass"></image>
                     </view>
                     <view class="right-class-card">
-                        <view class="right-class-card-top"><text>{{item.courseName}}</text><text>  {{item.teacherName}}</text><text style="color: #666; margin-left: 12px;">{{item.students.length || 0}}人</text></view>
+                        <view class="right-class-card-top"><text>{{item.courseName}}</text><text> {{item.teacherName}}</text><text style="color: #666; margin-left: 12px;">{{item.students.length || 0}}人</text></view>
                         <view class="right-class-card-bottom">
                             <view>邀请码: {{item.invitationCode}}</view>
                             <image src="../../assets/profile/copy.png" class="copyImage" bindtap="copyClick" data-index="{{index}}"></image>

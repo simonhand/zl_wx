@@ -55,7 +55,8 @@ export const addCourse = ({invitationCode,_id}) => {
                     createrId,
                     courseName,
                     teacherName,
-                    invitationCode
+                    invitationCode,
+                    studentsNumber
             }
             }
         `

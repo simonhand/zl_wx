@@ -6,6 +6,7 @@
     "i-icon":"../../components/Iview/icon/index",
     "zl-modal":"../../components/zl-modal",
     "zl-input":"../../components/zl-input",
-    "i-message":"../../components/Iview/message/index"
+    "i-message":"../../components/Iview/message/index",
+    "i-modal":"../../components/Iview/modal/index"
   }
 }
