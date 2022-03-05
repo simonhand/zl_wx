@@ -13,6 +13,8 @@ import {
 } from '../../components/Iview/base/index'
 
 const app = getApp();
+
+let  swipeoutIndex;
 Page({
 
     /**
@@ -24,6 +26,7 @@ Page({
         inputIndex: "-1",
         swiperout_list: [1, 2, 3, 4, 5, 6, 7, 8, 9],
         modalVisible: false,
+        tipVisible:false,
         invitationCode: "",
         studentsCourseList: [],
         teacherName: "", // 创建课程教师名称
@@ -40,7 +43,17 @@ Page({
             width: 100,
             icon: 'close',
             background: '#FF7F00'
-        }]
+        }],
+        actions5: [
+            {
+                name: '取消'
+            },
+            {
+                name: '删除',
+                color: '#ed3f14',
+                loading: false
+            }
+        ]
     },
     // input事件函数
     // 事件函数触发
@@ -150,12 +163,28 @@ Page({
             inputIndex: "-1"
         })
     },
+    handleOk1(){
+        
+    },
+    handleClose1(){
+        this.setData({
+            tipVisible:false
+        })
+    },
     changeUserTypeClick() {
         console.log(randomString(6));
         const that = this
         this.setData({
             userType: that.data.userType === 0 ? 1 : 0
         })
+    },
+    swipeoutClick(e){
+        console.log(e);
+        this.setData({
+            tipVisible:true,
+        })
+        swipeoutIndex = e.detail.index
+        console.log(swipeoutIndex);
     },
 
     /**
