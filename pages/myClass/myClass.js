@@ -20,7 +20,7 @@ Page({
      */
     data: {
         //小程序没有refs，所以只能用动态布尔值控制关闭
-        userType: 0,
+        userType: 1,
         inputIndex: "-1",
         swiperout_list: [1, 2, 3, 4, 5, 6, 7, 8, 9],
         modalVisible: false,
@@ -169,10 +169,14 @@ Page({
      * 生命周期函数--监听页面初次渲染完成
      */
     onReady: function () {
+
         if (this.data.userType) {
             // 学生角色处理方法
-            getStudentCourse().then(() => {
-                
+            getStudentCourse(app.globalData.userInfo._id).then((res) => {
+                console.log(res);
+                this.setData({
+                    studentsCourseList:res.data.data.queryStudentCourse
+                })
             })
         }else{
             // 教师处理方法
