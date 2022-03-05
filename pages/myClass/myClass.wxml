@@ -26,7 +26,7 @@
                         <image src="{{item.createrAvatarUrl}}" class="imageClass"></image>
                     </view>
                     <view class="right-class-card">
-                        <view class="right-class-card-top"><text>{{item.courseName}}</text> <text>48人</text></view>
+                        <view class="right-class-card-top"><text>{{item.courseName}}</text> <text>{{item.studentsNumber}}人</text></view>
                         <view class="right-class-card-bottom">
                             <view>授课教师:{{item.teacherName}}</view>
                         </view>
@@ -37,7 +37,7 @@
     </scroll-view>
     <scroll-view class="i-swipeout" wx:else>
         <!-- <zl-card ></zl-card> -->
-        <i-swipeout i-class="i-swipeout-demo-item" actions="{{actions}}" wx:for="{{courseList}}" wx:key="index">
+        <i-swipeout i-class="i-swipeout-demo-item" actions="{{actions}}" wx:for="{{studentsCourseList}}" wx:key="index">
             <view slot="content" style="height: 60px;">
                 <view class="classCard">
                     <view class="left-class-card">

@@ -63,6 +63,22 @@ export const addCourse = ({invitationCode,_id}) => {
     return zlrequest(sql,"POST");
 }
 
-export const getStudentCourse = () => {
-
+export const getStudentCourse = (_id) => {
+    const sql = JSON.stringify({
+        query:`
+        query queryCourse {             
+            queryStudentCourse(_id:"${_id}"){
+                    _id,
+                createrId,
+                createrAvatarUrl,
+                courseName,
+                teacherName,
+                invitationCode,
+                studentsNumber,
+            }            
+          }
+          
+        `
+    })
+    return zlrequest(sql,"POST");
 }
