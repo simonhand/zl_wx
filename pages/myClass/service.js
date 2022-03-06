@@ -83,3 +83,16 @@ export const getStudentCourse = (_id) => {
     })
     return zlrequest(sql,"POST");
 }
+
+export const deleteCourse = (userId,userType,courseId,invitationCode) => {
+    const sql = JSON.stringify({
+        query:`
+        query queryCourse {             
+            deleteCourse(userId:"${userId}",userType:${userType},courseId:"${courseId}",invitationCode:"${invitationCode}"){
+                modifiedCount
+            }          
+          }
+        `
+    })
+    return zlrequest(sql,"POST");
+}

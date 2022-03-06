@@ -7,14 +7,18 @@ import {
     createClass,
     getTeacherCourse,
     getStudentCourse,
+    deleteCourse,
 } from './service'
 import {
     $Message
 } from '../../components/Iview/base/index'
+import {
+    updateUserInfo
+} from '../../utils/updateWxstorage'
 
 const app = getApp();
 
-let  swipeoutIndex;
+let swipeoutIndex;
 Page({
 
     /**
@@ -26,12 +30,12 @@ Page({
         inputIndex: "-1",
         swiperout_list: [1, 2, 3, 4, 5, 6, 7, 8, 9],
         modalVisible: false,
-        tipVisible:false,
+        tipVisible: false,
         invitationCode: "",
         studentsCourseList: [],
+        courseList: [],
         teacherName: "", // 创建课程教师名称
         className: "", // 创建课程名称
-        courseList: [],
         actions2: [{
             name: '删除',
             color: '#ed3f14'
@@ -44,8 +48,7 @@ Page({
             icon: 'close',
             background: '#FF7F00'
         }],
-        actions5: [
-            {
+        actions5: [{
                 name: '取消'
             },
             {
@@ -84,8 +87,8 @@ Page({
             for (const iterator of app.globalData.userInfo.course) {
                 if (iterator.invitationCode === this.data.invitationCode) {
                     $Message({
-                        content:"该课程已被添加",
-                        type:"error"
+                        content: "该课程已被添加",
+                        type: "error"
                     });
                     return;
                 }
@@ -95,27 +98,30 @@ Page({
                 invitationCode: this.data.invitationCode
             }).then(
                 (value) => {
-                   if (!value.data.data.addCourse) {
-                    $Message({
-                        content:"该课程不存在",
-                        type:"error"
-                    })
-                    return
-                   }
+                    if (!value.data.data.addCourse) {
+                        $Message({
+                            content: "该课程不存在",
+                            type: "error"
+                        })
+                        return
+                    }
                     this.setData({
                         studentsCourseList: [...this.data.studentsCourseList, {
                             ...value.data.data.addCourse
                         }],
-                        modalVisible:false
+                        modalVisible: false
                     })
-                    app.globalData.userInfo.course.push(value.data.data.addCourse.invitationCode);
+                    app.globalData.userInfo.course.push({
+                        invitationCode: value.data.data.addCourse.invitationCode
+                    });
+                    updateUserInfo(app.globalData.userInfo);
                     $Message({
-                        content:"添加成功",
-                        type:"success"
+                        content: "添加成功",
+                        type: "success"
                     })
                 }
             ).catch((e) => {
-                console.log("error",e);
+                console.log("error", e);
                 $Message({
                     content: "添加失败",
                     type: "error"
@@ -163,12 +169,36 @@ Page({
             inputIndex: "-1"
         })
     },
-    handleOk1(){
-        
+    // 退出课程确认
+    handleOk1() {
+        let checkCourse = this.data.userType === 1 ? this.data.studentsCourseList[swipeoutIndex] : this.data.courseList[swipeoutIndex];
+        deleteCourse(app.globalData.userInfo._id, this.data.userType, checkCourse._id, checkCourse.invitationCode).then(
+            (res) => {
+                if (this.data.userType) {
+                    // 学生端退课处理
+                    this.setData({
+                        tipVisible: false,
+                        studentsCourseList: this.data.studentsCourseList.filter((item) => item._id !== checkCourse._id)
+                    })
+                    app.globalData.userInfo.course = this.data.studentsCourseList
+                    updateUserInfo(app.globalData.userInfo)
+                    $Message({
+                        content: "退出成功",
+                        type: "success"
+                    })
+                }
+            }
+        ).catch((e) => {
+            console.log("error", e);
+            $Message({
+                content: "出现错误",
+                type: "error"
+            })
+        })
     },
-    handleClose1(){
+    handleClose1() {
         this.setData({
-            tipVisible:false
+            tipVisible: false
         })
     },
     changeUserTypeClick() {
@@ -178,13 +208,11 @@ Page({
             userType: that.data.userType === 0 ? 1 : 0
         })
     },
-    swipeoutClick(e){
-        console.log(e);
+    swipeoutClick(e) {
         this.setData({
-            tipVisible:true,
+            tipVisible: true,
         })
-        swipeoutIndex = e.detail.index
-        console.log(swipeoutIndex);
+        swipeoutIndex = e.currentTarget.dataset.index
     },
 
     /**
@@ -204,10 +232,10 @@ Page({
             getStudentCourse(app.globalData.userInfo._id).then((res) => {
                 console.log(res);
                 this.setData({
-                    studentsCourseList:res.data.data.queryStudentCourse
+                    studentsCourseList: res.data.data.queryStudentCourse
                 })
             })
-        }else{
+        } else {
             // 教师处理方法
             getTeacherCourse(app.globalData.userInfo._id).then(
                 (res) => {
