@@ -26,7 +26,7 @@ Page({
      */
     data: {
         //小程序没有refs，所以只能用动态布尔值控制关闭
-        userType: 1,
+        userType: 0,
         inputIndex: "-1",
         swiperout_list: [1, 2, 3, 4, 5, 6, 7, 8, 9],
         modalVisible: false,
@@ -182,6 +182,15 @@ Page({
                     })
                     app.globalData.userInfo.course = this.data.studentsCourseList
                     updateUserInfo(app.globalData.userInfo)
+                    $Message({
+                        content: "退出成功",
+                        type: "success"
+                    })
+                }else{
+                    this.setData({
+                        tipVisible: false,
+                        courseList: this.data.courseList.filter((item) => item._id !== checkCourse._id)
+                    })
                     $Message({
                         content: "退出成功",
                         type: "success"

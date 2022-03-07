@@ -12,9 +12,11 @@ export const loginUser = ({loginuname,loginpwd}) => {
              _id
              nickName
              avatarUrl
-             openid
+             openId
              isWxUser
-             course
+             course {
+              invitationCode
+             }
             }
           }
         `
