@@ -16,7 +16,7 @@
   </view>
   <image src="../../assets/home/home1.png" class="imgtitle1"></image>
   <view class="box">
-    <view plain="true" class="calcbutton" bindtap="calcClick">
+    <view plain="true" class="calcbutton" bindtap="calcClick" aria-role='button' aria-label='这是口算功能的按钮'>
       口算
     </view>
     <view class="calcbutton" bindtap="loginClick">

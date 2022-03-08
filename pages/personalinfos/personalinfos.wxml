@@ -1,2 +1,3 @@
-<!--pages/myClass/myClass.wxml-->
-<text>pages/myClass/myClass.wxml</text>
+<view class="personalInfo">
+    <view class="title">个人信息</view>
+</view>
