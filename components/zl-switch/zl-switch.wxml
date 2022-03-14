@@ -1,0 +1,8 @@
+<view class="body" bindtap="bodyclick"> 
+    <view class="label">
+        <view class="toggle">
+            <input class="toggle-state" type="checkbox"  />
+            <view class="indicator {{ checkvalue? 'indicatorClick' :''}}"></view>
+        </view>
+    </view>
+</view>

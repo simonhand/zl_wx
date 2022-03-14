@@ -1,3 +1,8 @@
 {
-  "usingComponents": {}
+  "usingComponents": {
+    "i-cell-group": "../../components/Iview/cell-group/index",
+    "i-cell": "../../components/Iview/cell/index",
+    "zl-cell": "../../components/zl-cell/index",
+    "zl-switch":"../../components/zl-switch/zl-switch"
+  }
 }

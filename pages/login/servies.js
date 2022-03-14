@@ -14,6 +14,10 @@ export const loginUser = ({loginuname,loginpwd}) => {
              avatarUrl
              openId
              isWxUser
+             gender
+             grade
+             phone
+             age
              course {
               invitationCode
              }
@@ -118,7 +122,11 @@ export const checkUser = async ({userInputName="",userOpenId=""}) => {
            openId,
            nickName,
            avatarUrl,
-           isWxUser
+           isWxUser,
+           gender,
+           grade,
+           phone,
+           age,
            course{
             invitationCode
            }
