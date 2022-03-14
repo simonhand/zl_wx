@@ -1,15 +1,56 @@
 /* pages/myClass/myClass.wxss */
 page{
+    display: flex;
+	justify-content: center;
+	align-items: center;
+	margin: 0;
     background-color: #ECF0F3;
 }
 .personalInfo{
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
 }
+.content{
+    /* 防止点击时出现高亮闪烁 */
+    -webkit-tap-highlight-color: transparent;
+    width: 650rpx;
+    background-color: #fff;
+    margin-top: 150rpx;
+    height: 900rpx;
+    width: 650rpx;
+    border-radius: 20rpx;
+	display: flex;
+	flex-direction: column;
+	justify-content: start;
+	align-items: center;
+    cursor: pointer;
+    box-shadow: -7px -7px 20px 0px #fff9,
+    -4px -4px 5px 0px #fff9,
+    7px 7px 20px 0px #0002,
+    4px 4px 5px 0px #0001;
+}
+
 .title{
-    margin-top: 28rpx;
+    position: absolute;
+    top: 40rpx;
     color: #666666;
     font-size: 18px;
     font-weight: 1200;
+}
+
+.line {
+	transition: box-shadow .1s ease-out;
+	height: 80rpx;
+	width: 600rpx;
+	border-radius: 100px;
+}
+.submit{
+    margin-top: 100rpx;
+}
+
+.i-cell{
+    border-radius: 20rpx;
+    width: 580rpx;
 }
