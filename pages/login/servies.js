@@ -18,6 +18,8 @@ export const loginUser = ({loginuname,loginpwd}) => {
              grade
              phone
              age
+             userType
+             realName
              course {
               invitationCode
              }
@@ -77,6 +79,11 @@ export const registerUser = ({registeruname = "",registerpwd ="",hasRegister=fal
               nickName:"${nickName}",
               avatarUrl:"${avatarUrl}",
               isWxUser:${isWxUser}
+              realName:"",
+              age:"",
+              grade:"",
+              gender:"",
+              phone:""
             }){
                 uname,
                 pwd,
@@ -121,12 +128,14 @@ export const checkUser = async ({userInputName="",userOpenId=""}) => {
            _id,
            openId,
            nickName,
+           realName,
            avatarUrl,
            isWxUser,
            gender,
            grade,
            phone,
            age,
+           userType,
            course{
             invitationCode
            }

@@ -1,4 +1,5 @@
 <view class="personalInfo">
+    <i-message id="message" />
     <view class="title">基本资料</view>
     <view class="content">
         <i-cell-group>
@@ -10,6 +11,12 @@
             <zl-cell title="昵称" is-link i-class="i-cell" input model:modlevalue="{{nickName}}"></zl-cell>
             <zl-cell title="年级" is-link i-class="i-cell" input model:modlevalue="{{grade}}"></zl-cell>
             <zl-cell title="年龄" is-link  i-class="i-cell" input model:modlevalue="{{age}}"></zl-cell>
+            <zl-cell title="身份" >
+            <view slot="footer" style="display: flex; flex-direction: row; align-items: center;"> 
+                <view style="margin-right: 20rpx;line-height: 100%;height: 100%;color: #666;">{{userType===0?"教师":"学生"}}</view>
+                <zl-switch checked bindtap="userTypeClick" />
+            </view>
+            </zl-cell>
             <zl-cell title="性别" >
             <view slot="footer" style="display: flex; flex-direction: row; align-items: center;"> 
                 <view style="margin-right: 20rpx;line-height: 100%;height: 100%;color: #666;">{{gender}}</view>

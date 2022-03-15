@@ -1,4 +1,7 @@
 // pages/myClass/myClass.js
+import { updateUserInfo } from './service'
+import { updateUserInfo as updateUserInfoStorage } from '../../utils/updateWxstorage'
+import { $Message  } from '../../components/Iview/base/index'
 const app = getApp()
 Page({
 
@@ -6,20 +9,37 @@ Page({
      * 页面的初始数据
      */
     data: {
-        avatarUrl: null,
-        realName: null,
-        nickName:null,
-        age:null,
-        grade:null,
+        avatarUrl: "",
+        realName: "",
+        nickName:"",
+        age:"",
+        grade:"",
         gender:"男",
-        phone:null
+        phone:"",
+        userType:1
     },
     submit(){
-        console.log(this.data);
+        updateUserInfo({...this.data,_id:app.globalData.userInfo._id}).then((res) => {
+            updateUserInfoStorage(res.data.data.updateUserInfomation);
+            $Message({
+                content:"保存成功",
+                type:"success"
+            })
+            // setTimeout(()=> {
+            //     wx.switchTab({
+            //       url: '../profile/profile',
+            //     })
+            // },600)
+        });
     },
     genderClick(){
         this.setData({
             gender:this.data.gender === "男"?"女":"男"
+        })
+    },
+    userTypeClick(){
+        this.setData({
+            userType:this.data.userType === 0? 1:0
         })
     },
     avatarClick() {
@@ -71,8 +91,8 @@ Page({
             nickName:app.globalData.userInfo?.nickName,
             age:app.globalData.userInfo?.age,
             grade:app.globalData.userInfo?.grade,
-            gender:"男",
-            phone:app.globalData.userInfo?.phone
+            gender:app.globalData.userInfo?.gender,
+            phone:app.globalData.userInfo?.phone,
         })
     },
 
