@@ -1,25 +1,30 @@
+import {
+  getTeacherCourse
+} from '../../commonservice/courseservice'
 // index.js
 // 获取应用实例
 const app = getApp()
 Page({
   data: {
+    loading: false,
     motto: 'Hello World',
     userInfo: {},
-    modelVisible:false,
+    modelVisible: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
     canIUseGetUserProfile: false,
-    canIUseOpenData: wx.canIUse('open-data.type.userAvatarUrl') && wx.canIUse('open-data.type.userNickName'),// 如需尝试获取用户信息可改为false
-    examCount:4,
+    teacherCourseList: [],
+    canIUseOpenData: wx.canIUse('open-data.type.userAvatarUrl') && wx.canIUse('open-data.type.userNickName'), // 如需尝试获取用户信息可改为false
+    examCount: 4,
     hasUserInfo: false,
   },
   // 页面显示触发
-  onShow(){
+  onShow() {
     if (typeof this.getTabBar === 'function' &&
-        this.getTabBar()) {
-        this.getTabBar().setData({
-          selected: 0
-        })
-      }
+      this.getTabBar()) {
+      this.getTabBar().setData({
+        selected: 0
+      })
+    }
   },
   // 事件处理函数
 
@@ -29,7 +34,7 @@ Page({
     })
   },
 
-  loginClick(){
+  loginClick() {
     wx.navigateTo({
       url: '../login/login',
     })
@@ -40,16 +45,25 @@ Page({
     })
   },
 
-  handleOpenModalToExam({detail}){
+  handleOpenModalToExam({
+    detail
+  }) {
     // console.log(detail);
-     wx.navigateTo({
-       url: '../examIndex/examIndex',
-     })
-  },
-  handleOpenModalToCreateExam(){
-    this.setData({
-      modelVisible:true
+    wx.navigateTo({
+      url: '../examIndex/examIndex',
     })
+  },
+  handleOpenModalToCreateExam() {
+    getTeacherCourse(app.globalData.userInfo._id).then(
+      (res) => {
+        console.log(res);
+        this.setData({
+          teacherCourseList: res.data.data.queryCourse.map((item) => [item.courseName]),
+          modelVisible:true
+        })
+      }
+    )
+
     // wx.navigateTo({
     //   url: '../createExam/createExam',
     // })
@@ -83,13 +97,11 @@ Page({
       hasUserInfo: true
     })
   },
-  handleClose () {
+  handleClose() {
     this.setData({
-        modelVisible: false
+      modelVisible: false
     });
-},
+  },
 
 
 })
-
-

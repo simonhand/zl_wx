@@ -1,5 +1,6 @@
 <!--index.wxml-->
-<view class="container">
+<i-spin fix wx:if="{{loading}}"></i-spin>
+<view class="container" style="z-index: 99999;">
   <image src="../../assets/home/home3.png" class="imgtitle"></image>
   <view class="box">
   </view>
@@ -24,7 +25,7 @@
     </view>
   </view>
   <zl-modal title="请选择班级" visible="{{ modelVisible }}" tips="若无对应班级，请前往我的班级创建" bind:ok="handleClose" bind:cancel="handleClose">
-    <zl-select/>
+    <zl-select classes="{{teacherCourseList}}"/>
   </zl-modal>
 </view>
 
