@@ -44,10 +44,12 @@
         "disableUseStrict": false,
         "minifyWXML": true,
         "showES6CompileOption": false,
-        "useCompilerPlugins": false
+        "useCompilerPlugins": [
+            "sass"
+        ]
     },
     "compileType": "miniprogram",
-    "libVersion": "2.19.4",
+    "libVersion": "2.23.0",
     "appid": "wx3bb76eddabb904bb",
     "projectname": "match_1",
     "debugOptions": {

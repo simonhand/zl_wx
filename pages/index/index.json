@@ -4,6 +4,8 @@
     "i-button":"../../components/Iview/button",
     "i-badge": "../../components/Iview/badge",
     "zl-modal": "../../components/zl-modal",
-    "zl-select":"../../components/zl-select"
+    "zl-select":"../../components/zl-select",
+    "i-spin": "../../components/Iview/spin",
+    "i-message":"../../components/Iview/message/index"
   }
 }

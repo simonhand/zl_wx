@@ -16,7 +16,7 @@ Page({
         grade:"",
         gender:"男",
         phone:"",
-        userType:1
+        userType:""
     },
     submit(){
         updateUserInfo({...this.data,_id:app.globalData.userInfo._id}).then((res) => {
@@ -93,6 +93,7 @@ Page({
             grade:app.globalData.userInfo?.grade,
             gender:app.globalData.userInfo?.gender,
             phone:app.globalData.userInfo?.phone,
+            userType:app.globalData.userInfo?.userType
         })
     },
 

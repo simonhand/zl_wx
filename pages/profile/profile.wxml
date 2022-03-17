@@ -1,4 +1,5 @@
 <!--pages/profile/profile.wxml-->
+<ui-sys img="/static/img/4put2.png" >
 <view class="body">
     <i-modal title="登出确认" visible="{{ modalVisible }}" actions="{{ action }}" tips="登出后重新登录" bind:cancel="handleCloseModal" bind:ok="handleOKModal"/>
     <view class="userInfo">
@@ -24,3 +25,4 @@
         </view>
     </view>
 </view>
+</ui-sys>

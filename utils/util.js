@@ -1,3 +1,4 @@
+const app = getApp()
 export const formatTime = date => {
   const year = date.getFullYear()
   const month = date.getMonth() + 1
@@ -21,4 +22,14 @@ export const isNullObj = (obj) => {
     return true;
   }
   return false;
+}
+
+export const haveUserInfo = () => {
+  if (!app.globalData.userInfo) {
+    wx.navigateTo({
+      url: '../login/login',
+    })
+    return false;
+  }
+  return true;
 }

@@ -5,24 +5,24 @@ Component({
     selectedColor: "#9382da",
     list:[
       {
-        "pagePath":"../index/index",
-        "iconPath": "../assets/tabbar/home/home.png",
-        "selectedIconPath": "../assets/tabbar/home/home_selected.png",
-        "text": "首页"
+          "pagePath": "../index/index",
+          "iconPath": "../static/tab_icon/custom.png",
+          "selectedIconPath": "/static/tab_icon/custom_cur.png",
+          "text": "首页"
       },
       {
-        "pagePath": "../logs/logs",
-        "iconPath": "../assets/tabbar/record/record.png",
-        "selectedIconPath": "../assets/tabbar/record/record_selected.png",
-        "text": "记录"
+          "pagePath": "../logs/logs",
+          "iconPath": "../static/tab_icon/tpl.png",
+          "selectedIconPath": "/static/tab_icon/tpl_cur.png",
+          "text": "记录"
       },
       {
-        "pagePath": "../profile/profile",
-        "iconPath": "../assets/tabbar/profile/profile.png",
-        "selectedIconPath": "../assets/tabbar/profile/profile_selected.png",
-        "text": "我的"
+          "pagePath": "../profile/profile",
+          "iconPath": "../static/tab_icon/my.png",
+          "selectedIconPath": "/static/tab_icon/my_cur.png",
+          "text": "我的"
       }
-    ]
+  ]
   },
   attached() {
   },

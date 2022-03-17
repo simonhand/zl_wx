@@ -10,3 +10,7 @@ export const  updateUserInfo = (userInfo) => {
         }
     })
 }
+
+export const updateTeacherCoursee = () => {
+  
+}

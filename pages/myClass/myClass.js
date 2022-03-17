@@ -5,10 +5,10 @@ import {
 import {
     addCourse,
     createClass,
-    getTeacherCourse,
     getStudentCourse,
     deleteCourse,
 } from './service'
+import {   getTeacherCourse } from '../../commonservice/courseservice'
 import {
     $Message
 } from '../../components/Iview/base/index'
@@ -26,7 +26,7 @@ Page({
      */
     data: {
         //小程序没有refs，所以只能用动态布尔值控制关闭
-        userType: 0,
+        userType: 1,
         inputIndex: "-1",
         swiperout_list: [1, 2, 3, 4, 5, 6, 7, 8, 9],
         modalVisible: false,
@@ -235,25 +235,29 @@ Page({
      * 生命周期函数--监听页面初次渲染完成
      */
     onReady: function () {
-
-        if (this.data.userType) {
-            // 学生角色处理方法
-            getStudentCourse(app.globalData.userInfo._id).then((res) => {
-                console.log(res);
-                this.setData({
-                    studentsCourseList: res.data.data.queryStudentCourse
-                })
-            })
-        } else {
-            // 教师处理方法
-            getTeacherCourse(app.globalData.userInfo._id).then(
-                (res) => {
+        this.setData({
+            userType: app.globalData.userInfo.userType
+        },() => {
+            console.log("异步执行",this.data.userType);
+            if (this.data.userType) {
+                // 学生角色处理方法
+                getStudentCourse(app.globalData.userInfo._id).then((res) => {
+                    console.log(res);
                     this.setData({
-                        courseList: [...res.data.data.queryCourse]
+                        studentsCourseList: res.data.data.queryStudentCourse
                     })
-                }
-            )
-        }
+                })
+            } else {
+                // 教师处理方法
+                getTeacherCourse(app.globalData.userInfo._id).then(
+                    (res) => {
+                        this.setData({
+                            courseList: [...res.data.data.queryCourse]
+                        })
+                    }
+                )
+            }
+        })
     },
 
     /**

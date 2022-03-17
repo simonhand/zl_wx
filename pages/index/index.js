@@ -1,25 +1,35 @@
+import {
+  getTeacherCourse
+} from '../../commonservice/courseservice'
+import { haveUserInfo } from '../../utils/util'
+import { $Message  } from '../../components/Iview/base/index'
+
 // index.js
 // 获取应用实例
-const app = getApp()
+const app = getApp();
+let selectedIndex = -1;
+let  queryCourse = [];
 Page({
   data: {
+    loading: false,
     motto: 'Hello World',
     userInfo: {},
-    modelVisible:false,
+    modelVisible: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
     canIUseGetUserProfile: false,
-    canIUseOpenData: wx.canIUse('open-data.type.userAvatarUrl') && wx.canIUse('open-data.type.userNickName'),// 如需尝试获取用户信息可改为false
-    examCount:4,
+    teacherCourseList: [],
+    canIUseOpenData: wx.canIUse('open-data.type.userAvatarUrl') && wx.canIUse('open-data.type.userNickName'), // 如需尝试获取用户信息可改为false
+    examCount: 4,
     hasUserInfo: false,
   },
   // 页面显示触发
-  onShow(){
+  onShow() {
     if (typeof this.getTabBar === 'function' &&
-        this.getTabBar()) {
-        this.getTabBar().setData({
-          selected: 0
-        })
-      }
+      this.getTabBar()) {
+      this.getTabBar().setData({
+        selected: 0
+      })
+    }
   },
   // 事件处理函数
 
@@ -29,7 +39,7 @@ Page({
     })
   },
 
-  loginClick(){
+  loginClick() {
     wx.navigateTo({
       url: '../login/login',
     })
@@ -40,21 +50,29 @@ Page({
     })
   },
 
-  handleOpenModalToExam({detail}){
+  handleOpenModalToExam({
+    detail
+  }) {
     // console.log(detail);
-     wx.navigateTo({
-       url: '../examIndex/examIndex',
-     })
-  },
-  handleOpenModalToCreateExam(){
-    this.setData({
-      modelVisible:true
+    wx.navigateTo({
+      url: '../examIndex/examIndex',
     })
-    // wx.navigateTo({
-    //   url: '../createExam/createExam',
-    // })
   },
-
+  handleOpenModalToCreateExam() {
+    haveUserInfo() && getTeacherCourse(app.globalData.userInfo._id).then(
+      (res) => {
+        queryCourse =  res.data.data.queryCourse
+        this.setData({
+          teacherCourseList: res.data.data.queryCourse.map((item) => [item.courseName]),
+          modelVisible:true
+        })
+      }
+    )
+  },
+  // 点击列表中的item触发
+  selectItemClick(e){
+    selectedIndex = e.detail.index;
+  },
   onLoad() {
     if (wx.getUserProfile) {
       this.setData({
@@ -83,13 +101,27 @@ Page({
       hasUserInfo: true
     })
   },
-  handleClose () {
+  handleClose() { 
     this.setData({
-        modelVisible: false
+      modelVisible: false
     });
-},
-
-
+  },
+  handleOk(){
+    if (selectedIndex === -1) {
+      $Message({
+        content:"请选择课程",
+        type:"warning"
+      })
+      return;
+    }
+    wx.navigateTo({
+      url: '../createExam/createExam?course='+JSON.stringify(queryCourse[selectedIndex]),
+      success:() => {
+        this.setData({
+          modelVisible:false
+        })
+      }
+    })
+    
+  }
 })
-
-

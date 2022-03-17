@@ -18,35 +18,38 @@
     "backgroundTextStyle":"light",
     "navigationBarBackgroundColor": "#f2f2f2",
     "navigationBarTitleText": "安工大",
-    "navigationBarTextStyle":"black"
+    "navigationBarTextStyle":"black",
+    "navigationStyle": "custom"
   },
   "tabBar": {
     "custom": true,
-    "color": "#6e6d6b",
-    "selectedColor": "#9382da",
+    "color": "#aaaaaa",
     "borderStyle": "white",
-    "backgroundColor": "#ffffff",
-    "list":[
-      {
-        "pagePath":"pages/index/index",
-        "iconPath": "assets/tabbar/home/home.png",
-        "selectedIconPath": "assets/tabbar/home/home_selected.png",
-        "text": "首页"
-      },
-      {
-        "pagePath": "pages/logs/logs",
-        "iconPath": "assets/tabbar/record/record.png",
-        "selectedIconPath": "assets/tabbar/record/record_selected.png",
-        "text": "记录"
-      },
-      {
-        "pagePath": "pages/profile/profile",
-        "iconPath": "assets/tabbar/profile/profile.png",
-        "selectedIconPath": "assets/tabbar/profile/profile_selected.png",
-        "text": "我的"
-      }
+    "backgroundColor": "#fff",
+    "selectedColor": "#0081ff",
+    "list": [
+        {
+            "pagePath": "pages/index/index",
+            "iconPath": "/static/tab_icon/custom.png",
+            "selectedIconPath": "/static/tab_icon/custom_cur.png",
+            "text": "首页"
+        },
+        {
+            "pagePath": "pages/logs/logs",
+            "iconPath": "/static/tab_icon/tpl.png",
+            "selectedIconPath": "/static/tab_icon/tpl_cur.png",
+            "text": "记录"
+        },
+        {
+            "pagePath": "pages/profile/profile",
+            "iconPath": "/static/tab_icon/my.png",
+            "selectedIconPath": "/static/tab_icon/my_cur.png",
+            "text": "我的"
+        }
     ]
-  },
-  "style": "v2",
-  "sitemapLocation": "sitemap.json"
+},
+  "sitemapLocation": "sitemap.json",
+  "usingComponents": {
+    "ui-sys": "./components/mp-cu/colorUI/components/ui-sys/ui-sys"
+  }
 }

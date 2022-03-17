@@ -7,7 +7,7 @@
         <image class='select_img {{shows&&"select_img_rotate"}}' src='../../assets/home/down.png'></image>
       </view>
       <view class='option_box' style='height:{{shows?(classes.length>5?300:classes.length*60):0}}rpx;'>
-        <text class='option' style='{{indexs==selectDatas.length-1&&"border:0;"}}' wx:for='{{classes}}' wx:key='this' data-index='{{index}}' catchtap='optionTaps'>{{item}}</text>
+        <text class='option' style='{{indexs==selectDatas.length-1&&"border:0;"}}' wx:for='{{classes}}' wx:key='this' data-index='{{index}}' bind:tap='optionTaps'>{{item}}</text>
       </view>
     </view>
 </view>
