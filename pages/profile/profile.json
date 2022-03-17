@@ -1,5 +1,8 @@
 {
   "usingComponents": {
-    "i-modal":"../../components/zl-modal"
+    "i-modal":"../../components/zl-modal",
+    "ui-menu":"../../components/mp-cu/colorUI/components/ui-menu/ui-menu",
+    "ui-menu-item":"../../components/mp-cu/colorUI/components/ui-menu-item/ui-menu-item",
+    "ui-avatar":"../../components/mp-cu/colorUI/components/ui-avatar/ui-avatar"
   }
 }

@@ -1,1 +1,13 @@
 /* pages/createExam/createExam.wxss */
+page{
+    background-color: #ECF0F3;
+}
+.page{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.title{
+    margin-top: 28rpx;
+    color: #666666;
+}

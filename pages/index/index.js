@@ -1,9 +1,14 @@
 import {
   getTeacherCourse
 } from '../../commonservice/courseservice'
+import { haveUserInfo } from '../../utils/util'
+import { $Message  } from '../../components/Iview/base/index'
+
 // index.js
 // 获取应用实例
-const app = getApp()
+const app = getApp();
+let selectedIndex = -1;
+let  queryCourse = [];
 Page({
   data: {
     loading: false,
@@ -54,21 +59,20 @@ Page({
     })
   },
   handleOpenModalToCreateExam() {
-    getTeacherCourse(app.globalData.userInfo._id).then(
+    haveUserInfo() && getTeacherCourse(app.globalData.userInfo._id).then(
       (res) => {
-        console.log(res);
+        queryCourse =  res.data.data.queryCourse
         this.setData({
           teacherCourseList: res.data.data.queryCourse.map((item) => [item.courseName]),
           modelVisible:true
         })
       }
     )
-
-    // wx.navigateTo({
-    //   url: '../createExam/createExam',
-    // })
   },
-
+  // 点击列表中的item触发
+  selectItemClick(e){
+    selectedIndex = e.detail.index;
+  },
   onLoad() {
     if (wx.getUserProfile) {
       this.setData({
@@ -97,11 +101,27 @@ Page({
       hasUserInfo: true
     })
   },
-  handleClose() {
+  handleClose() { 
     this.setData({
       modelVisible: false
     });
   },
-
-
+  handleOk(){
+    if (selectedIndex === -1) {
+      $Message({
+        content:"请选择课程",
+        type:"warning"
+      })
+      return;
+    }
+    wx.navigateTo({
+      url: '../createExam/createExam?course='+JSON.stringify(queryCourse[selectedIndex]),
+      success:() => {
+        this.setData({
+          modelVisible:false
+        })
+      }
+    })
+    
+  }
 })

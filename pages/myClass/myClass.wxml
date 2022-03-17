@@ -1,4 +1,5 @@
 <!--pages/personalInfo/personalInfo.wxml-->
+<ui-sys doc title="课程">
 <view class="personalInfoPage">
     <i-message id="message" />
     <zl-modal title="{{userType === 0 ? '创建新的班级':'请输入班级邀请码'}}" visible="{{ modalVisible }}" tips="{{userType === 0 ? '学生可通过邀请码加入班级' : '若不知道,请向授课教师询问'}}" bind:ok="handleOk" bind:cancel="handleClose" needMoveTop="{{ inputIndex === 1 ? true :false}}">
@@ -57,3 +58,4 @@
         </i-swipeout>
     </scroll-view>
 </view>
+</ui-sys>
