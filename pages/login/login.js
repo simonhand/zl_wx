@@ -2,7 +2,7 @@
 import { $Message  } from '../../components/Iview/base/index'
 import { isNullObj } from '../../utils/util'
 import { loginUser, registerUser,checkUser } from "./servies.js";
-const {baseUrl} = require('../../config/network')
+import { appScret } from "../../config/secret"
 const app = getApp();
 let hasRegister = false;
 Page({
@@ -48,7 +48,6 @@ Page({
     },
     registeUsernameClick:async function (v) {
         const userInputName = v.detail.value;
-        console.log("------",userInputName);
         const checkedUser =await checkUser({ userInputName });
         if (!!checkedUser) {
             hasRegister = true;
@@ -116,9 +115,9 @@ Page({
                  url: 'https://api.weixin.qq.com/sns/jscode2session',
                  data:{
                    //小程序唯一标识
-                   appid: '',
+                   appid: appScret.appid,
                    //小程序的 app secret
-                   secret: '',
+                   secret: appScret.secret,
                    grant_type: 'authorization_code',
                    js_code: res.code
                  },
@@ -152,7 +151,6 @@ Page({
         console.log("_checkUser",_checkUser);
         // user为空是第一次登录进行注册
         if (isNullObj(_checkUser)) {
-            console.log("执行了");
             registerUser({...user,hasRegister:false,isWxUser:true});
             $Message({
                 content:"注册成功",

@@ -1,7 +1,19 @@
 <!--pages/createExam/createExam.wxml-->
+<ui-sys title="创建小测验" img="/static/img/4put2.png" navBg="bg-cyan-gradient" imgBottom>
 <view class="page">
-    <view class="title"><text>创建测验</text></view>
     <view>
-        
+        <view class="shadow-warp ui-BG p-4 radius xl textarea"  >
+            <view style="margin-bottom: 10rpx;">请输入题干</view>
+            <textarea name="" 	maxlength="-1" style="width: 600rpx; height: 550rpx; background-color: #ECF0F3;"></textarea>
+        <view style="height: 60rpx;">
+            <image  src="/static/index/ocr.png" style="margin-top: 15rpx; width: 45rpx;height: 45rpx; position: relative; left: 240rpx;"  bindtap="ocrClick"/>
+        </view>
+        </view>
+    </view>
+    <view>
+                  
+    </view>
+    <view>
     </view>
 </view>
+</ui-sys>

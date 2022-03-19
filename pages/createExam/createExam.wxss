@@ -11,3 +11,16 @@ page{
     margin-top: 28rpx;
     color: #666666;
 }
+.textarea{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    width: 650rpx;
+    height: 700rpx;
+    margin-top: 80rpx;
+}
+.placeholder-class{
+    text-align: center;
+    line-height: 450rpx;
+}

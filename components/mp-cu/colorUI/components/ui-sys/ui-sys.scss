@@ -15,12 +15,15 @@
             z-index: 1;
         }
         .page-img {
-            height: 177vw;
+            height: 100%;
             width: 100vw;
             position: absolute;
             top: 0;
             left: 0;
             z-index: 0;
+        }
+        .page-rotate-img{
+            transform: rotate(180deg);
         }
     }
 }

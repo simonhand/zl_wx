@@ -9,12 +9,23 @@ let timmer = null;
 
 Component({
     externalClasses: ['i-class'],
-
     data: {
-        ...default_data
+        ...default_data,
+        style: '',
     },
-
+    lifetimes:{
+        ready() {
+            this.setStyleValue();
+        }
+    },
     methods: {
+        setStyleValue(){
+            let style = '';
+            let {sys_statusBar, sys_navBar} = this.data;
+            // console.log( "hahah",sys_statusBar);
+            style += 'top:' + sys_navBar + 'px;';
+            this.setData({style: style})
+        },
         handleShow (options) {
             const { type = 'default', duration = 2 } = options;
 

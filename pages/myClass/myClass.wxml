@@ -1,5 +1,5 @@
 <!--pages/personalInfo/personalInfo.wxml-->
-<ui-sys doc title="课程">
+<ui-sys doc title="课程" img="/static/img/4put2.png" imgBottom>
 <view class="personalInfoPage">
     <i-message id="message" />
     <zl-modal title="{{userType === 0 ? '创建新的班级':'请输入班级邀请码'}}" visible="{{ modalVisible }}" tips="{{userType === 0 ? '学生可通过邀请码加入班级' : '若不知道,请向授课教师询问'}}" bind:ok="handleOk" bind:cancel="handleClose" needMoveTop="{{ inputIndex === 1 ? true :false}}">
@@ -11,15 +11,11 @@
     </zl-modal>
     <zl-modal title="{{userType === 0 ? '解散课程确认':'退出课程确认'}}" visible="{{ tipVisible }}"  bind:click="handleClick5" tips="退出后需要重新加入哦" bind:ok="handleOk1" bind:cancel="handleClose1">
     </zl-modal>
-    <view class="title">
-        <view class="title-right">
-            <!-- <image src="../../assets/profile/add.png" style="width: 20px; height: 20px;" bindtap="changeUserTypeClick"></image> -->
+        <view class="ui-BG radius mt-3 px-3 border title-center">
+            <ui-title title="参加课程" desc="My Course" align="center" hasDot >
+            </ui-title>
         </view>
-        <view class="title-center">我的课程</view>
-        <view class="title-right">
-            <image src="../../assets/profile/add.png" style="width: 20px; height: 20px;" bindtap="addClick"></image>
-        </view>
-    </view>
+            <image src="/static/profile/add.png" style="width: 20px; height: 20px;position: fixed; top:{{sys_navBar+130}}rpx;right: 80rpx;  " bindtap="addClick"></image>
     <scroll-view class="i-swipeout" wx:if="{{userType}}">
         <!-- <zl-card ></zl-card> -->
         <i-swipeout i-class="i-swipeout-demo-item" actions="{{actions}}" wx:for="{{studentsCourseList}}" wx:key="index" data-index="{{index}}" bind:change="swipeoutClick">
@@ -50,7 +46,7 @@
                         <view class="right-class-card-top"><text>{{item.courseName}}</text><text> {{item.teacherName}}</text><text style="color: #666; margin-left: 12px;">{{item.students.length || 0}}人</text></view>
                         <view class="right-class-card-bottom">
                             <view>邀请码: {{item.invitationCode}}</view>
-                            <image src="../../assets/profile/copy.png" class="copyImage" bindtap="copyClick" data-index="{{index}}"></image>
+                            <image src="/static/profile/copy.png" class="copyImage" bindtap="copyClick" data-index="{{index}}"></image>
                         </view>
                     </view>
                 </view>

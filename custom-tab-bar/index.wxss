@@ -4,8 +4,9 @@
   bottom: 0;
   left: 0;
   right: 0;
-  height: 128rpx;
-  padding-bottom: 88rpx;
+  height: 148rpx;
+  padding-top: 20rpx;
+  padding-bottom: 108rpx;
   box-sizing:border-box;
   /* background: #ECF0F3; */
   display: flex;
