@@ -1,12 +1,13 @@
 /* pages/myClass/myClass.wxss */
-page{
+/* page{
     display: flex;
 	justify-content: center;
 	align-items: center;
 	margin: 0;
     background-color: #ECF0F3;
-}
+} */
 .personalInfo{
+    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -17,7 +18,7 @@ page{
     -webkit-tap-highlight-color: transparent;
     width: 650rpx;
     background-color: #fff;
-    margin-top: 150rpx;
+    margin-top: 50rpx;
     height: 900rpx;
     width: 650rpx;
     border-radius: 20rpx;

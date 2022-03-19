@@ -1,8 +1,10 @@
 // pages/profile/profile.js
+import { uploadImg } from '../../utils/uploadImg'
 const app = getApp()
 Page({
   /**
    * 页面的初始数据
+   * 
    */
   data: {
     user: null,
@@ -62,36 +64,10 @@ Page({
   },
   //点击上传头像方法
   showAction() {
-    let that = this
-    wx.showActionSheet({
-      itemList: ['从相册中选择', '拍照'],
-      success: function (res) {
-        if (!res.cancel) {
-          console.log(res.tapIndex)
-          if (res.tapIndex == 0) {
-            that.chooseWxImage('album')
-          } else if (res.tapIndex == 1) {
-            that.chooseWxImage('camera')
-          }
-        }
-      }
-    })
+    // uploadImg(this,"../avatarCut/avatarCut?src=")
+    uploadImg(this,"../imgCut/imgCut?from=profile&src=");
   },
-  chooseWxImage: function (type) {
-    var that = this;
-    wx.chooseImage({
-      count: 1,
-      sizeType: ['original', 'compressed'],
-      sourceType: [type],
-      success: function (res) {
-        console.log(res);
-        var tempFilePaths = res.tempFilePaths;
-        wx.navigateTo({
-          url: "../avatarCut/avatarCut?src=" + tempFilePaths
-        });
-      }
-    })
-  },
+
   /**
    * 生命周期函数--监听页面加载
    */

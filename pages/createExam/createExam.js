@@ -1,4 +1,5 @@
 // pages/createExam/createExam.js
+import { uploadImg } from "../../utils/uploadImg"
 Page({
 
     /**
@@ -7,7 +8,9 @@ Page({
     data: {
         urlParams: {}
     },
-
+    ocrClick(){
+        uploadImg(this,"../imgCut/imgCut?from=createExam&src=");
+    },
     /**
      * 生命周期函数--监听页面加载
      */

@@ -1,28 +1,28 @@
 <!--pages/profile/profile.wxml-->
-<ui-sys img="/static/img/4put2.png" >
-<view class="body">
-    <i-modal title="登出确认" visible="{{ modalVisible }}" actions="{{ action }}" tips="登出后重新登录" bind:cancel="handleCloseModal" bind:ok="handleOKModal"/>
-    <view class="userInfo">
-        <view class="avatar" bindtap="showAction">
-            <image src="{{ avatar || '../../assets/profile/avatar.png'}}" alt=""/>
+<ui-sys img="/static/img/4put2.png" imgBottom imgTop>
+    <view class="body">
+        <i-modal title="登出确认" visible="{{ modalVisible }}" actions="{{ action }}" tips="登出后重新登录" bind:cancel="handleCloseModal" bind:ok="handleOKModal" />
+        <view class="userInfo">
+            <view class="avatar" bindtap="showAction">
+                <image src="{{ avatar || '/static/profile/avatar.png'}}" alt="" />
+            </view>
+            <view class="username">
+                <text>{{user.realName || user.nickName || user.uname}}</text>
+            </view>
         </view>
-        <view class="username">
-            <text>{{user.realName || user.nickName || user.uname}}</text>
-        </view>
+        <ui-menu ui="mt-5 radius border" class="menu">
+            <ui-menu-item arrow title="个人信息" bindtap="PersonalInfoClick" isIcon>
+                <image slot="icon" src="/static/profile/info.png" mode="aspectFill" class="ui-menu-item-image"/>
+            </ui-menu-item>
+            <ui-menu-item arrow title="我的课程" bindtap="MyclassClick" icon="cicon-title" isIcon>
+                <image slot="icon" src="/static/profile/book.png" mode="aspectFill" class="ui-menu-item-image"/>
+            </ui-menu-item>
+            <ui-menu-item arrow title="关于程序" isIcon>
+                <image slot="icon" src="/static/profile/about.png" mode="aspectFill" class="ui-menu-item-image"/>
+            </ui-menu-item>
+            <ui-menu-item arrow title="退出登录" bindtap="logout" isIcon>
+                <image slot="icon" src="/static/profile/loginout.png" mode="aspectFill" class="ui-menu-item-image"/>
+            </ui-menu-item>
+        </ui-menu>
     </view>
-    <view class="choose">
-        <view class="userchoose" bindtap="MyclassClick">
-            <text>我的课程</text>
-        </view>
-        <view class="userchoose" bindtap="PersonalInfoClick">
-            <text>个人信息</text>
-        </view>
-        <view class="userchoose">
-            <text>关于程序</text>
-        </view>
-        <view class="userchoose" bindtap="logout">
-            <text>退出登录</text>
-        </view>
-    </view>
-</view>
 </ui-sys>

@@ -1,0 +1,10 @@
+<!--pages/cropper/cropper-sample.wxml-->
+<ui-sys title="图片裁剪" navBg="bg-cyan-gradient">
+<view class='body' style="margin-top: {{ nav_bar}} rpx;">
+    <cropper id='cropper' class='stage'></cropper>
+    <view class='bar'>
+        <view class='btn btn-cancel ripple' bindtap='fnRepeat'>重新选择</view>
+        <view class='btn btn-submit ripple' bindtap='fnSubmit'>确定</view>
+    </view>
+</view>
+</ui-sys>

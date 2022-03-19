@@ -8,6 +8,14 @@ Component({
         addGlobalClass: true,
     },
     properties: {
+        imgTop:{
+            type:Boolean,
+            value:false
+        },
+        imgBottom:{
+            type:Boolean,
+            value:false
+        } ,
         bg: {       //背景颜色
             type: String,
             value: 'ui-BG-2'

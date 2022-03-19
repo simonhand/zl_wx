@@ -85,3 +85,8 @@ page {
     color: #cecece;
     margin-top: -12rpx;
 }
+.menu{
+    margin: auto;
+    width: 86%;
+    border-radius: 10rpx;
+}

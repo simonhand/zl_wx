@@ -1,4 +1,6 @@
 <!--index.wxml-->
+<ui-sys>
+<view style="margin-top: {{sys_navBar+ 100}}rpx;">
 <i-spin fix wx:if="{{loading}}"></i-spin>
 <i-message id="message" />
 <view class="container" style="z-index: 99999;">
@@ -47,3 +49,6 @@
       <text class="userinfo-nickname">{{userInfo.nickName}}</text>
     </block>
   </view> -->
+</view>
+
+</ui-sys>
