@@ -1,0 +1,44 @@
+page {
+    height: 100%;
+    box-sizing: border-box;
+}
+
+.body {
+    height: 1350rpx;
+    display: flex;
+    flex-direction: column;
+}
+
+.stage {
+    flex-grow: 1;
+}
+
+
+.bar {
+    height: 80rpx;
+    padding-bottom: 36rpx;
+    display: flex;
+    flex-direction: row;
+    background-color: black;
+}
+
+.btn {
+    position: relative;
+    flex-grow: 1;
+    line-height: 80rpx;
+    text-align: center;
+    color: white;
+    font-size: 32rpx;
+}
+
+.btn-cancel {
+    color: #00b8f9;
+    border-top-left-radius: 40rpx;
+    border-bottom-left-radius: 40rpx;
+}
+
+.btn-submit {
+    color: #0166eb;
+    border-top-right-radius: 40rpx;
+    border-bottom-right-radius: 40rpx;
+}
