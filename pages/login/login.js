@@ -107,6 +107,7 @@ Page({
         registerUser({registeruname:this.data.registeruname,registerpwd:this.data.registerpwd,hasRegister});
     },
 
+    
     wechatloginClick:function(params) {
        const wxLogin = new Promise((resolve,reject) => {
         wx.login({

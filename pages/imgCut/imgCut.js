@@ -1,5 +1,6 @@
 import {
-    uploadImgToCos
+    uploadImgToCos,
+    deleteCosImg
 } from "../../utils/uploadImg"
 import {
     graphqlSetAvatar,ocrImg
@@ -65,13 +66,23 @@ Page({
                     uploadImgToCos(tempFilePath, (res) => {
                         graphqlSetAvatar(res.Location);
                     });
-
                 }
                 if (from === 'createExam') {
-                    ocrImg(tempFilePath);
-                    wx.previewImage({
-                        urls: [res.tempFilePath],
-                    })
+                    let _ocrImg;
+                    uploadImgToCos(tempFilePath, (res) => {
+                        _ocrImg = 'https://' + res.Location
+                        // 这里要注意一定要这进行ocr因为照片上传时异步的
+                        ocrImg(_ocrImg).then((ocrString) =>{
+                            console.log("ocrString",ocrString);
+                            const _orcData = JSON.stringify(ocrString.data)
+                            // ocr因为时一次性的成功后可以删除存储对象中的img
+                            deleteCosImg(res.Location.split('/')[1])
+                            wx.navigateTo({
+                              url: `/pages/createExam/createExam?from=imgCut&ocrData=${_orcData}`,
+                            })
+                        });
+                    });
+                   
                 }
                 return;
             },

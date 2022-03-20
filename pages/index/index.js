@@ -115,7 +115,7 @@ Page({
       return;
     }
     wx.navigateTo({
-      url: '../createExam/createExam?course='+JSON.stringify(queryCourse[selectedIndex]),
+      url: '../createExam/createExam?from=index&course='+JSON.stringify(queryCourse[selectedIndex]),
       success:() => {
         this.setData({
           modelVisible:false
