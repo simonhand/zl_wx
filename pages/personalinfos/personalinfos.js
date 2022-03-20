@@ -17,7 +17,7 @@ Page({
         grade:"",
         gender:"男",
         phone:"",
-        userType:""
+        userType: 1
     },
     submit(){
         updateUserInfo({...this.data,_id:app.globalData.userInfo._id}).then((res) => {
@@ -60,14 +60,17 @@ Page({
      */
     onReady: function () {
         this.setData({
+            userType:app.globalData.userInfo.userType,
             avatarUrl: app.globalData.userInfo?.avatarUrl,
             realName: app.globalData.userInfo?.realName,
             nickName:app.globalData.userInfo?.nickName,
             age:app.globalData.userInfo?.age,
             grade:app.globalData.userInfo?.grade,
-            gender:app.globalData.userInfo?.gender,
+            gender:app.globalData.userInfo?.gender || this.data.gender,
             phone:app.globalData.userInfo?.phone,
-            userType:app.globalData.userInfo?.userType
+        },() => {
+            console.log(app.globalData.userInfo);
+            console.log(this.data);
         })
     },
 

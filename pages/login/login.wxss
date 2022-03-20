@@ -148,7 +148,7 @@ body{
 .card{
     position: absolute;
     left: 50%;
-    top: 55%;
+    top: 65%;
     transform: translate(-50%, -50%);
 	height:450px;
 	width:300px;

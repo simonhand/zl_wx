@@ -35,9 +35,7 @@ Page({
       encryptL:true,
       success(res){
         console.log(res);
-        $Toast({
-          content:res.data
-        })
+      
       },
       fail(){
         console.log("无用户缓存");

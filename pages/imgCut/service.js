@@ -38,7 +38,7 @@ export const graphqlSetAvatar = async (avatarUrl) => {
   });
 }
 export const ocrImg = (img_url) => {
-  getAccessToken().then((res) => {
+  return getAccessToken().then((res) => {
     console.log(res);
     const enUrl = encodeURI(img_url)
     return new Promise((resolve, reject) => {
@@ -57,7 +57,9 @@ export const ocrImg = (img_url) => {
         }
       })
     }).then((res) => {
-      console.log("ocr", res);
+      return new Promise((resolve,reject) => {
+        resolve(res)
+      })
     })
   })
 }
