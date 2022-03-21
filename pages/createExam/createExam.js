@@ -10,70 +10,91 @@ Page({
      */
     data: {
         urlParams: {},
-        exercisesList:[],
-        currentExercises:{},
-        textArea:"",
-        imgList:[],
-        exercisesType:0,
-        keyList:[],
-        keyIndex:["A","B","C","D","E"],
-        currentIndex:0,
+        exercisesList: [],
+        currentExercises: {},
+        textArea: "",
+        imgList: [],
+        exercisesType: 0,
+        keyList: [],
+        unstyle3: false,
+        keyIndex: ["A", "B", "C", "D", "E"],
+        checkKey: [],
+        currentIndex: 0,
     },
     ocrClick() {
         uploadImg(this, "../imgCut/imgCut?from=createExam&src=");
     },
-    ChooseImage(){
+    ChooseImage() {
         const that = this
-        uploadImg(this,"",true, (type) => {
+        uploadImg(this, "", true, (type) => {
             wx.chooseImage({
                 count: 1,
                 sizeType: ['original', 'compressed'],
                 sourceType: [type],
                 success: function (res) {
-                  var tempFilePaths = res.tempFilePaths;
-                  that.setData({
-                      imgList:[...that.data.imgList,tempFilePaths]
-                  })
+                    var tempFilePaths = res.tempFilePaths;
+                    that.setData({
+                        imgList: [...that.data.imgList, tempFilePaths]
+                    })
                 }
-              })
+            })
         })
     },
-    DelImg(e){
+    DelImg(e) {
         this.setData({
-            imgList:this.data.imgList.filter((item) => item !== this.data.imgList[e.currentTarget.dataset.index])
+            imgList: this.data.imgList.filter((item) => item !== this.data.imgList[e.currentTarget.dataset.index])
         })
     },
-    typeChange(e){
+    typeChange(e) {
         this.setData({
-            exercisesType:e.detail
+            exercisesType: e.detail
         })
     },
-    addKey(){
+    addKey() {
         const _keylist = this.data.keyList;
         this.setData({
-            keyList:[..._keylist,{ index: _keylist.length , keyIndex: this.data.keyList[_keylist.length], keyValue:"" } ]
+            keyList: [..._keylist, {
+                keyIndex: +new Date(),
+                keyValue: "",
+                trueKey:false,
+            }]
         })
     },
-    delKey(e){
-        console.log(e);
+    delKey(e) {
+        const _index = e.currentTarget.dataset.index
         this.setData({
-            keyList:this.data.keyList.filter((item) => item.index !== this.data.keyList[e.currentTarget.dataset.index].index)
+            keyList: this.data.keyList.filter((item) =>
+                item.keyIndex !== this.data.keyList[_index].keyIndex
+            )
         })
     },
-    keyInput(e){
-        const index = e.currentTarget.dataset.index
+    keyInput(e) {
         this.setData({
             keyList: this.data.keyList.map((item) => {
-                if (item.index === index) {
+                if (this.data.keyList.indexOf(item) === index) {
+                    console.log(this.data.keyList.indexOf(item));
                     item.keyValue = e.detail.value
                 }
                 return item
             })
         })
     },
-    nextExercises(){
+    checkkeyChange(e) {
+        const _index = e.currentTarget.dataset.index
         this.setData({
-            exercisesList:[...this.data.exercisesList,{ imgList:this.data.imgList, }]
+            keyList:this.data.keyList.map((item) => {
+                if (this.data.keyList.indexOf(item) === _index) {
+                    item.trueKey = !item.trueKey
+                }
+                return item
+            })
+        })
+    },
+    nextExercises() {
+        this.setData({
+            exercisesList: [...this.data.exercisesList, {
+                imgList: this.data.imgList,
+            }]
         })
     },
     /**
