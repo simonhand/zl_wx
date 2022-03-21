@@ -1,8 +1,8 @@
 // pages/createExam/createExam.js
 import {
-    uploadImg
+    uploadImg,
+    uploadImgToCos
 } from "../../utils/uploadImg"
-let ocrData;
 Page({
 
     /**
@@ -11,34 +11,32 @@ Page({
     data: {
         urlParams: {},
         exercisesList: [],
-        currentExercises: {},
-        textArea: "",
-        imgList: [],
-        exercisesType: 0,
-        keyList: [],
-        unstyle3: false,
         keyIndex: ["A", "B", "C", "D", "E"],
-        checkKey: [],
         currentIndex: 0,
+        textArea: "", // 题干
+        imgList: [], // 题干配图
+        exercisesType: 0, // 0 代表选择题， 1 代表填空题
+        keyList: [], // 答案
+        correctExerciseType:false
     },
     ocrClick() {
         uploadImg(this, "../imgCut/imgCut?from=createExam&src=");
     },
     ChooseImage() {
-        const that = this
-        uploadImg(this, "", true, (type) => {
-            wx.chooseImage({
-                count: 1,
-                sizeType: ['original', 'compressed'],
-                sourceType: [type],
-                success: function (res) {
-                    var tempFilePaths = res.tempFilePaths;
-                    that.setData({
-                        imgList: [...that.data.imgList, tempFilePaths]
-                    })
-                }
-            })
-        })
+        uploadImg(this, "../imgCut/imgCut?from=createExam1&src=");
+        // uploadImg(this, "", true, (type) => {
+        //     wx.chooseImage({
+        //         count: 1,
+        //         sizeType: ['original', 'compressed'],
+        //         sourceType: [type],
+        //         success: function (res) {
+        //             var tempFilePaths = res.tempFilePaths;
+        //             that.setData({
+        //                 imgList: [...that.data.imgList, tempFilePaths[0]]
+        //             })
+        //         }
+        //     })
+        // })
     },
     DelImg(e) {
         this.setData({
@@ -56,7 +54,7 @@ Page({
             keyList: [..._keylist, {
                 keyIndex: +new Date(),
                 keyValue: "",
-                trueKey:false,
+                trueKey: false,
             }]
         })
     },
@@ -69,10 +67,10 @@ Page({
         })
     },
     keyInput(e) {
+        const index = e.currentTarget.dataset.index
         this.setData({
             keyList: this.data.keyList.map((item) => {
                 if (this.data.keyList.indexOf(item) === index) {
-                    console.log(this.data.keyList.indexOf(item));
                     item.keyValue = e.detail.value
                 }
                 return item
@@ -82,7 +80,7 @@ Page({
     checkkeyChange(e) {
         const _index = e.currentTarget.dataset.index
         this.setData({
-            keyList:this.data.keyList.map((item) => {
+            keyList: this.data.keyList.map((item) => {
                 if (this.data.keyList.indexOf(item) === _index) {
                     item.trueKey = !item.trueKey
                 }
@@ -91,11 +89,63 @@ Page({
         })
     },
     nextExercises() {
-        this.setData({
-            exercisesList: [...this.data.exercisesList, {
-                imgList: this.data.imgList,
-            }]
+        let _nextExercises = this.data.exercisesList[this.data.currentIndex + 1]
+        if (this.data.currentIndex < this.data.exercisesList.length) {
+            // 这里要分清楚长度关系
+        }else{
+            this.setData({
+                exercisesList: [...this.data.exercisesList, {
+                    imgList: this.data.imgList,
+                    exercisesType: this.data.exercisesType,
+                    keyList: this.data.keyList,
+                    textArea: this.data.textArea,
+                    iscorrectExerciseType:this.isCorrectExercise(this)
+                }],
+                currentIndex: this.data.currentIndex + 1,
+                textArea: _nextExercises?.textArea || "", // 题干
+                imgList: _nextExercises?.imgList || "", // 题干配图
+                exercisesType: _nextExercises?.exercisesList || 0, // 0 代表选择题， 1 代表填空题
+                keyList: _nextExercises?._keylist || "",
+                iscorrectExerciseType: _nextExercises?.iscorrectExerciseType || false
+            })
+        }
+    },
+    submit() {
+        this.data.exercisesList.forEach((item) => {
+            console.log("item", item);
+            for (const iterator of item.imgList) {
+                uploadImgToCos(iterator, (res) => {
+                    console.log(res);
+                })
+            }
         })
+    },
+    numClick(e) {
+        const index = e.currentTarget.dataset.index;
+        const currentExercises = this.data.exercisesList[index];        
+        this.setData({
+            exercisesType: currentExercises?.exercisesType ,
+            currentIndex: index,
+            textArea: currentExercises?.textArea || "",
+            imgList: currentExercises?.imgList || "",
+            keyList: currentExercises?.keyList || ""
+        })
+    },
+    isCorrectExercise(obj = undefined) {
+        const that =  obj || this
+        // 题干必填  配图选填 选择题选项必填答案必填 填空题答案必填
+        if (that.data.textArea && that.data.keyList.length) {
+            if (that.data.exercisesType === 0) {
+                for (const item of that.data.keyList) {
+                    if (item.trueKey) {
+                        return true
+                    }
+                }
+            } else {
+                return true
+            }
+            return false
+        }
     },
     /**
      * 生命周期函数--监听页面加载
