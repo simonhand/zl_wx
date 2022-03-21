@@ -3,8 +3,10 @@ import {
     deleteCosImg
 } from "../../utils/uploadImg"
 import {
-    graphqlSetAvatar,ocrImg
+    graphqlSetAvatar,
+    ocrImg
 } from "./service"
+import { $Message  } from '../../components/Iview/base/index'
 let cropper = null;
 let from = '';
 const defailtConfig = {
@@ -58,7 +60,6 @@ Page({
         console.log('submit')
         //do crop
         cropper.fnCrop({
-
             //剪裁成功的回调
             success: function (res) {
                 const tempFilePath = res.tempFilePath
@@ -72,17 +73,35 @@ Page({
                     uploadImgToCos(tempFilePath, (res) => {
                         _ocrImg = 'https://' + res.Location
                         // 这里要注意一定要这进行ocr因为照片上传时异步的
-                        ocrImg(_ocrImg).then((ocrString) =>{
-                            console.log("ocrString",ocrString);
-                            const _orcData = JSON.stringify(ocrString.data)
+                        ocrImg(_ocrImg).then((ocrString) => {
                             // ocr因为时一次性的成功后可以删除存储对象中的img
                             deleteCosImg(res.Location.split('/')[1])
-                            wx.navigateTo({
-                              url: `/pages/createExam/createExam?from=imgCut&ocrData=${_orcData}`,
+                            const _ocrString = ocrString.data.items.reduce((pre, item) => pre + item.text, "")
+                            // 获取路由栈，因为navigateBack不能携带参数，通过获取createExam对象完成数据操作
+                            const pages = getCurrentPages()
+                            const createExamPage = pages[pages.length - 2]
+                            createExamPage.setData({
+                                textArea: _ocrString
                             })
+                            wx.navigateBack({
+                                delta: 1
+                            })
+                            // wx.navigateTo({
+                            //   url: `/pages/createExam/createExam?from=imgCut&ocrData=${_orcData}`,
+                            // })
                         });
                     });
-                   
+
+                }
+                if (from === "createExam1") {
+                    const pages = getCurrentPages()
+                    const createExamPage = pages[pages.length - 2]
+                    createExamPage.setData({
+                        imgList: [...createExamPage.data.imgList, tempFilePath]
+                    })
+                    wx.navigateBack({
+                        delta: 1
+                    })
                 }
                 return;
             },

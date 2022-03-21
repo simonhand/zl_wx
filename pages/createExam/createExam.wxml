@@ -1,10 +1,12 @@
 <!--pages/createExam/createExam.wxml-->
 <ui-sys title="创建小测验" img="/static/img/4put2.png" navBg="bg-cyan-gradient" imgBottom>
+    <i-message id="message" />
     <view class="page">
         <view>
             <scroll-view scroll-x class="bg-white response cu-steps steps-bottom shadow-warp" style="width: 590rpx; border-radius: 25rpx; margin-top: 20rpx;" sscroll-into-view="scroll-{{scroll}}" scroll-with-animation>
-                <view class="cu-item {{index>=currentIndex?'':'text-blue'}} padding-lr-xl" wx:for="{{exercisesList.length + 1}}" wx:key="" id="scroll-{{index}}">
+                <view class="cu-item {{!exercisesList[index].iscorrectExerciseType?'':'text-blue'}} padding-lr-xl" wx:for="{{exercisesList.length + 1}}" wx:key="index" id="scroll-{{index}}" bindtap="numClick" data-index="{{index}}">
                     {{index + 1}} <text class="num" data-index="{{index + 1}}"></text>
+                   {{ exercisesList[index].iscorrectExerciseType}}
                 </view>
             </scroll-view>
 
@@ -12,7 +14,7 @@
         <scroll-view style="height: 1000rpx; overflow: hidden;  margin-top: 20rpx;" scroll-y>
             <view class="shadow-warp ui-BG p-4 radius xl textarea" style="margin: auto;">
                 <view style="margin-bottom: 10rpx; font-weight: 600;">请输入题干</view>
-                <textarea name="" value="{{textArea}}" maxlength="-1" style="width: 600rpx; height: 550rpx; background-color: #ECF0F3; padding: 10rpx;"></textarea>
+                <textarea name="" model:value="{{textArea}}" maxlength="-1" style="width: 600rpx; height: 550rpx; background-color: #ECF0F3; padding: 10rpx;"></textarea>
                 <view style="height: 60rpx; ">
                     <image src="/static/index/ocr.png" style="margin-top: 15rpx; width: 45rpx;height: 45rpx; position: relative; left: 240rpx;" bindtap="ocrClick" />
                 </view>
@@ -20,7 +22,7 @@
             <view class="imgList" style="margin: auto; margin-top: 20rpx;">
                 <view class="imgTitle">
                     <view class="action">
-                        图片上传
+                        配图上传
                     </view>
                     <view class="action">
                         {{imgList.length}}/4
@@ -28,7 +30,7 @@
                 </view>
                 <view class="cu-form-group">
                     <view class="grid col-4 grid-square flex-sub">
-                        <view class="bg-img" wx:for="{{imgList}}" wx:key="{{index}}" bindtap="ViewImage" data-url="{{imgList[index]}}">
+                        <view class="bg-img" wx:for="{{imgList}}" wx:key="item" bindtap="ViewImage" data-url="{{imgList[index]}}">
                             <image src='{{imgList[index]}}' mode='aspectFill'></image>
                             <view class="cu-tag bg-red" catchtap="DelImg" data-index="{{index}}">
                                 <text class="cicon-close" style="font-size: 20rpx; color: #666;"></text>
@@ -42,17 +44,38 @@
             </view>
             <view style="margin: auto;">
                 <ui-form-group title="题型选择" contentui="justify-end" ui="radio-group">
-                    <ui-radio value="{{color}}" bg="bg-blue-light" label="blue-light" bind:change="colorChange">选择</ui-radio>
-                    <ui-radio value="{{color}}" bg="bg-green-gradient" label="green-gradient" bind:change="colorChange">填空</ui-radio>
+                    <ui-radio value="{{exercisesType}}" bg="bg-green-gradient" label="{{0}}" bind:change="typeChange">选择</ui-radio>
+                    <ui-radio value="{{exercisesType}}" bg="bg-blue-light" label="{{1}}" bind:change="typeChange">填空</ui-radio>
                 </ui-form-group>
-                <view style="margin: auto; width: 83%; color: #666; font-weight: 600; text-align: left;">答案录入</view>
-                <view>
-                    
+                <view class="imgTitle" style="margin: auto; width: 83%; color: #666; font-weight: 600; text-align: left;">
+                    <view class="action">
+                        {{exercisesType === 0 ? "选项":"答案" }}录入
+                    </view>
+                    <view class="action">
+                        {{keyList.length}}/5
+                    </view>
+                </view>
+                <view class="key-content" style="margin: auto; width: 83%; color: #666; height: 100rpx; margin-top: 15rpx;">
+                    <view wx:for="{{keyList}}" wx:key="keyIndex" class="solids" style="width: 100%; margin: auto; margin-bottom: 9rpx; height: 105rpx; text-align: left; padding-left: 20rpx; display: flex; flex-direction: row;" wx:if="{{keyList.length<=5}}">
+                        <input class="key-input" type="text" wx:key="{{item.keyIndex}}" data-check="{{ exercisesType === 0 ? keyIndex[index]:''}}" bindinput="keyInput" data-index="{{index}}" value="{{item.keyValue}}"/>
+                        <view class="cu-tag " catchtap="delKey" data-index="{{index}}">
+                            <text class="cicon-close" style="font-size: 20rpx; color: #666;"></text>
+                        </view>
+                    </view>
+                    <view class="solids" style="width: 100%; margin: auto;" bindtap="addKey" wx:if="{{keyList.length<5}}">
+                        <text class="cicon-add" style="font-size: 60rpx; color: #666; text-align: center;"></text>
+                    </view>
+                    <view wx:if="{{!exercisesType}}" style="font-weight: 600; color: #666; margin-top: 18rpx;">
+                        <ui-form-group title="答案" contentui="justify-center" ui="radio-group checkkey">
+                            <ui-checkbox wx:for="{{keyList}}" wx:key="keyIndex"  value="{{item.trueKey}}" unbg="borders border-blue shadow-blue" data-index="{{index}}" bg="bg-blue shadow-blue" bind:change="checkkeyChange">{{keyIndex[index]}}</ui-checkbox>
+                            <!-- <ui-radio wx:for="{{keyList}}" wx:key="key{{index}}" value="{{exercisesType}}" bg="bg-green-gradient" label="{{index}}" bind:change="">{{keyIndex[index]}}</ui-radio> -->
+                        </ui-form-group>
+                    </view>
                 </view>
             </view>
         </scroll-view>
         <view class="buttons">
-            <button class="ui-btn bg-olive-gradient" style="width: 230rpx;">完成</button>
+            <button class="ui-btn bg-olive-gradient" style="width: 230rpx;" bindtap="submit">完成</button>
             <button class="ui-btn bg-cyan-gradient" style="width: 230rpx;" bindtap="nextExercises">下一题</button>
         </view>
     </view>
