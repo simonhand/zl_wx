@@ -10,10 +10,13 @@ Page({
      */
     data: {
         urlParams: {},
-        textArea:"",
         exercisesList:[],
         currentExercises:{},
+        textArea:"",
         imgList:[],
+        exercisesType:0,
+        keyList:[],
+        keyIndex:["A","B","C","D","E"],
         currentIndex:0,
     },
     ocrClick() {
@@ -39,7 +42,34 @@ Page({
         this.setData({
             imgList:this.data.imgList.filter((item) => item !== this.data.imgList[e.currentTarget.dataset.index])
         })
+    },
+    typeChange(e){
+        this.setData({
+            exercisesType:e.detail
+        })
+    },
+    addKey(){
+        const _keylist = this.data.keyList;
+        this.setData({
+            keyList:[..._keylist,{ index: _keylist.length , keyIndex: this.data.keyList[_keylist.length], keyValue:"" } ]
+        })
+    },
+    delKey(e){
         console.log(e);
+        this.setData({
+            keyList:this.data.keyList.filter((item) => item.index !== this.data.keyList[e.currentTarget.dataset.index].index)
+        })
+    },
+    keyInput(e){
+        const index = e.currentTarget.dataset.index
+        this.setData({
+            keyList: this.data.keyList.map((item) => {
+                if (item.index === index) {
+                    item.keyValue = e.detail.value
+                }
+                return item
+            })
+        })
     },
     nextExercises(){
         this.setData({
@@ -57,15 +87,15 @@ Page({
                 console.log(this.data.urlParams);
             })
         }
-        if (options.from === 'imgCut') {
-            console.log("decodeURI(options.ocrData)",decodeURI(options.ocrData));
-            ocrData =JSON.parse(decodeURI(options.ocrData))
-            this.setData({
-                textArea:ocrData.items.reduce((pre,item) => pre + item.text,""),
-            },() => {console.log(
-                this.data.textArea
-            );})
-        }
+        // if (options.from === 'imgCut') {
+        //     console.log("decodeURI(options.ocrData)",decodeURI(options.ocrData));
+        //     ocrData =JSON.parse(decodeURI(options.ocrData))
+        //     this.setData({
+        //         textArea:ocrData.items.reduce((pre,item) => pre + item.text,""),
+        //     },() => {console.log(
+        //         this.data.textArea
+        //     );})
+        // }
     },
 
     /**

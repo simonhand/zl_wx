@@ -354,3 +354,27 @@ scroll-view.cu-steps .cu-item {
     border: 0;
     width: 90%;
 }
+.key-content{
+    margin: auto;
+    width: 88%;
+    display: flex;
+    flex-direction: column;
+}
+.key-input{
+    margin-left: 30rpx;
+    width: 550rpx; 
+}
+.key-input::before{
+    content: attr(data-check) ;
+    position: absolute;
+    left: 10rpx;
+    text-align: center;
+    line-height: 45rpx;
+    font-size: 40rpx; 
+    color: #666;  
+}
+.checkkey{
+    margin: auto;
+    margin-left: 0;
+    width: 100%;
+}

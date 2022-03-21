@@ -20,7 +20,7 @@
             <view class="imgList" style="margin: auto; margin-top: 20rpx;">
                 <view class="imgTitle">
                     <view class="action">
-                        图片上传
+                        配图上传
                     </view>
                     <view class="action">
                         {{imgList.length}}/4
@@ -42,12 +42,32 @@
             </view>
             <view style="margin: auto;">
                 <ui-form-group title="题型选择" contentui="justify-end" ui="radio-group">
-                    <ui-radio value="{{color}}" bg="bg-blue-light" label="blue-light" bind:change="colorChange">选择</ui-radio>
-                    <ui-radio value="{{color}}" bg="bg-green-gradient" label="green-gradient" bind:change="colorChange">填空</ui-radio>
+                    <ui-radio value="{{exercisesType}}" bg="bg-green-gradient" label="{{0}}" bind:change="typeChange">选择</ui-radio>
+                    <ui-radio value="{{exercisesType}}" bg="bg-blue-light" label="{{1}}" bind:change="typeChange">填空</ui-radio>
                 </ui-form-group>
-                <view style="margin: auto; width: 83%; color: #666; font-weight: 600; text-align: left;">答案录入</view>
-                <view>
-                    
+                <view class="imgTitle" style="margin: auto; width: 83%; color: #666; font-weight: 600; text-align: left;">
+                    <view class="action">
+                        {{exercisesType === 0 ? "选项":"答案" }}录入
+                    </view>
+                    <view class="action">
+                        {{keyList.length}}/5
+                    </view>
+                </view>
+                <view class="key-content" style="margin: auto; width: 83%; color: #666; height: 100rpx; margin-top: 15rpx;">
+                    <view wx:for="{{keyList}}" wx:key="index" class="solids" style="width: 100%; margin: auto; margin-bottom: 9rpx; height: 105rpx; text-align: left; padding-left: 20rpx; display: flex; flex-direction: row;" wx:if="{{keyList.length<=5}}">
+                        <input class="key-input" type="text" data-check="{{ exercisesType === 0 ? keyIndex[index]:''}}" bindinput="keyInput" data-index="{{index}}" />
+                        <view class="cu-tag " catchtap="delKey" data-index="{{index}}">
+                            <text class="cicon-close" style="font-size: 20rpx; color: #666;"></text>
+                        </view>
+                    </view>
+                    <view class="solids" style="width: 100%; margin: auto;" bindtap="addKey" wx:if="{{keyList.length<5}}">
+                        <text class="cicon-add" style="font-size: 60rpx; color: #666; text-align: center;"></text>
+                    </view>
+                    <view wx:if="{{!exercisesType}}" style="font-weight: 600; color: #666; margin-top: 18rpx;">
+                        <ui-form-group  title="答案" contentui="justify-center" ui="radio-group checkkey">
+                            <ui-radio wx:for="{{keyList}}" wx:key="key{{index}}" value="{{exercisesType}}" bg="bg-green-gradient" label="{{0}}" bind:change="typeChange">{{keyIndex[index]}}</ui-radio>
+                        </ui-form-group>
+                    </view>
                 </view>
             </view>
         </scroll-view>
