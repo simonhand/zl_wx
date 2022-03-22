@@ -10,10 +10,10 @@ Page({
      */
     data: {
         urlParams: {},
-        exercisesList: [{}],
+        exercisesList: [],
         keyIndex: ["A", "B", "C", "D", "E"],
         currentIndex: 0,
-        exercisesIndex: "", // 题目的唯一标识符
+        exercisesIndex:"", // 题目的唯一标识符
         textArea: "", // 题干
         imgList: [], // 题干配图
         exercisesType: 0, // 0 代表选择题， 1 代表填空题
@@ -91,61 +91,47 @@ Page({
     },
     nextExercises() {
         const that = this;
-        const index =  this.data.currentIndex;
-        const newExercisesList = this.data.exercisesList.map((item, index) => {
-            if (index === that.data.currentIndex) {
-                item.iscorrectExerciseType = that.isCorrectExercise(that)
-                item.textArea = that.data.textArea;
-                item.imgList = that.data.imgList;
-                item.keyList = that.data.keyList;
-                item.exercisesType = that.data.exercisesType;
-                item.exercisesIndex = item?.exercisesIndex || +new Date();
-            }
-            return item;
-        })
-        // 这个下一题是创建下一题 并保存当前的题目
-        this.setData({
-            // 保存当前题目
-            exercisesList: newExercisesList,
-            // 创建下一题
-            currentIndex: this.data.currentIndex + 1,
-            textArea:this.data?.exercisesList[index+1]?.textArea || "",
-            imgList:this.data?.exercisesList[index+1]?.imgList || [],
-            keyList:this.data?.exercisesList[index+1]?.keyList || [],
-            exercisesType:this?.data.exercisesList[index+1]?.exercisesType || 0,
-            exercisesIndex:this?.data.exercisesList[index+1]?.exercisesIndex || +new Date() 
-        })
-        if (index === this.data.exercisesList.length - 1) {
+        let _nextExercises = this.data.exercisesList[this.data.currentIndex + 1]
+        if (this.data.currentIndex < this.data.exercisesList.length ) {
+            // 到之前创建的题目
             this.setData({
-                exercisesList:[...this.data.exercisesList,{}]
+                exercisesList: that.data.exercisesList.map((item) => {
+                    if (item.exercisesIndex === that.data.exercisesIndex) {
+                        item.textArea = that.textArea;
+                        item.imgList = that.imgList;
+                        item.exercisesType = that.exercisesType;
+                        item.keyList = that.keyList;
+                        item.iscorrectExerciseType = that.isCorrectExercise(that)
+                    }
+                    return item
+                }),
+                currentIndex: this.data.currentIndex + 1,
+                exercisesIndex:_nextExercises?.exercisesIndex ,
+                textArea: _nextExercises?.textArea || "", // 题干
+                imgList: _nextExercises?.imgList || "", // 题干配图
+                exercisesType: _nextExercises?.exercisesList || 0, // 0 代表选择题， 1 代表填空题
+                keyList: _nextExercises?._keylist || "",
+                iscorrectExerciseType: _nextExercises?.iscorrectExerciseType || false
+            })
+        } else {
+            // 创建新的题目
+            this.setData({
+                exercisesList: [...this.data.exercisesList, {
+                    exercisesIndex:+new Date(),
+                    imgList: this.data.imgList,
+                    exercisesType: this.data.exercisesType,
+                    keyList: this.data.keyList,
+                    textArea: this.data.textArea,
+                    iscorrectExerciseType: this.isCorrectExercise(this)
+                }],
+                currentIndex: this.data.currentIndex + 1,
+                textArea: _nextExercises?.textArea || "", // 题干
+                imgList: _nextExercises?.imgList || "", // 题干配图
+                exercisesType: _nextExercises?.exercisesList || 0, // 0 代表选择题， 1 代表填空题
+                keyList: _nextExercises?._keylist || "",
+                iscorrectExerciseType: _nextExercises?.iscorrectExerciseType || false
             })
         }
-    },
-    numClick(e) {
-        const preExercises = this;
-        // 先保存当前的题目 再跳转
-        this.setData({
-            exercisesList: this.data.exercisesList.map((item,index) => {
-                if (index === this.data.currentIndex) {
-                    item.textArea = preExercises.data.textArea;
-                    item.imgList = preExercises.data.imgList;
-                    item.keyList = preExercises.data.keyList;
-                    item.exercisesType = preExercises.data.exercisesType;
-                    item.iscorrectExerciseType = preExercises.isCorrectExercise(preExercises);
-                }
-                return item
-            })
-        })
-        const index = e.currentTarget.dataset.index;
-        const currentExercises = this.data.exercisesList[index];
-        this.setData({
-            exercisesIndex: currentExercises?.exercisesIndex,
-            exercisesType: currentExercises?.exercisesType,
-            currentIndex: index,
-            textArea: currentExercises.textArea || "",
-            imgList: currentExercises?.imgList || "",
-            keyList: currentExercises?.keyList || ""
-        })
     },
     submit() {
         this.data.exercisesList.forEach((item) => {
@@ -155,6 +141,31 @@ Page({
                     console.log(res);
                 })
             }
+        })
+    },
+    numClick(e) {
+        const preExercises = this;
+        this.setData({
+            exercisesList:this.data.exercisesList.map((item) =>{
+                if (item.exercisesIndex === preExercises.exercisesIndex) {
+                    item.textArea = preExercises.textArea;
+                    item.imgList = preExercises.imgList;
+                    item.keyList = preExercises.keyList
+                    console.log("执行了");
+                    item.iscorrectExerciseType = preExercises.isCorrectExercise(item)
+                }
+                return item
+            })
+        })
+        const index = e.currentTarget.dataset.index;
+        const currentExercises = this.data.exercisesList[index];
+        this.setData({
+            exercisesIndex:currentExercises?.exercisesIndex,
+            exercisesType: currentExercises?.exercisesType,
+            currentIndex: index,
+            textArea: currentExercises?.textArea || "",
+            imgList: currentExercises?.imgList || "",
+            keyList: currentExercises?.keyList || ""
         })
     },
     isCorrectExercise(obj = undefined) {
