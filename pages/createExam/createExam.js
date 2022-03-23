@@ -3,6 +3,8 @@ import {
     uploadImg,
     uploadImgToCos
 } from "../../utils/uploadImg"
+import { $Message  } from '../../components/Iview/base/index'
+import { createExerciseRequset } from "./service"
 Page({
 
     /**
@@ -53,7 +55,7 @@ Page({
         const _keylist = this.data.keyList;
         this.setData({
             keyList: [..._keylist, {
-                keyIndex: +new Date(),
+                keyIndex: (+new Date()).toString(),
                 keyValue: "",
                 trueKey: false,
             }]
@@ -72,7 +74,7 @@ Page({
         this.setData({
             keyList: this.data.keyList.map((item) => {
                 if (this.data.keyList.indexOf(item) === index) {
-                    item.keyValue = e.detail.value
+                    item.keyValue = e.detail.value.toString()
                 }
                 return item
             })
@@ -89,7 +91,7 @@ Page({
             })
         })
     },
-    nextExercises() {
+    nextExercises(from = 'next') {
         const that = this;
         const index =  this.data.currentIndex;
         const newExercisesList = this.data.exercisesList.map((item, index) => {
@@ -99,23 +101,26 @@ Page({
                 item.imgList = that.data.imgList;
                 item.keyList = that.data.keyList;
                 item.exercisesType = that.data.exercisesType;
-                item.exercisesIndex = item?.exercisesIndex || +new Date();
+                item.exercisesIndex = item?.exercisesIndex || (+new Date()).toString()
             }
             return item;
         })
         // 这个下一题是创建下一题 并保存当前的题目
-        this.setData({
-            // 保存当前题目
-            exercisesList: newExercisesList,
-            // 创建下一题
-            currentIndex: this.data.currentIndex + 1,
-            textArea:this.data?.exercisesList[index+1]?.textArea || "",
-            imgList:this.data?.exercisesList[index+1]?.imgList || [],
-            keyList:this.data?.exercisesList[index+1]?.keyList || [],
-            exercisesType:this?.data.exercisesList[index+1]?.exercisesType || 0,
-            exercisesIndex:this?.data.exercisesList[index+1]?.exercisesIndex || +new Date() 
-        })
-        if (index === this.data.exercisesList.length - 1) {
+        const date = +new Date();
+        if (from !== "submit") {           
+            this.setData({
+                // 保存当前题目
+                exercisesList: newExercisesList,
+                // 创建下一题
+                currentIndex: this.data.currentIndex + 1,
+                textArea:this.data?.exercisesList[index+1]?.textArea || "",
+                imgList:this.data?.exercisesList[index+1]?.imgList || [],
+                keyList:this.data?.exercisesList[index+1]?.keyList || [],
+                exercisesType:this?.data.exercisesList[index+1]?.exercisesType || 0,
+                exercisesIndex:this?.data.exercisesList[index+1]?.exercisesIndex || date.toString(),
+            })
+        }
+        if (index === this.data.exercisesList.length - 1 && from !== 'submit') {
             this.setData({
                 exercisesList:[...this.data.exercisesList,{}]
             })
@@ -148,14 +153,17 @@ Page({
         })
     },
     submit() {
-        this.data.exercisesList.forEach((item) => {
-            console.log("item", item);
-            for (const iterator of item.imgList) {
-                uploadImgToCos(iterator, (res) => {
-                    console.log(res);
+        this.nextExercises('submit')
+        for (const iterator of this.data.exercisesList) {
+            if (!iterator.iscorrectExerciseType) {
+                $Message({
+                    content:"存在不符合规则的题目",
+                    type:"wraning"
                 })
+                return
             }
-        })
+        }
+        createExerciseRequset({...this.data.urlParams,course_id:this.data.urlParams._id,exerciseList: this.data.exercisesList});
     },
     isCorrectExercise(obj = undefined) {
         const that = obj || this
