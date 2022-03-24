@@ -5,12 +5,14 @@ import {
 } from "../../utils/uploadImg"
 import { $Message  } from '../../components/Iview/base/index'
 import { createExerciseRequset } from "./service"
+const app = getApp()
 Page({
 
     /**
      * 页面的初始数据
      */
     data: {
+        userType:-1,
         urlParams: {},
         exercisesList: [{}],
         keyIndex: ["A", "B", "C", "D", "E"],
@@ -27,19 +29,7 @@ Page({
     },
     ChooseImage() {
         uploadImg(this, "../imgCut/imgCut?from=createExam1&src=");
-        // uploadImg(this, "", true, (type) => {
-        //     wx.chooseImage({
-        //         count: 1,
-        //         sizeType: ['original', 'compressed'],
-        //         sourceType: [type],
-        //         success: function (res) {
-        //             var tempFilePaths = res.tempFilePaths;
-        //             that.setData({
-        //                 imgList: [...that.data.imgList, tempFilePaths[0]]
-        //             })
-        //         }
-        //     })
-        // })
+        
     },
     DelImg(e) {
         this.setData({
@@ -207,7 +197,9 @@ Page({
      * 生命周期函数--监听页面初次渲染完成
      */
     onReady: function () {
-
+        this.setData({
+            userType: app.globalData.userInfo.userType
+        })
     },
 
     /**
