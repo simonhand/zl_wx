@@ -29,7 +29,6 @@ Page({
     },
     ChooseImage() {
         uploadImg(this, "../imgCut/imgCut?from=createExam1&src=");
-        
     },
     DelImg(e) {
         this.setData({
@@ -153,7 +152,18 @@ Page({
                 return
             }
         }
-        createExerciseRequset({...this.data.urlParams,course_id:this.data.urlParams._id,exerciseList: this.data.exercisesList});
+        const exerciseList =  this.data.exercisesList;
+        exerciseList.forEach((item) => {
+            const cosImgList = []
+            item.imgList.forEach((_item) => {
+                uploadImgToCos(_item,(res) => {
+                    cosImgList.push(res.Location);
+                })
+            })
+            item.imgList = cosImgList;
+        })
+        console.log(exerciseList);
+        createExerciseRequset({...this.data.urlParams,course_id:this.data.urlParams._id,exerciseList});
     },
     isCorrectExercise(obj = undefined) {
         const that = obj || this
