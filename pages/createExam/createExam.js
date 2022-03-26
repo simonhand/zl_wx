@@ -3,8 +3,12 @@ import {
     uploadImg,
     uploadImgToCos
 } from "../../utils/uploadImg"
-import { $Message  } from '../../components/Iview/base/index'
-import { createExerciseRequset } from "./service"
+import {
+    $Message
+} from '../../components/Iview/base/index'
+import {
+    createExerciseRequset
+} from "./service"
 const app = getApp()
 Page({
 
@@ -12,7 +16,7 @@ Page({
      * 页面的初始数据
      */
     data: {
-        userType:-1,
+        userType: -1,
         urlParams: {},
         exercisesList: [{}],
         keyIndex: ["A", "B", "C", "D", "E"],
@@ -82,7 +86,7 @@ Page({
     },
     nextExercises(from = 'next') {
         const that = this;
-        const index =  this.data.currentIndex;
+        const index = this.data.currentIndex;
         const newExercisesList = this.data.exercisesList.map((item, index) => {
             if (index === that.data.currentIndex) {
                 item.iscorrectExerciseType = that.isCorrectExercise(that)
@@ -96,22 +100,22 @@ Page({
         })
         // 这个下一题是创建下一题 并保存当前的题目
         const date = +new Date();
-        if (from !== "submit") {           
+        if (from !== "submit") {
             this.setData({
                 // 保存当前题目
                 exercisesList: newExercisesList,
                 // 创建下一题
                 currentIndex: this.data.currentIndex + 1,
-                textArea:this.data?.exercisesList[index+1]?.textArea || "",
-                imgList:this.data?.exercisesList[index+1]?.imgList || [],
-                keyList:this.data?.exercisesList[index+1]?.keyList || [],
-                exercisesType:this?.data.exercisesList[index+1]?.exercisesType || 0,
-                exercisesIndex:this?.data.exercisesList[index+1]?.exercisesIndex || date.toString(),
+                textArea: this.data?.exercisesList[index + 1]?.textArea || "",
+                imgList: this.data?.exercisesList[index + 1]?.imgList || [],
+                keyList: this.data?.exercisesList[index + 1]?.keyList || [],
+                exercisesType: this?.data.exercisesList[index + 1]?.exercisesType || 0,
+                exercisesIndex: this?.data.exercisesList[index + 1]?.exercisesIndex || date.toString(),
             })
         }
         if (index === this.data.exercisesList.length - 1 && from !== 'submit') {
             this.setData({
-                exercisesList:[...this.data.exercisesList,{}]
+                exercisesList: [...this.data.exercisesList, {}]
             })
         }
     },
@@ -119,7 +123,7 @@ Page({
         const preExercises = this;
         // 先保存当前的题目 再跳转
         this.setData({
-            exercisesList: this.data.exercisesList.map((item,index) => {
+            exercisesList: this.data.exercisesList.map((item, index) => {
                 if (index === this.data.currentIndex) {
                     item.textArea = preExercises.data.textArea;
                     item.imgList = preExercises.data.imgList;
@@ -146,24 +150,43 @@ Page({
         for (const iterator of this.data.exercisesList) {
             if (!iterator.iscorrectExerciseType) {
                 $Message({
-                    content:"存在不符合规则的题目",
-                    type:"wraning"
+                    content: "存在不符合规则的题目",
+                    type: "wraning"
                 })
                 return
             }
         }
-        const exerciseList =  this.data.exercisesList;
-        exerciseList.forEach((item) => {
-            const cosImgList = []
-            item.imgList.forEach((_item) => {
-                uploadImgToCos(_item,(res) => {
-                    cosImgList.push(res.Location);
-                })
-            })
-            item.imgList = cosImgList;
+        // console.log("exercisesList", JSON.parse(JSON.stringify(this.data.exercisesList)));
+        const allImgList = [];
+        this.data.exercisesList.forEach(item => {
+            for (const iterator of item.imgList) {
+                allImgList.push(iterator)
+            }
         })
-        console.log(exerciseList);
-        createExerciseRequset({...this.data.urlParams,course_id:this.data.urlParams._id,exerciseList});
+        const promisListImg = allImgList.map(item => new Promise((reslove, reject) => {
+            uploadImgToCos(item, res => {
+                reslove(res.Location)
+            })
+        }))
+        Promise.all(promisListImg).then((res) => {
+            // console.log("res这个搞完就睡觉",res);
+            const newExercisesList = this.data.exercisesList.map(item => {
+                const newImgList = item.imgList.map(_item => {
+                    for (const iterator of res) {
+                        if ( iterator.split('/').pop() === _item.split('/').pop()) {
+                            return iterator
+                        } 
+                    }
+                })
+                return {...item,imgList:newImgList}
+            })
+            // console.log("newExercisesList",newExercisesList);
+            createExerciseRequset({...this.data.urlParams,course_id:this.data.urlParams._id,exerciseList:newExercisesList});
+            wx.switchTab({
+              url: '../index/index.js',
+            })
+        })
+        
     },
     isCorrectExercise(obj = undefined) {
         const that = obj || this

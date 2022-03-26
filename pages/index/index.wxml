@@ -1,5 +1,5 @@
 <!--index.wxml-->
-<ui-sys>
+<ui-sys  img="/static/img/4put2.png" imgBottom imgTop>
 <view style="margin-top: {{sys_navBar+ 100}}rpx;">
 <i-spin fix wx:if="{{loading}}"></i-spin>
 <i-message id="message" />
