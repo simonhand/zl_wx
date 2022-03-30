@@ -16,18 +16,29 @@
   <title></title>
 </scroll-view> -->
 <ui-sys doc title="标题">
-    <i-toast id="toast" />
+  <i-toast id="toast" />
 
-    <button bindtap="setStorge">
-        存储缓存
-    </button>
-    <button bindtap="getStorge">
-        打印缓存
-    </button>
+  <button bindtap="setStorge">
+    存储缓存
+  </button>
+  <button bindtap="getStorge">
+    打印缓存
+  </button>
 
-    // zl-input组件引用示例
-    <zl-input lable="姓名" inputIndex="{{userInputIndex}}" inputNumIndex="{{0}}" data-index="{{0}}" bind:inputClick="inputClick" />
-    <zl-input lable="住址" inputIndex="{{userInputIndex}}" inputNumIndex="{{1}}" data-index="{{1}}" bind:inputClick="inputClick" />
-    <zl-switch />
-    <title></title>
+  // zl-input组件引用示例
+  <zl-input lable="姓名" inputIndex="{{userInputIndex}}" inputNumIndex="{{0}}" data-index="{{0}}" bind:inputClick="inputClick" />
+  <zl-input lable="住址" inputIndex="{{userInputIndex}}" inputNumIndex="{{1}}" data-index="{{1}}" bind:inputClick="inputClick" />
+  <zl-switch />
+  <title></title>
+  <!--整个大盒子-->
+  <view class="container">
+    <view class="box">
+      <image src="/static/avatar/1001.jpg" class="img"></image>
+      <view style="text-align: center;">
+        <text> xixi</text>
+      </view>
+    </view>
+
+  </view>
+
 </ui-sys>

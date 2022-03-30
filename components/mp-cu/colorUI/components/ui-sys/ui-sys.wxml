@@ -5,9 +5,9 @@
             <slot></slot>
             <app-footer wx:if="{{isFooter}}" />
             <ui-tabbar ui="shadow border-top" datas="{{$cuConfig.tabBar}}" cur="{{tabBarIndex}}" wx:if="{{tabbar}}" />
-            <view class="loading-body bg-blur" wx:if="{{isLoading}}">
+            <view class="loading-body bg-blur" wx:if="{{isLoading || needLoading }}">
                 <view class="{{loadingIcon}} icon-spin text-sl mb-3"/>
-                <view>加载中</view>
+                <view>{{  loaingString ||"加载中"}}</view>
             </view>
         </view>
         <ui-modal name="sys_dialog" show="{{$cuStore.$Modal.show}}" title="{{$cuStore.$dialog.title}}" content="{{$cuStore.$dialog.content}}"

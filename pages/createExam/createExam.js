@@ -16,6 +16,8 @@ Page({
      * 页面的初始数据
      */
     data: {
+        isLoading:false,
+        loaingString: null,
         userType: -1,
         urlParams: {},
         exercisesList: [{}],
@@ -168,6 +170,10 @@ Page({
                 reslove(res.Location)
             })
         }))
+        this.setData({
+            isLoading:true,
+            loaingString:"正在创建测验"
+        })
         Promise.all(promisListImg).then((res) => {
             // console.log("res这个搞完就睡觉",res);
             const newExercisesList = this.data.exercisesList.map(item => {
@@ -182,8 +188,21 @@ Page({
             })
             // console.log("newExercisesList",newExercisesList);
             createExerciseRequset({...this.data.urlParams,course_id:this.data.urlParams._id,exerciseList:newExercisesList});
+            this.setData({
+                isLoading:false,
+                loaingString:null
+            })
             wx.switchTab({
-              url: '../index/index.js',
+              url: '../index/index',
+            })
+            $Message({
+                content:"创建成功",
+                type:"success"
+            })
+        }).catch((error) => {
+            $Message({
+                content:"创建失败" + error,
+                type:"error"
             })
         })
         
