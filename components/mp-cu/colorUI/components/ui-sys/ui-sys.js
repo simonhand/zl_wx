@@ -8,6 +8,14 @@ Component({
         addGlobalClass: true,
     },
     properties: {
+        needLoading:{
+          type:Boolean,
+          value:false  
+        },
+        loaingString:{
+            type:String,
+            value:undefined
+        },
         imgTop:{
             type:Boolean,
             value:false

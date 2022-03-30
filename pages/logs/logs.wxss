@@ -6,3 +6,20 @@
 .log-item {
   margin: 10rpx;
 }
+.container{
+  width: 100px;
+  height:80px;
+  display: flex;
+  border-radius: 20px;
+  background: #f2f2f2;
+  box-shadow:  12px 12px 24px #949494,-12px -12px 24px #ffffff;
+  margin-left: 30px;
+}
+
+.img{
+  width: 80px;
+  height: 80px;
+  margin-top: -60px;
+
+}
+
