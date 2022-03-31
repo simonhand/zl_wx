@@ -67,7 +67,12 @@ page{
 .usermotto {
   margin-top: 200px;
 }
-
+.index_modal{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 .examButton{
 
 }

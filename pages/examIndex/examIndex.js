@@ -1,18 +1,20 @@
 // pages/examIndex/examIndex.js
+import { examIndex } from './service'
+const app = getApp();
 Page({
 
     /**
      * 页面的初始数据
      */
     data: {
-        num_list: [1, 2, 3, 4, 5, 6, 7, 8, 9],
+        num_list: [1, 2, 3, 4, 5, 6, 7, 8, 9,10,11,22,33,33],
     },
 
     /**
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
-
+        examIndex(app.globalData.userInfo.course)
     },
 
     /**
@@ -40,6 +42,7 @@ Page({
      * 生命周期函数--监听页面卸载
      */
     onUnload: function () {
+        // 开始请求数据啦
 
     },
 
