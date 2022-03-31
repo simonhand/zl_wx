@@ -1,38 +1,44 @@
 <!--index.wxml-->
-<ui-sys  img="/static/img/4put2.png" imgBottom imgTop>
-<view style="margin-top: {{sys_navBar+ 100}}rpx;">
-<i-spin fix wx:if="{{loading}}"></i-spin>
-<i-message id="message" />
-<view class="container" style="z-index: 99999;">
-  <image src="../../assets/home/home3.png" class="imgtitle"></image>
-  <view class="box">
-  </view>
-  <image src="../../assets/home/home2.png" class="imgtitle"></image>
-  <view class="box">
-    <i-badge count="{{examCount}}" style="margin-top: 20px;">
-      <view plain="true" class="examButton" bindtap="handleOpenModalToExam">
-        小测验来咯
+<ui-sys img="/static/img/4put2.png" imgBottom imgTop>
+  <view style="margin-top: {{sys_navBar+ 100}}rpx;">
+    <i-spin fix wx:if="{{loading}}"></i-spin>
+    <i-message id="message" />
+    <view class="container" style="z-index: 99999;">
+      <image src="../../assets/home/home3.png" class="imgtitle"></image>
+      <view class="box">
       </view>
-    </i-badge>
-    <view plain="true" class="examButton"  style="margin-top: 21px;" bindtap="handleOpenModalToCreateExam" >
-        创建小测验
+      <image src="../../assets/home/home2.png" class="imgtitle"></image>
+      <view class="box">
+        <i-badge count="{{examCount}}" style="margin-top: 20px;">
+          <view plain="true" class="examButton" bindtap="handleOpenModalToExam">
+            小测验来咯
+          </view>
+        </i-badge>
+        <view plain="true" class="examButton" style="margin-top: 21px;" bindtap="handleOpenModalToCreateExam">
+          创建小测验
+        </view>
       </view>
-  </view>
-  <image src="../../assets/home/home1.png" class="imgtitle1"></image>
-  <view class="box">
-    <view plain="true" class="calcbutton" bindtap="calcClick" aria-role='button' aria-label='这是口算功能的按钮'>
-      口算
+      <image src="../../assets/home/home1.png" class="imgtitle1"></image>
+      <view class="box">
+        <view plain="true" class="calcbutton" bindtap="calcClick" aria-role='button' aria-label='这是口算功能的按钮'>
+          口算
+        </view>
+        <view class="calcbutton" bindtap="loginClick">
+          你可算来了
+        </view>
+      </view>
+      <zl-modal title="请选择班级" visible="{{ modelVisible }}" tips="若无对应班级，请前往我的班级创建" bind:ok="handleOk" bind:cancel="handleClose">
+        <view class="index_modal">
+          <zl-select classes="{{teacherCourseList}}" bind:selectItemClick="selectItemClick" />
+          <view>
+            <text>截至时间</text>
+            <input type="text" style="display: inline-block;"/>
+          </view>
+        </view>
+      </zl-modal>
     </view>
-    <view class="calcbutton" bindtap="loginClick">
-      你可算来了
-    </view>
-  </view>
-  <zl-modal title="请选择班级" visible="{{ modelVisible }}" tips="若无对应班级，请前往我的班级创建" bind:ok="handleOk" bind:cancel="handleClose">
-    <zl-select classes="{{teacherCourseList}}" bind:selectItemClick="selectItemClick"/>
-  </zl-modal>
-</view>
 
-<!-- <view class="userinfo">
+    <!-- <view class="userinfo">
     <block wx:if="{{canIUseOpenData}}">
       <view class="userinfo-avatar" bindtap="bindViewTap">
         <open-data type="userAvatarUrl"></open-data>
@@ -49,6 +55,6 @@
       <text class="userinfo-nickname">{{userInfo.nickName}}</text>
     </block>
   </view> -->
-</view>
+  </view>
 
 </ui-sys>
