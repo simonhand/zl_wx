@@ -4,7 +4,7 @@
     "i-toast":"../../components/Iview/toast/index",
     "zl-input":"../../components/zl-input/index",
     "zl-switch":"../../components/zl-switch/zl-switch",
-    "ui-title":"../../components/mp-cu/colorUI/components/ui-title/ui-title"
-    
+    "ui-title":"../../components/mp-cu/colorUI/components/ui-title/ui-title",
+    "zl-timepicker":"../../components/zl-timepicker/timepicker"
   }
 }

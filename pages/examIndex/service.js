@@ -6,11 +6,16 @@ export const examIndex = (obj) => {
         query: `
         query examIndex {
             examIndex(invitationCodeList:[${arr.toString()}]) {
+              _id
               courseName
               teacherName
+              createrAvatarUrl
+              meta {
+                createdAt
+              }
             }
           }
         `
     })
-    zlrequest(playLoad,"POST")
+   return zlrequest(playLoad,"POST")
 }
