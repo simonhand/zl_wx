@@ -1,0 +1,6 @@
+<picker class='time-picker' mode="multiSelector" bindchange="bindStartMultiPickerChange" bindtap='pickerTap' bindcolumnchange="bindMultiPickerColumnChange" value="{{multiIndex}}" range="{{multiArray}}">
+    <view style="height: 40rpx; text-align: center;line-height: 40rpx;">
+        <text style="font-size: 30rpx;">{{startDate}}</text>
+       <image src="./日历.svg" style="width: 40rpx; height: 40rpx; margin-left: 30rpx; position: relative; top: 8rpx;"></image>
+    </view>
+</picker>

@@ -38,7 +38,9 @@
         <text> xixi</text>
       </view>
     </view>
-
+    <view>
+      <zl-timepicker/>
+    </view>
   </view>
 
 </ui-sys>

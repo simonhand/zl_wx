@@ -21,6 +21,7 @@ Page({
     canIUseOpenData: wx.canIUse('open-data.type.userAvatarUrl') && wx.canIUse('open-data.type.userNickName'), // 如需尝试获取用户信息可改为false
     examCount: 4,
     hasUserInfo: false,
+    deadLineDate:"截至时间",
   },
   // 页面显示触发
   onShow() {
@@ -32,13 +33,11 @@ Page({
     }
   },
   // 事件处理函数
-
   calcClick() {
     wx.navigateTo({
       url: '../calc/calc',
     })
   },
-
   loginClick() {
     wx.navigateTo({
       url: '../login/login',
@@ -49,7 +48,9 @@ Page({
       url: '../home/home'
     })
   },
-
+  timePickerOK(data){
+    console.log(data);
+  },
   handleOpenModalToExam({
     detail
   }) {

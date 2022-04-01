@@ -30,10 +30,7 @@
       <zl-modal title="请选择班级" visible="{{ modelVisible }}" tips="若无对应班级，请前往我的班级创建" bind:ok="handleOk" bind:cancel="handleClose">
         <view class="index_modal">
           <zl-select classes="{{teacherCourseList}}" bind:selectItemClick="selectItemClick" />
-          <view>
-            <text>截至时间</text>
-            <input type="text" style="display: inline-block;"/>
-          </view>
+          <zl-timepicker startDate="{{deadLineDate}}" bind:timePickerOK="timePickerOK"/>
         </view>
       </zl-modal>
     </view>
@@ -56,5 +53,4 @@
     </block>
   </view> -->
   </view>
-
 </ui-sys>
