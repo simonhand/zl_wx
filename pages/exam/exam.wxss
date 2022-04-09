@@ -1,1 +1,2 @@
 /* pages/exam/exam.wxss */
+@import '../createExam/createExam.wxss'

@@ -33,3 +33,17 @@ export const haveUserInfo = () => {
   }
   return true;
 }
+
+export function deepClone(obj) {
+  function isObj(obj) {
+    return (typeof obj === 'object' || typeof obj === 'function') && obj !== null
+  }
+  if (!isObj(obj)) {
+    throw new Error("非对象类型")
+  }
+  let newObj = Array.isArray(obj) ? [...obj] : { ...obj };
+  Reflect.ownKeys(newObj).forEach(key => {
+    newObj[key] = isObj(obj[key]) ? deepClone(obj[key]) : obj[key]
+  })
+  return newObj
+}

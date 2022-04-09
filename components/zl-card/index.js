@@ -6,6 +6,10 @@ Component({
     },
 
     properties: {
+        lableList:{
+            type:Array,
+            value:["label1","label2"]
+        },
         full: {
             type: Boolean,
             value: false

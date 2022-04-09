@@ -10,16 +10,18 @@ Page({
      * 页面的初始数据
      */
     data: {
-        num_list: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 22, 33, 33],
         examList: []
     },
-
+    examCardClick(e){
+        wx.navigateTo({
+          url: '/pages/exam/exam?from=examIndex&id='+this.data.examList[e.currentTarget.dataset.index]._id,
+        })
+    },
     /**
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
         examIndex(app.globalData.userInfo.course).then((res) => {
-            console.log("111111", res);
             this.setData({
                 examList: res.data.data.examIndex.map((item) => {
                     const date =new Date(Number(item.meta.createdAt));
