@@ -2,12 +2,12 @@
 <ui-sys img="/static/img/4put2.png" navBg="bg-cyan-gradient" imgBottom title="我的测验">
     <view class="exam_index_container">
         <scroll-view scroll-y class="exam_index_scroll">
-            <view wx:for="{{examList}}"  wx:key="item._id">
-                <zl-card title="{{item.courseName}}" extra="{{item.teacherName}}" thumb="{{item.createrAvatarUrl}}">
+            <view wx:for="{{examList}}"  wx:key="item" data-index="{{index}}" bindtap="examCardClick">
+                <zl-card title="{{item.courseName}}" extra="{{item.teacherName}}" thumb="{{item.createrAvatarUrl}}" lableList="{{['课程名称：','教师名称：']}}">
                     <view slot="content">创建日期 {{item.meta.createdAt}}</view>
                 </zl-card>
             </view>
-            <i-load-more tip="暂无数据" loading="{{ false }}" />
+            <i-load-more tip="我是有底线的" loading="{{ false }}" />
         </scroll-view>
     </view>
 </ui-sys>
