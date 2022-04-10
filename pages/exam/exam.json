@@ -3,6 +3,7 @@
     "ui-form-group":"../../components/mp-cu/colorUI/components/ui-form-group/ui-form-group",
     "ui-radio":"../../components/mp-cu/colorUI/components/ui-radio/ui-radio",
     "ui-checkbox":"../../components/mp-cu/colorUI/components/ui-checkbox/ui-checkbox",
-    "i-message":"../../components/Iview/message/index"
+    "i-message":"../../components/Iview/message/index",
+    "ui-modal":"../../components/mp-cu/colorUI/components/ui-modal/ui-modal"
   }
 }
