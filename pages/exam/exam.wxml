@@ -13,7 +13,7 @@
         <scroll-view style="height: 1000rpx; overflow: hidden;  margin-top: 20rpx;" scroll-y>
             <view class="shadow-warp ui-BG p-4 radius xl textarea" style="margin: auto;">
                 <view style="margin-bottom: 10rpx; font-weight: 600;">第{{currentIndex + 1}}题</view>
-                <textarea disabled  model:value="{{exercisesList[currentIndex].textArea}}" maxlength="-1" style="width: 600rpx; height: 550rpx; background-color: #ECF0F3; padding: 10rpx;"></textarea>
+                <textarea disabled model:value="{{exercisesList[currentIndex].textArea}}" maxlength="-1" style="width: 600rpx; height: 550rpx; background-color: #ECF0F3; padding: 10rpx;"></textarea>
             </view>
             <view class="imgList" style="margin: auto; margin-top: 20rpx;">
                 <view class="imgTitle">
@@ -37,7 +37,7 @@
                 </view>
                 <view class="key-content" style="margin: auto; width: 83%; color: #666; height: 100rpx; margin-top: 15rpx;">
                     <view wx:for="{{userInputKeyList[currentIndex]}}" wx:key="keyIndex" class="solids" style="width: 100%; margin: auto; margin-bottom: 9rpx; height: 60rpx; line-height: 60rpx;font-size: 18px;text-align: left; padding-left: 20rpx; display: flex; flex-direction: row;" wx:if="{{keyList.length<=5}}">
-                        <input wx:if="{{exercisesList[currentIndex].exercisesType}}" style="margin-top: 8rpx;" type="text" wx:key="{{item.keyIndex}}" bindinput="keyInput" data-index="{{index}}" value="{{item.keyValue}}"/>
+                        <input wx:if="{{exercisesList[currentIndex].exercisesType}}" style="margin-top: 8rpx;" type="text" wx:key="{{item.keyIndex}}" bindinput="keyInput" data-index="{{index}}" value="{{item.keyValue}}" />
                         <view wx:else>
                             {{!exercisesList[currentIndex].exercisesType? keyIndex[index]+": ":""}} {{item.keyValue}}
                         </view>
@@ -50,8 +50,13 @@
                 </view>
             </view>
         </scroll-view>
+        <ui-modal show="{{target}}" mask="40" align="bottom" bind:success="modalOK">
+            <view class="p-5 flex-center">
+                {{tips}}
+            </view>
+        </ui-modal>
         <view class="buttons">
-            <button class="ui-btn bg-olive-gradient" style="width: 230rpx;" bindtap="submit">完成</button>
+            <button class="ui-btn bg-olive-gradient" style="width: 230rpx;" data-key='drawer' bindtap="submit">完成</button>
             <button class="ui-btn bg-cyan-gradient" style="width: 230rpx;" bindtap="nextExercises">下一题</button>
         </view>
     </view>

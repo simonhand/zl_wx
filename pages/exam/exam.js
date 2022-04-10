@@ -3,7 +3,8 @@ import {
     $Message
 } from '../../components/Iview/base/index'
 import {
-    getExam
+    getExam,
+    submitExam
 } from "./service"
 import {
     deepClone
@@ -15,6 +16,8 @@ Page({
      * 页面的初始数据
      */
     data: {
+        target:false,
+        tips:"确认提交？",
         isLoading: false,
         loaingString: null,
         userType: -1,
@@ -27,7 +30,6 @@ Page({
         keyList: [], // 答案
         correctExerciseType: false
     },
-
     viewImage(e) {
         wx.previewImage({
             current: e.currentTarget.dataset.imgurl,
@@ -46,7 +48,7 @@ Page({
                 }
                 return item
             })
-        })
+        },this.iscorrectKey())
     },
     checkkeyChange(e){
         const _index = e.currentTarget.dataset.index
@@ -57,7 +59,7 @@ Page({
                 }
                 return item
             })
-        })
+        },this.iscorrectKey())
     },
     iscorrectKey(){
         const currentIndex = this.data.currentIndex;
@@ -89,7 +91,6 @@ Page({
         foo(false)
     },
     nextExercises() {
-        this.iscorrectKey()
         if (this.data.currentIndex === this.data.exercisesList.length - 1) {
             $Message({
                 content:"已经事最后一题了",
@@ -102,13 +103,66 @@ Page({
         })
     },
     numClick(e) {
-        this.iscorrectKey()
         this.setData({
             currentIndex: e.currentTarget.dataset.index
         })
     },
     submit() {
-
+        for (const item of this.data.isCorrectUserInputKey) {
+            this.setData({
+                tips:"确认提交？"
+            })
+            if(!item){
+               this.setData(
+                 {tips:"你仍有题目未作答，确认提交吗"},
+                 this.setData({
+                     target:true
+                 })
+               )
+            }else{
+                this.setData({
+                    target:true
+                })
+            }
+        }
+    },
+    modalOK(e){
+        if (e.detail.confirm) {
+            // 自动评分
+            let exercisesScoreRecord = 0; // 统计得了多少分，一题一分
+            let exercisesCorrectRecord = []; // 统计哪些题目对的哪些题目错的
+            const exercisesList =  this.data.exercisesList
+            const userInputKeyList =  this.data.userInputKeyList
+            function socre(index,attr) {
+                let flag = false
+                    for (let _index = 0;  _index < exercisesList[index].keyList.length; _index++) {
+                        if(exercisesList[index].keyList[_index][attr] !== userInputKeyList[index][_index][attr]){
+                            break;
+                        }
+                        if (_index === exercisesList[index].keyList.length - 1) {
+                            flag = true
+                        }
+                    }
+                    if (flag) {
+                        exercisesCorrectRecord.push(true);
+                        exercisesScoreRecord += 1;
+                    }else{
+                        exercisesCorrectRecord.push(false);
+                    }
+            }
+            for (let index =0 ; index < exercisesList.length; index ++) {
+                if (exercisesList[index].exercisesType === 0) {
+                    socre(index,'trueKey')
+                }else{
+                    socre(index,'keyValue')
+                }
+            }
+            submitExam({...excrseInfo,exerciseId:excrseInfo._id,exercisesScoreRecord,exercisesCorrectRecord,userInputKeyList,userId:app.globalData.userInfo._id})
+        }else{
+            this.setData({
+                target:false
+            })
+        }
     },
     /**
      * 生命周期函数--监听页面加载
