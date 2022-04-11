@@ -3,13 +3,14 @@
   <view style="margin-top: {{sys_navBar+ 100}}rpx;">
     <i-spin fix wx:if="{{loading}}"></i-spin>
     <i-message id="message" />
+    <i-toast id="toast" />
     <view class="container" style="z-index: 99999;">
       <image src="../../assets/home/home3.png" class="imgtitle"></image>
       <view class="box">
       </view>
       <image src="../../assets/home/home2.png" class="imgtitle"></image>
       <view class="box">
-        <i-badge count="{{examCount}}" style="margin-top: 20px;">
+        <i-badge count="{{exerciseCount}}" style="margin-top: 20px;">
           <view plain="true" class="examButton" bindtap="handleOpenModalToExam">
             小测验来咯
           </view>

@@ -5,7 +5,8 @@ App({
   colorUI,//挂载到app上
   colorUISdk,
   globalData: {
-    userInfo: null
+    userInfo: null,
+    helpNavigate:{from:"",status:""}
   },
   onLaunch() {
     const that = this;

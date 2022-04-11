@@ -158,6 +158,10 @@ Page({
                 }
             }
             submitExam({...excrseInfo,exerciseId:excrseInfo._id,exercisesScoreRecord,exercisesCorrectRecord,userInputKeyList,userId:app.globalData.userInfo._id})
+            app.globalData.helpNavigate = { from:"exam",status:"success" }
+            wx.switchTab({
+              url: '/pages/index/index',
+            })
         }else{
             this.setData({
                 target:false
