@@ -5,14 +5,8 @@ export const examIndex = (obj) => {
     const playLoad = JSON.stringify({
         query: `
         query examIndex {
-            examIndex(invitationCodeList:[${arr.toString()}],userId:"${app.globalData.userInfo._id}") {
-              _id
-              courseName
-              teacherName
-              createrAvatarUrl
-              meta {
-                createdAt
-              }
+            examIndex(invitationCodeList:[${arr.toString()}],userId:"${app.globalData.userInfo._id}",from:"index") {
+                exerciseCount
             }
           }
         `

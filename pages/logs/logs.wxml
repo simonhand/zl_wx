@@ -1,21 +1,4 @@
-<!--logs.wxml-->
-<!-- <scroll-view class="container log-list">
-  <i-toast id="toast" />
-
-  <button bindtap="setStorge">
-    存储缓存
-  </button>
-  <button bindtap="getStorge">
-    打印缓存
-  </button>
- 
-  // zl-input组件引用示例
-  <zl-input lable="姓名" inputIndex="{{userInputIndex}}" inputNumIndex="{{0}}" data-index="{{0}}" bind:inputClick="inputClick" />
-  <zl-input lable="住址" inputIndex="{{userInputIndex}}" inputNumIndex="{{1}}"  data-index="{{1}}" bind:inputClick="inputClick"/>
-  <zl-switch />
-  <title></title>
-</scroll-view> -->
-<ui-sys doc title="标题">
+<ui-sys doc title="我的记录">
   <i-toast id="toast" />
 
   <button bindtap="setStorge">

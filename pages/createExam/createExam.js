@@ -192,12 +192,9 @@ Page({
                 isLoading:false,
                 loaingString:null
             })
+            app.globalData.helpNavigate = { from:"createExam",status:"success"}
             wx.switchTab({
               url: '../index/index',
-            })
-            $Message({
-                content:"创建成功",
-                type:"success"
             })
         }).catch((error) => {
             $Message({

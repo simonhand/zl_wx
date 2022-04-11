@@ -1,14 +1,20 @@
 import {
   getTeacherCourse
 } from '../../commonservice/courseservice'
-import { haveUserInfo } from '../../utils/util'
-import { $Message  } from '../../components/Iview/base/index'
-
+import {
+  haveUserInfo
+} from '../../utils/util'
+import {
+  $Message,$Toast
+} from '../../components/Iview/base/index'
+import {
+  examIndex
+} from './services.js'
 // index.js
 // 获取应用实例
 const app = getApp();
 let selectedIndex = -1;
-let  queryCourse = [];
+let queryCourse = [];
 Page({
   data: {
     loading: false,
@@ -19,9 +25,9 @@ Page({
     canIUseGetUserProfile: false,
     teacherCourseList: [],
     canIUseOpenData: wx.canIUse('open-data.type.userAvatarUrl') && wx.canIUse('open-data.type.userNickName'), // 如需尝试获取用户信息可改为false
-    examCount: 4,
     hasUserInfo: false,
-    deadLineDate:"截至时间",
+    deadLineDate: "截至时间",
+    exerciseCount:0,
   },
   // 页面显示触发
   onShow() {
@@ -48,7 +54,7 @@ Page({
       url: '../home/home'
     })
   },
-  timePickerOK(data){
+  timePickerOK(data) {
     console.log(data);
   },
   handleOpenModalToExam({
@@ -62,25 +68,19 @@ Page({
   handleOpenModalToCreateExam() {
     haveUserInfo() && getTeacherCourse(app.globalData.userInfo._id).then(
       (res) => {
-        queryCourse =  res.data.data.queryCourse
+        queryCourse = res.data.data.queryCourse
         this.setData({
           teacherCourseList: res.data.data.queryCourse.map((item) => [item.courseName]),
-          modelVisible:true
+          modelVisible: true
         })
       }
     )
   },
   // 点击列表中的item触发
-  selectItemClick(e){
+  selectItemClick(e) {
     selectedIndex = e.detail.index;
   },
-  onLoad() {
-    if (wx.getUserProfile) {
-      this.setData({
-        canIUseGetUserProfile: true
-      })
-    }
-  },
+
   getUserProfile(e) {
     // 推荐使用wx.getUserProfile获取用户信息，开发者每次通过该接口获取用户个人信息均需用户确认，开发者妥善保管用户快速填写的头像昵称，避免重复弹窗
     wx.getUserProfile({
@@ -102,27 +102,58 @@ Page({
       hasUserInfo: true
     })
   },
-  handleClose() { 
+  handleClose() {
     this.setData({
       modelVisible: false
     });
   },
-  handleOk(){
+  handleOk() {
     if (selectedIndex === -1) {
       $Message({
-        content:"请选择课程",
-        type:"warning"
+        content: "请选择课程",
+        type: "warning"
       })
       return;
     }
     wx.navigateTo({
-      url: '../createExam/createExam?from=index&course='+JSON.stringify(queryCourse[selectedIndex]),
-      success:() => {
+      url: '../createExam/createExam?from=index&course=' + JSON.stringify(queryCourse[selectedIndex]),
+      success: () => {
         this.setData({
-          modelVisible:false
+          modelVisible: false
         })
       }
     })
-    
+
+  },
+  onLoad(options) {
+
+    if (wx.getUserProfile) {
+      this.setData({
+        canIUseGetUserProfile: true
+      })
+    }
+  },
+  onShow() {
+    // 请求有多少个测验未做
+    examIndex(app.globalData.userInfo.course).then((res) => {
+      this.setData({
+        exerciseCount:res.data.data.examIndex[0].exerciseCount
+      })
+    })
+    const helpNavigate = app.globalData.helpNavigate
+    if (helpNavigate.status === "success") {
+      if (helpNavigate.from === "exam" ) {
+        $Toast({
+          content: "测验已成功提交",
+          type: "success"
+        })
+      }
+      if (helpNavigate.from === "createExam") {
+        $Toast({
+          content: "测验已成功创建",
+          type: "success"
+        })
+      }
+    }
   }
 })
