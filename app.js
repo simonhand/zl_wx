@@ -6,7 +6,8 @@ App({
   colorUISdk,
   globalData: {
     userInfo: null,
-    helpNavigate:{from:"",status:""}
+    helpNavigate:{from:"",status:""},
+    tabbarIndex:0
   },
   onLaunch() {
     const that = this;

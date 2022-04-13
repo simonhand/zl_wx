@@ -41,6 +41,12 @@ Page({
             imgList: this.data.imgList.filter((item) => item !== this.data.imgList[e.currentTarget.dataset.index])
         })
     },
+    viewImage(e) {
+        wx.previewImage({
+            current: e.currentTarget.dataset.url,
+            urls: this.data.imgList
+        })
+    },
     typeChange(e) {
         this.setData({
             exercisesType: e.detail

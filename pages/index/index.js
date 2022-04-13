@@ -4,9 +4,12 @@ import {
 import {
   haveUserInfo
 } from '../../utils/util'
-import  { getWxStorage } from '../../utils/updateWxstorage'
 import {
-  $Message,$Toast
+  getWxStorage
+} from '../../utils/updateWxstorage'
+import {
+  $Message,
+  $Toast
 } from '../../components/Iview/base/index'
 import {
   examIndex
@@ -16,6 +19,7 @@ import {
 const app = getApp();
 let selectedIndex = -1;
 let queryCourse = [];
+let fromBtn = ''
 Page({
   data: {
     loading: false,
@@ -28,7 +32,7 @@ Page({
     canIUseOpenData: wx.canIUse('open-data.type.userAvatarUrl') && wx.canIUse('open-data.type.userNickName'), // 如需尝试获取用户信息可改为false
     hasUserInfo: false,
     deadLineDate: "截至时间",
-    exerciseCount:0,
+    exerciseCount: 0,
   },
   // 页面显示触发
   onShow() {
@@ -66,7 +70,11 @@ Page({
       url: '../examIndex/examIndex',
     })
   },
-  handleOpenModalToCreateExam() {
+  handleOpenModal(e) {
+    if (e.currentTarget.dataset.from === 'createNotify') {
+      fromBtn = "createNotify"
+    }
+    // 弹出Modal窗
     haveUserInfo() && getTeacherCourse(app.globalData.userInfo._id).then(
       (res) => {
         queryCourse = res.data.data.queryCourse
@@ -81,7 +89,6 @@ Page({
   selectItemClick(e) {
     selectedIndex = e.detail.index;
   },
-
   getUserProfile(e) {
     // 推荐使用wx.getUserProfile获取用户信息，开发者每次通过该接口获取用户个人信息均需用户确认，开发者妥善保管用户快速填写的头像昵称，避免重复弹窗
     wx.getUserProfile({
@@ -116,15 +123,15 @@ Page({
       })
       return;
     }
-    wx.navigateTo({
-      url: '../createExam/createExam?from=index&course=' + JSON.stringify(queryCourse[selectedIndex]),
-      success: () => {
-        this.setData({
-          modelVisible: false
-        })
-      }
-    })
-
+      wx.navigateTo({
+        url:   `..${fromBtn=== 'createNotify'?'/createNotify/createNotify':'/createExam/createExam'}?from=index&course=` + JSON.stringify(queryCourse[selectedIndex]),
+        success: () => {
+          this.setData({
+            modelVisible: false
+          })
+        }
+      })
+      fromBtn = ''
   },
   onLoad(options) {
 
@@ -135,20 +142,24 @@ Page({
     }
   },
   onShow() {
-
+    // 我愿称之为天坑 ！！！
+    if (typeof this.getTabBar === 'function' && this.getTabBar()) {
+      this.getTabBar().setData({
+        selected: 0  // 数字是当前页面在tabbar的索引,如我的查询页索引是2，因此这边为2，同理首页就为0，消息中心页面为1
+    })}
     const that = this;
     // 请求有多少个测验未做
     // 这里之所以从缓存里拿数据，按理说全局变量userinfo数据是和缓存中同步的，但是从缓存中拿是异步的又因为这是首页这个时候直接从usereinfo拿是undefined
-    getWxStorage('user').then((res) => 
+    getWxStorage('user').then((res) =>
       examIndex(res.data.course)
     ).then((res) => {
       that.setData({
-        exerciseCount:res.data.data.examIndex[0].exerciseCount
+        exerciseCount: res.data.data.examIndex[0].exerciseCount
       })
     })
     const helpNavigate = app.globalData.helpNavigate
     if (helpNavigate.status === "success") {
-      if (helpNavigate.from === "exam" ) {
+      if (helpNavigate.from === "exam") {
         $Toast({
           content: "测验已成功提交",
           type: "success"

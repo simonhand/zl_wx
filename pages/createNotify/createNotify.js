@@ -5,9 +5,15 @@ Page({
      * 页面的初始数据
      */
     data: {
+        imgList: [], // 题干配图
 
     },
-
+  viewImage(e) {
+        wx.previewImage({
+            current: e.currentTarget.dataset.url,
+            urls: this.data.imgList
+        })
+    },
     /**
      * 生命周期函数--监听页面加载
      */
