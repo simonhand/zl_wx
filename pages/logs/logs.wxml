@@ -1,29 +1,5 @@
-<ui-sys doc title="我的记录">
-  <i-toast id="toast" />
-
-  <button bindtap="setStorge">
-    存储缓存
-  </button>
-  <button bindtap="getStorge">
-    打印缓存
-  </button>
-
-  // zl-input组件引用示例
-  <zl-input lable="姓名" inputIndex="{{userInputIndex}}" inputNumIndex="{{0}}" data-index="{{0}}" bind:inputClick="inputClick" />
-  <zl-input lable="住址" inputIndex="{{userInputIndex}}" inputNumIndex="{{1}}" data-index="{{1}}" bind:inputClick="inputClick" />
-  <zl-switch />
-  <title></title>
-  <!--整个大盒子-->
-  <view class="container">
-    <view class="box">
-      <image src="/static/avatar/1001.jpg" class="img"></image>
-      <view style="text-align: center;">
-        <text> xixi</text>
-      </view>
-    </view>
-    <view>
-      <zl-timepicker/>
-    </view>
+<ui-sys  title="我的记录" img="/static/img/4put2.png" imgBottom navBg="bg-cyan-gradient" isTabbar>
+  <view class="p-3 text-center" >
+    <ui-tab tab="{{[{ name:'测验',icon:'cicon-event-list',tag:'15'},{icon:'cicon-community-o', name:'通知',tag:'12'},{name:'口算',icon:'cicon-numcode',tag:'8'}]}}" tpl="btn" mark="bg-white radius" ui="bg-cyan-gradient radius" curColor="text-orange" inline />
   </view>
-
 </ui-sys>

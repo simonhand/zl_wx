@@ -1,0 +1,2 @@
+/* pages/createNotify/createNotify.wxss */
+@import '../createExam/createExam.wxss'

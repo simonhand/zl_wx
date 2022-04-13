@@ -15,6 +15,6 @@
         <ui-toast name="sys_dialog" title="{{$cuStore.$toast.title}}" duration="{{$cuStore.$toast.duration}}" mask="{{$cuStore.$toast.mask}}"
                   isLoading="{{$cuStore.$toast.isLoading}}" image="{{$cuStore.$toast.image}}" icon="{{$cuStore.$toast.icon}}"/>
         <image src="{{img}}" mode="aspectFill" class="page-img" wx:if="{{img && imgTop}}" />
-        <image src="{{img}}" mode="aspectFill" class="page-img page-rotate-img" wx:if="{{img && imgBottom}}" />
+        <image src="{{img}}" mode="aspectFill" class="page-img page-rotate-img {{isTabbar?'page-bottom-img-index':''}}" wx:if="{{img && imgBottom}}" />
     </view>
 </view>

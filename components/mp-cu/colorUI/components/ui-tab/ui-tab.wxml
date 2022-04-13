@@ -22,9 +22,9 @@
         <block wx:for="{{tab}}" wx:key="index">
             <view id="ui-tab-item-{{_uid}}-{{index}}" class="ui-tab-item {{curValue===index?'cur':''}} {{tpl}}"
                   data-index="{{index}}" data-item="{{item}}" bindtap="_click">
-                <view class="ui-tab-icon {{item.icon}}" wx:if="{{item.icon}}"/>
+                <view class="ui-tab-icon {{item.icon}}  {{curValue===index?curColor:''}}" wx:if="{{item.icon}}"/>
                 <view class="ui-tab-text {{curValue===index?curColor:''}}">{{ item.name?item.name:item }}</view>
-                <view class="ui-tag badge ml-2" wx:if="{{item.tag != null}}">{{ item.tag }}</view>
+                <view class="ui-tag badge ml-2  {{curValue===index?curColor:''}}" wx:if="{{item.tag != null}}">{{ item.tag }}</view>
             </view>
         </block>
         <view class="ui-tab-mark-warp {{over?'over':''}}" style="left:{{markLeft}}px; width:{{markWidth}}px;">

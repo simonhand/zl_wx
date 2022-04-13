@@ -29,8 +29,8 @@
                 </view>
                 <view class="cu-form-group">
                     <view class="grid col-4 grid-square flex-sub">
-                        <view class="bg-img" wx:for="{{imgList}}" wx:key="item" bindtap="ViewImage" data-url="{{imgList[index]}}">
-                            <image src='{{imgList[index]}}' mode='aspectFill'></image>
+                        <view class="bg-img" wx:for="{{imgList}}" wx:key="item">
+                            <image src='{{imgList[index]}}' mode='aspectFill'  bindtap="viewImage" data-url="{{imgList[index]}}"></image>
                             <view class="cu-tag bg-red" catchtap="DelImg" data-index="{{index}}">
                                 <text class="cicon-close" style="font-size: 20rpx; color: #666;"></text>
                             </view>

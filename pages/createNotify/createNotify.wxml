@@ -1,0 +1,39 @@
+<!--pages/createExam/createExam.wxml-->
+<ui-sys title="创建通知" img="/static/img/4put2.png" navBg="bg-cyan-gradient" imgBottom needLoading="{{isLoading}}" loaingString="{{loaingString}}">
+    <i-message id="message" />
+    <view class="page">
+        <view class="ui-BG radius mt-3 px-3 border" style="width: 400rpx; margin-bottom: 60rpx;">
+            <ui-title title="创建通知" titleColor="text-blue" descUi="text-cyan" desc="Create Notify" tpl="center-column" hasDot />
+        </view>
+        <view class="shadow-warp ui-BG p-4 radius xl textarea" style="margin: auto;">
+            <view style="margin-bottom: 10rpx; font-weight: 600;">请输入题干</view>
+            <textarea name="" model:value="{{textArea}}" maxlength="-1" style="width: 600rpx; height: 550rpx; background-color: #ECF0F3; padding: 10rpx;font-size: 40rpx;"></textarea>
+        </view>
+        <view class="imgList" style="margin: auto; margin-top: 20rpx;">
+            <view class="imgTitle">
+                <view class="action">
+                    配图上传
+                </view>
+                <view class="action">
+                    {{imgList.length}}/4
+                </view>
+            </view>
+            <view class="cu-form-group">
+                <view class="grid col-4 grid-square flex-sub">
+                    <view class="bg-img" wx:for="{{imgList}}" wx:key="item">
+                        <image src='{{imgList[index]}}' mode='aspectFill' bindtap="ViewImage" data-url="{{imgList[index]}}"></image>
+                        <view class="cu-tag bg-red" catchtap="DelImg" data-index="{{index}}">
+                            <text class="cicon-close" style="font-size: 20rpx; color: #666;"></text>
+                        </view>
+                    </view>
+                    <view class="solids" bindtap="ChooseImage" wx:if="{{imgList.length<4}}">
+                        <text class="cicon-camera-add" style="font-size: 60rpx; color: #666;position: absolute;top: 25%; right: 25%;"></text>
+                    </view>
+                </view>
+            </view>
+        </view>
+        <view class="buttons">
+            <button class="ui-btn bg-olive-gradient" style="width: 230rpx;" bindtap="submit">完成</button>
+        </view>
+    </view>
+</ui-sys>

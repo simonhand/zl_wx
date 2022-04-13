@@ -1,5 +1,5 @@
 <!--index.wxml-->
-<ui-sys img="/static/img/4put2.png" imgBottom imgTop>
+<ui-sys img="/static/img/4put2.png" imgBottom imgTop isTabbar >
   <view style="margin-top: {{sys_navBar+ 100}}rpx;">
     <i-spin fix wx:if="{{loading}}"></i-spin>
     <i-message id="message" />
@@ -7,6 +7,12 @@
     <view class="container" style="z-index: 99999;">
       <image src="../../assets/home/home3.png" class="imgtitle"></image>
       <view class="box">
+        <view plain="true" class="examButton" bindtap="handleOpenModal" data-from="createNotify">
+          创建通知
+        </view>
+        <view plain="true" class="examButton" bindtap="handleOpenModalToExam">
+          我的通知    
+        </view>
       </view>
       <image src="../../assets/home/home2.png" class="imgtitle"></image>
       <view class="box">
@@ -15,7 +21,7 @@
             小测验来咯
           </view>
         </i-badge>
-        <view plain="true" class="examButton" style="margin-top: 21px;" bindtap="handleOpenModalToCreateExam">
+        <view plain="true" class="examButton" style="margin-top: 21px;" bindtap="handleOpenModal">
           创建小测验
         </view>
       </view>
@@ -31,7 +37,7 @@
       <zl-modal title="请选择班级" visible="{{ modelVisible }}" tips="若无对应班级，请前往我的班级创建" bind:ok="handleOk" bind:cancel="handleClose">
         <view class="index_modal">
           <zl-select classes="{{teacherCourseList}}" bind:selectItemClick="selectItemClick" />
-          <zl-timepicker startDate="{{deadLineDate}}" bind:timePickerOK="timePickerOK"/>
+          <zl-timepicker startDate="{{deadLineDate}}" bind:timePickerOK="timePickerOK" />
         </view>
       </zl-modal>
     </view>
