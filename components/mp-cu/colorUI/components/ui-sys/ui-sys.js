@@ -8,6 +8,10 @@ Component({
         addGlobalClass: true,
     },
     properties: {
+        isTabbar:{
+          type:Boolean,
+          value:false  
+        },
         needLoading:{
           type:Boolean,
           value:false  

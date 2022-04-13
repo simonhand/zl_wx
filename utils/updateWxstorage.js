@@ -14,3 +14,15 @@ export const  updateUserInfo = (userInfo) => {
 export const updateTeacherCoursee = () => {
   
 }
+
+export const getWxStorage = (key) => {
+  return new Promise((resolve,reject) => {
+    wx.getStorage({
+      key,
+      encrypt:true,
+      success(res){
+        resolve(res)
+      }
+    })
+  })
+}

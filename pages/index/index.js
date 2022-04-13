@@ -4,6 +4,7 @@ import {
 import {
   haveUserInfo
 } from '../../utils/util'
+import  { getWxStorage } from '../../utils/updateWxstorage'
 import {
   $Message,$Toast
 } from '../../components/Iview/base/index'
@@ -134,9 +135,14 @@ Page({
     }
   },
   onShow() {
+
+    const that = this;
     // 请求有多少个测验未做
-    examIndex(app.globalData.userInfo.course).then((res) => {
-      this.setData({
+    // 这里之所以从缓存里拿数据，按理说全局变量userinfo数据是和缓存中同步的，但是从缓存中拿是异步的又因为这是首页这个时候直接从usereinfo拿是undefined
+    getWxStorage('user').then((res) => 
+      examIndex(res.data.course)
+    ).then((res) => {
+      that.setData({
         exerciseCount:res.data.data.examIndex[0].exerciseCount
       })
     })

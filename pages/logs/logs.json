@@ -1,6 +1,7 @@
 {
   "navigationBarTitleText": "查看启动日志",
   "usingComponents": {
+    "ui-tab":"../../components/mp-cu/colorUI/components/ui-tab/ui-tab",
     "i-toast":"../../components/Iview/toast/index",
     "zl-input":"../../components/zl-input/index",
     "zl-switch":"../../components/zl-switch/zl-switch",
