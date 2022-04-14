@@ -93,7 +93,7 @@ Page({
                     });
 
                 }
-                if (from === "createExam1") {
+                if (from === "createExam1" || from === "createNotify") {
                     const pages = getCurrentPages()
                     const createExamPage = pages[pages.length - 2]
                     createExamPage.setData({

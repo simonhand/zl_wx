@@ -171,6 +171,13 @@ Page({
           type: "success"
         })
       }
+      if (helpNavigate.from === "createNotify") {
+        $Toast({
+          content: `${helpNavigate.msg}的通知已成功创建`,
+          type: "success"
+        })
+      }
+      app.globalData.helpNavigate = {from:"",status:""};
     }
   }
 })

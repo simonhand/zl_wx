@@ -1,24 +1,63 @@
 // pages/createNotify/createNotify.js
+import {
+    uploadImg,
+    uploadImgToCos
+} from "../../utils/uploadImg"
+import { createNotify } from "./service"
+const app = getApp()
 Page({
-
     /**
      * 页面的初始数据
      */
     data: {
         imgList: [], // 题干配图
-
+        urlParams:undefined,
+        textArea:""
     },
-  viewImage(e) {
+    viewImage(e) {
         wx.previewImage({
             current: e.currentTarget.dataset.url,
             urls: this.data.imgList
+        })
+    },
+    ChooseImage() {
+        uploadImg(this, "../imgCut/imgCut?from=createNotify&src=");
+    },
+    DelImg(e) {
+        this.setData({
+            imgList: this.data.imgList.filter((item) => item !== this.data.imgList[e.currentTarget.dataset.index])
+        })
+    },
+    submit() {
+        const promiseListImg = this.data.imgList.map(item => new Promise((reslove, reject) => {
+            uploadImgToCos(item, res => {
+                reslove(res.Location)
+            })
+        }))
+        const newImgList = []
+        Promise.all(promiseListImg).then((res) => {
+            for (const iterator of res) {
+                newImgList.push(iterator)
+            }
+            return createNotify({...this.data.urlParams,imgList:newImgList,textArea:this.data.textArea})
+        }).then((res) => {
+            app.globalData.helpNavigate = { from:"createNotify",status:"success",msg:this.data.urlParams.courseName }
+            wx.switchTab({
+                url: '../index/index',
+            })
         })
     },
     /**
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
-
+        if (options.from === 'index') {
+            this.setData({
+                urlParams: JSON.parse(options.course)
+            }, () => {
+                console.log(this.data.urlParams);
+            })
+        }
     },
 
     /**

@@ -44,18 +44,18 @@ const chooseWxImage = function (obj, type, url) {
 export const uploadImgToCos = (avatar, cb) => {
   var filePath = avatar;
   var filename = filePath.substr(filePath.lastIndexOf('/') + 1);
-  console.log("filename", filename);
+  // console.log("filename", filename);
   cos.postObject({
     Bucket: 'luqiao-1305980897', // Bucket 格式：test-1250000000
     Region: 'ap-nanjing',
     Key: filename,
     FilePath: filePath,
     onProgress: function (info) {
-      console.log("zhangle", JSON.stringify(info));
+      // console.log("zhangle", JSON.stringify(info));
     }
   }, function (err, data) {
     cb(data);
-    console.log("success", err || data);
+    // console.log("success", err || data);
   });
 }
 
