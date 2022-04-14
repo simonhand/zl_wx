@@ -42,8 +42,6 @@ Component({
       })
       this.setData({
         selected: data.index
-      },() => {
-        console.log("执行号了data");
       })
     }
   }

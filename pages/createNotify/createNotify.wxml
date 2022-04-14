@@ -6,7 +6,7 @@
             <ui-title title="创建通知" titleColor="text-blue" descUi="text-cyan" desc="Create Notify" tpl="center-column" hasDot />
         </view>
         <view class="shadow-warp ui-BG p-4 radius xl textarea" style="margin: auto;">
-            <view style="margin-bottom: 10rpx; font-weight: 600;">请输入题干</view>
+            <view style="margin-bottom: 10rpx; font-weight: 600;">请输入通知内容</view>
             <textarea name="" model:value="{{textArea}}" maxlength="-1" style="width: 600rpx; height: 550rpx; background-color: #ECF0F3; padding: 10rpx;font-size: 40rpx;"></textarea>
         </view>
         <view class="imgList" style="margin: auto; margin-top: 20rpx;">
@@ -21,7 +21,7 @@
             <view class="cu-form-group">
                 <view class="grid col-4 grid-square flex-sub">
                     <view class="bg-img" wx:for="{{imgList}}" wx:key="item">
-                        <image src='{{imgList[index]}}' mode='aspectFill' bindtap="ViewImage" data-url="{{imgList[index]}}"></image>
+                        <image src='{{imgList[index]}}' mode='aspectFill' bindtap="viewImage" data-url="{{imgList[index]}}"></image>
                         <view class="cu-tag bg-red" catchtap="DelImg" data-index="{{index}}">
                             <text class="cicon-close" style="font-size: 20rpx; color: #666;"></text>
                         </view>
