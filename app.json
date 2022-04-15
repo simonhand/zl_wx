@@ -12,7 +12,8 @@
         "pages/createExam/createExam",
         "pages/personalinfos/personalinfos",
         "pages/myclass/myclass",
-        "pages/imgCut/imgCut"
+        "pages/imgCut/imgCut",
+        "pages/readNotify/readNotify"
     ],
     "window": {
         "backgroundTextStyle": "light",

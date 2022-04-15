@@ -15,7 +15,7 @@
             <ui-title title="参加课程" desc="My Course" align="center" hasDot >
             </ui-title>
         </view>
-            <image src="/static/profile/add.png" style="width: 20px; height: 20px;position: fixed; top:{{sys_navBar+130}}rpx;right: 80rpx;  " bindtap="addClick"></image>
+            <image src="/static/profile/add.png" style="width: 20px; height: 20px;position: fixed; top:{{sys_navBar+150}}rpx;right: 80rpx;  " bindtap="addClick"></image>
     <scroll-view class="i-swipeout" wx:if="{{userType}}">
         <!-- <zl-card ></zl-card> -->
         <i-swipeout i-class="i-swipeout-demo-item" actions="{{actions}}" wx:for="{{studentsCourseList}}" wx:key="index" data-index="{{index}}" bind:change="swipeoutClick">

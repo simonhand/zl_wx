@@ -1,0 +1,28 @@
+<!--pages/personalInfo/personalInfo.wxml-->
+<ui-sys doc title="课程" img="/static/img/4put2.png" imgBottom>
+    <view class="personalInfoPage">
+        <i-message id="message" />
+        <view class="ui-BG radius mt-3 px-3 border title-center">
+            <ui-title title="参加课程" desc="My Course" align="center" hasDot>
+            </ui-title>
+        </view>
+        <scroll-view class="i-swipeout" wx:if="{{userType}}">
+            <!-- <zl-card ></zl-card> -->
+            <i-swipeout i-class="i-swipeout-demo-item" actions="{{actions}}" wx:for="{{studentsCourseList}}" wx:key="index" data-index="{{index}}" bind:change="swipeoutClick">
+                <view slot="content" style="height: 60px;">
+                    <view class="classCard">
+                        <view class="left-class-card">
+                            <image src="{{item.createrAvatarUrl}}" class="imageClass"></image>
+                        </view>
+                        <view class="right-class-card">
+                            <view class="right-class-card-top"><text>{{item.courseName}}</text> <text>{{item.studentsNumber}}人</text></view>
+                            <view class="right-class-card-bottom">
+                                <view>授课教师:{{item.teacherName}}</view>
+                            </view>
+                        </view>
+                    </view>
+                </view>
+            </i-swipeout>
+        </scroll-view>
+    </view>
+</ui-sys>

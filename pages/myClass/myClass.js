@@ -135,7 +135,7 @@ Page({
                 createrId: user._id,
                 courseName: this.data.className,
                 teacherName: this.data.teacherName,
-                invitationCode: randomString(6)
+                invitationCode: randomString(8)
             }
             createClass(palyLoad, this).then((value) => {
                 console.log(value);
