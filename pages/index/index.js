@@ -44,6 +44,11 @@ Page({
     }
   },
   // 事件处理函数
+  handleNavigate(){
+    wx.navigateTo({
+      url: '/pages/readNotify/readNotify',
+    })
+  },
   calcClick() {
     wx.navigateTo({
       url: '../calc/calc',
@@ -124,7 +129,7 @@ Page({
       return;
     }
       wx.navigateTo({
-        url:   `..${fromBtn=== 'createNotify'?'/createNotify/createNotify':'/createExam/createExam'}?from=index&course=` + JSON.stringify(queryCourse[selectedIndex]),
+        url:   `..${fromBtn=== 'createExam'?'/createExam/createExam':'/'+fromBtn+'/'+fromBtn}?from=index&course=` + JSON.stringify(queryCourse[selectedIndex]),
         success: () => {
           this.setData({
             modelVisible: false

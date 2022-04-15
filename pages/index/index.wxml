@@ -10,7 +10,7 @@
         <view plain="true" class="examButton" bindtap="handleOpenModal" data-from="createNotify">
           创建通知
         </view>
-        <view plain="true" class="examButton" bindtap="handleOpenModalToExam">
+        <view plain="true" class="examButton" bindtap="handleNavigate" data-from="readNotify">
           我的通知    
         </view>
       </view>

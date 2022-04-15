@@ -1,0 +1,2 @@
+/* pages/readNotify/readNotify.wxss */
+@import '/pages/myclass/myclass.wxss'
