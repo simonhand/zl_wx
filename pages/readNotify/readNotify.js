@@ -1,5 +1,6 @@
 // pages/readNotify/readNotify.js
 import { getNotifyByUser } from "./services"
+import { zlDecodeList } from "../../utils/util"
 const app = getApp()
 Page({
 
@@ -7,7 +8,15 @@ Page({
      * 页面的初始数据
      */
     data: {
-
+        notifyList:[],
+        actions: [{
+            name: '已读',
+            color: '#fff',
+            fontsize: '20',
+            width: 100,
+            icon: 'message_fill',
+            background: '#FF7F00'
+        }],
     },
 
     /**
@@ -22,10 +31,15 @@ Page({
      */
     onReady: function () {
         getNotifyByUser(app.globalData.userInfo).then((res) => {
-            console.log(res);
+            const realNotifyLsit = res.data.data.getNotify.map((item) => {
+                item.imgList = zlDecodeList(item.imgList);
+                return item;
+            })
+            this.setData({
+                notifyList:realNotifyLsit
+            });
         })
     },
-
     /**
      * 生命周期函数--监听页面显示
      */

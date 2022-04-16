@@ -51,3 +51,7 @@ export function deepClone(obj) {
 export function zlEncodeList(list) {
   return JSON.stringify(list).replace(/\"/g,"+z&l+")
 }
+
+export const zlDecodeList = (list) => {
+  return JSON.parse(list.replace(/\+z\&l\+/g,"\""));
+}

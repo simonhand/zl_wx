@@ -36,10 +36,6 @@ Page({
         courseList: [],
         teacherName: "", // 创建课程教师名称
         className: "", // 创建课程名称
-        actions2: [{
-            name: '删除',
-            color: '#ed3f14'
-        }],
         actions: [{
             name: '退出课程',
             color: '#fff',
@@ -48,15 +44,6 @@ Page({
             icon: 'close',
             background: '#FF7F00'
         }],
-        actions5: [{
-                name: '取消'
-            },
-            {
-                name: '删除',
-                color: '#ed3f14',
-                loading: false
-            }
-        ]
     },
     // input事件函数
     // 事件函数触发
