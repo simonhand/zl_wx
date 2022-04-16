@@ -20,6 +20,6 @@
   width: 80px;
   height: 80px;
   margin-top: -60px;
-
 }
+@import '../readNotify/readNotify.wxss'
 
