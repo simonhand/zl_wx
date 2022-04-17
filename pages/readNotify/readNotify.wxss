@@ -1,23 +1,25 @@
 /* pages/readNotify/readNotify.wxss */
 .notify_textArea {
-    /* height: 28rpx; */
-    position: relative;
-    top: 8rpx;
-    width: 200rpx;
-    text-align: center;
-    line-height: 28rpx;
-    color: rgb(32, 27, 27);
-    font-size: 25rpx;
-    text-overflow:ellipsis;
-    display: -webkit-inline-box;
-    word-break: break-all;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 3;
-    overflow: hidden;
+	/* height: 28rpx; */
+	position: relative;
+	top: 8rpx;
+	width: 200rpx;
+	text-align: center;
+	line-height: 28rpx;
+	color: rgb(32, 27, 27);
+	font-size: 25rpx;
+	text-overflow: ellipsis;
+	display: -webkit-inline-box;
+	word-break: break-all;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 3;
+	overflow: hidden;
 }
+
 .round {
-    border-radius: 5000rpx;
+	border-radius: 5000rpx;
 }
+
 .action {
 	display: flex;
 	align-items: center;
@@ -35,7 +37,7 @@
 	justify-content: center;
 	align-items: center;
 	background-color: #ccc;
-	color: var(--white);
+	color: #ffffff;
 	white-space: nowrap;
 	position: relative;
 	width: 64rpx;
@@ -85,11 +87,17 @@
 	margin-left: -20rpx;
 	border: 1rpx solid var(--ghostWhite);
 }
+
 .sm {
 	width: 48rpx;
 	height: 48rpx;
 	font-size: 1em;
 }
 
+.notify_textArea_modal {
+	font-size: 30rpx;
+	overflow: scroll;
+	max-height: 400rpx;
+}
 
 @import '/pages/myclass/myclass.wxss'

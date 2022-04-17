@@ -1,6 +1,7 @@
 {
   "usingComponents": {
     "ui-title":"../../components/mp-cu/colorUI/components/ui-title/ui-title",
-    "i-swipeout":"../../components/Iview/swipeout/index"
+    "i-swipeout":"../../components/Iview/swipeout/index",
+    "ui-modal":"../../components/mp-cu/colorUI/components/ui-modal/ui-modal"
   }
 }

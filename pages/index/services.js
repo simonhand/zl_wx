@@ -13,3 +13,15 @@ export const examIndex = (obj) => {
     })
    return zlrequest(playLoad,"POST")
 }
+
+export const getNotifyByUser = (user) => {
+    const arr = user.course.map((item) => "\"" + item.invitationCode + "\"")
+    const palyLoad = JSON.stringify({
+        query: `query getNotify{
+            getNotify(invitationCodeList:[${arr.toString()}],userId:"${user._id}",from:"index"){
+                NotifyCount
+            }
+        }`
+    })
+    return zlrequest(palyLoad, "POST")
+}

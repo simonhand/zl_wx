@@ -2,10 +2,4 @@
   <view class="p-3 text-center">
     <ui-tab tab="{{[{ name:'测验',icon:'cicon-event-list',tag:'15'},{icon:'cicon-community-o', name:'通知',tag:'12'},{name:'口算',icon:'cicon-numcode',tag:'8'}]}}" tpl="btn" mark="bg-white radius" ui="bg-cyan-gradient radius" curColor="text-orange" inline />
   </view>
-  <view class="cu-avatar-group">
-    <view class="cu-avatar round sm" style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big10004.jpg);"></view>
-    <view class="cu-avatar round sm" style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big10003.jpg);"></view>
-    <view class="cu-avatar round sm" style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big10002.jpg);"></view>
-    <view class="cu-avatar round sm" style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big10001.jpg);"></view>
-  </view>
 </ui-sys>
