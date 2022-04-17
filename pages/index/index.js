@@ -12,7 +12,8 @@ import {
   $Toast
 } from '../../components/Iview/base/index'
 import {
-  examIndex
+  examIndex,
+  getNotifyByUser
 } from './services.js'
 // index.js
 // 获取应用实例
@@ -33,6 +34,7 @@ Page({
     hasUserInfo: false,
     deadLineDate: "截至时间",
     exerciseCount: 0,
+    NotifyCount:0,
   },
   // 页面显示触发
   onShow() {
@@ -44,7 +46,7 @@ Page({
     }
   },
   // 事件处理函数
-  handleNavigate(){
+  handleNavigate() {
     wx.navigateTo({
       url: '/pages/readNotify/readNotify',
     })
@@ -128,15 +130,15 @@ Page({
       })
       return;
     }
-      wx.navigateTo({
-        url:   `..${fromBtn=== 'createExam'?'/createExam/createExam':'/'+fromBtn+'/'+fromBtn}?from=index&course=` + JSON.stringify(queryCourse[selectedIndex]),
-        success: () => {
-          this.setData({
-            modelVisible: false
-          })
-        }
-      })
-      fromBtn = ''
+    wx.navigateTo({
+      url: `..${fromBtn=== 'createExam'?'/createExam/createExam':'/'+fromBtn+'/'+fromBtn}?from=index&course=` + JSON.stringify(queryCourse[selectedIndex]),
+      success: () => {
+        this.setData({
+          modelVisible: false
+        })
+      }
+    })
+    fromBtn = ''
   },
   onLoad(options) {
 
@@ -150,16 +152,19 @@ Page({
     // 我愿称之为天坑 ！！！
     if (typeof this.getTabBar === 'function' && this.getTabBar()) {
       this.getTabBar().setData({
-        selected: 0  // 数字是当前页面在tabbar的索引,如我的查询页索引是2，因此这边为2，同理首页就为0，消息中心页面为1
-    })}
+        selected: 0 // 数字是当前页面在tabbar的索引,如我的查询页索引是2，因此这边为2，同理首页就为0，消息中心页面为1
+      })
+    }
     const that = this;
     // 请求有多少个测验未做
     // 这里之所以从缓存里拿数据，按理说全局变量userinfo数据是和缓存中同步的，但是从缓存中拿是异步的又因为这是首页这个时候直接从usereinfo拿是undefined
     getWxStorage('user').then((res) =>
-      examIndex(res.data.course)
+      Promise.all([examIndex(res.data.course),getNotifyByUser(res.data)
+      ])
     ).then((res) => {
       that.setData({
-        exerciseCount: res.data.data.examIndex[0].exerciseCount
+        exerciseCount: res[0].data.data.examIndex[0].exerciseCount,
+        NotifyCount: res[1].data.data.getNotify[0].NotifyCount
       })
     })
     const helpNavigate = app.globalData.helpNavigate
@@ -182,7 +187,10 @@ Page({
           type: "success"
         })
       }
-      app.globalData.helpNavigate = {from:"",status:""};
+      app.globalData.helpNavigate = {
+        from: "",
+        status: ""
+      };
     }
   }
 })

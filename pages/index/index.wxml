@@ -1,5 +1,5 @@
 <!--index.wxml-->
-<ui-sys img="/static/img/4put2.png" imgBottom imgTop isTabbar >
+<ui-sys img="/static/img/4put2.png" imgBottom imgTop isTabbar>
   <view style="margin-top: {{sys_navBar+ 100}}rpx;">
     <i-spin fix wx:if="{{loading}}"></i-spin>
     <i-message id="message" />
@@ -7,12 +7,14 @@
     <view class="container" style="z-index: 99999;">
       <image src="../../assets/home/home3.png" class="imgtitle"></image>
       <view class="box">
-        <view plain="true" class="examButton" bindtap="handleOpenModal" data-from="createNotify">
+        <view plain="true" class="examButton" bindtap="handleOpenModal" data-from="createNotify"  style="margin-top: 20px;">
           创建通知
         </view>
-        <view plain="true" class="examButton" bindtap="handleNavigate" data-from="readNotify">
-          我的通知    
-        </view>
+        <i-badge count="{{NotifyCount}}" style="margin-top: 20px;">
+          <view plain="true" class="examButton" bindtap="handleNavigate" data-from="readNotify">
+            我的通知
+          </view>
+        </i-badge>
       </view>
       <image src="../../assets/home/home2.png" class="imgtitle"></image>
       <view class="box">
