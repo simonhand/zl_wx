@@ -1,0 +1,19 @@
+<!--pages/calcIndex/calcIndex.wxml-->
+<ui-sys title="创建口算" navBg="bg-cyan-gradient">
+    <i-message id="message" />
+    <zl-modal title="请输入题目数量" visible="{{ modalVisible }}" tips="不可超过50题哦" bind:ok="handleOk" bind:cancel="handleClose" needMoveTop="{{needMoveTop}}">
+        <zl-input lable="题数" inputIndex="{{inputIndex}}" inputNumIndex="{{2}}" data-index="{{2}}" bind:inputClick="inputClick" model:input-value="{{calcCount}}" content="{{calcCount}}" />
+    </zl-modal>
+    <view class="ui-container">
+        <block wx:for="{{navData}}" wx:key="index">
+            <ui-title title="{{item.title}}" depth="2" isIcon ui="ml-3" />
+            <view class="ui-grid ui-cols-2">
+                <block wx:for="{{item.sub}}" wx:for-index="sub_index" wx:key="sub_index">
+                    <view class="ui-item p-3" bindtap="itemCLick" data-calcType="{{item.icon}}">
+                        <app-nav-li data="{{item}}" fontSize="{{item.fontSize}}" />
+                    </view>
+                </block>
+            </view>
+        </block>
+    </view>
+</ui-sys>

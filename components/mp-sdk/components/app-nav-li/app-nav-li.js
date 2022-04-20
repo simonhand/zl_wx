@@ -6,6 +6,10 @@ Component({
         addGlobalClass: true
     },
     properties: {
+        fontSize:{
+            type:Number,
+            value:30,
+        },
         data: {
             type: Object,
             optionalTypes: Array,

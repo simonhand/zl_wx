@@ -13,7 +13,8 @@
         "pages/personalinfos/personalinfos",
         "pages/myclass/myclass",
         "pages/imgCut/imgCut",
-        "pages/readNotify/readNotify"
+        "pages/readNotify/readNotify",
+        "pages/calcIndex/calcIndex"
     ],
     "window": {
         "backgroundTextStyle": "light",
