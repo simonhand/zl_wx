@@ -23,7 +23,7 @@
             小测验来咯
           </view>
         </i-badge>
-        <view plain="true" class="examButton" style="margin-top: 21px;" bindtap="handleOpenModal">
+        <view plain="true" class="examButton" style="margin-top: 21px;" bindtap="handleOpenModal" data-from="createExam">
           创建小测验
         </view>
       </view>

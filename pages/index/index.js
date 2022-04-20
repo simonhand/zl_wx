@@ -53,7 +53,7 @@ Page({
   },
   calcClick() {
     wx.navigateTo({
-      url: '../calc/calc',
+      url: '../calcIndex/calcIndex',
     })
   },
   loginClick() {
@@ -80,6 +80,9 @@ Page({
   handleOpenModal(e) {
     if (e.currentTarget.dataset.from === 'createNotify') {
       fromBtn = "createNotify"
+    }
+    if (e.currentTarget.dataset.from === 'createExam') {
+      fromBtn = "createExam"
     }
     // 弹出Modal窗
     haveUserInfo() && getTeacherCourse(app.globalData.userInfo._id).then(
@@ -131,7 +134,9 @@ Page({
       return;
     }
     wx.navigateTo({
+      // url:``
       url: `..${fromBtn=== 'createExam'?'/createExam/createExam':'/'+fromBtn+'/'+fromBtn}?from=index&course=` + JSON.stringify(queryCourse[selectedIndex]),
+      // url:"../createExam/createExam?from=index&course=" + JSON.stringify(queryCourse[selectedIndex]),
       success: () => {
         this.setData({
           modelVisible: false

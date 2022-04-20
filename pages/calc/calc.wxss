@@ -1,17 +1,13 @@
 /* pages/calc/calc.wxss */
-page {
-    height: 100%;
-    background: #ECF0F3;
-}
-
 .body {
     display: flex;
     flex-direction: column;
-    height: 100%;
+    /* height: 400rpx; */
+    /* height: 820%; */
 }
 
 .calcWindow {
-    flex: 6;
+    /* flex: 6; */
     display: flex;
     flex-direction: column;
     justify-content: space-around;
@@ -21,6 +17,7 @@ page {
 
 .calcTopButton{
     flex: 6;
+    height: 200rpx;
     background-color: #ECF0F3;
     display: flex;
     flex-direction: row;
@@ -33,7 +30,7 @@ page {
     justify-content: center;
     margin-left: 10%;
     width: 20%;
-    height: 25%;
+    height: 65%;
     color: #666;
     font-weight: 1000;
     text-align: center;

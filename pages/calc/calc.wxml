@@ -1,35 +1,5 @@
 <!--pages/calc/calc.wxml-->
-<view class="body">
-    <View style="background-color: #ECF0F3;" class="calcWindow">
-        <view class="progress-item" style="width: 80%;">
-            <i-progress percent="{{ num_of_pre / 20 * 100}}" status="active"></i-progress>
-        </view>
-        <view>
-            score:{{score}}
-        </view>
-        <view>
-            {{
-            solvtion
-            }}
-        </view>
-        <view class="calcWindowProblem">
-            <text>{{operand_1}}</text>
-            <image src="{{symbolType[symbol].url}}" style="width: 40px; height: 40px;" />
-            <text>{{operand_2}}</text>
-        </view>
-        <view class="calcWindowSolvtion">
-            <text>
-                {{userSolvtionString}}
-            </text>
-        </view>
-    </View>
-    <view class="calcTopButton">
-        <view wx:for="{{num_list}}" wx:for-item="num" wx:key="num" data-index="{{index}}" data-num="{{num}}" class="calcTopButtonItem {{ selecedtNum === index  ? 'num_selected' : ''}}" bindtap="numClick"><text>{{ num }}</text></view>
-    </view>
-    <view class="calcBottomButton">
-        <view bindtap="NumClick_0" data-index="{{10}}" data-num="{{0}}" class="num_zero {{ selecedtNum === 10  ? 'num_selected' : ''}}" bindtap="numClick"><text>0</text></view>
-        <view bindtap="NumClick_." data-index="{{ -1 }}" data-num="del" class="num_point {{ selecedtNum === -1  ? 'num_selected' : ''}}" bindtap="numClick">
-            <image src="../../assets/calc/backspace.png"></image>
-        </view>
-    </view>
-</view>
+<ui-sys title="口算" navBg="bg-cyan-gradient" footer="" >
+    <i-progress percent="{{ num_of_pre / 20 * 100}}" status="active"></i-progress>
+   
+</ui-sys>
