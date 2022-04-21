@@ -52,7 +52,7 @@ Page({
     wx.removeStorage({
       key: 'user',
       success(res) {
-        console.log(res);
+        app.globalData.userInfo = ''
       }
     });
     wx.switchTab({
