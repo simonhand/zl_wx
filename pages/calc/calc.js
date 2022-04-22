@@ -3,42 +3,55 @@ import {
     randomNum,
     randomNumBetween
 } from "../../utils/random"
-import { randomKey } from './util'
+import {
+    randomKey
+} from './util'
 Page({
 
     /**
      * 页面的初始数据
      */
     data: {
-        selecedtNum: null,
-        operand_1: null,
-        operand_2: null,
-        solvtion: null,
-        userClickNum: null,
-        solvtionString: '',
-        userSolvtionString: '',
-        score: 0,
-        num_of_pre: 1,
-        solvtionLen: null,
-        num_list: [1, 2, 3, 4, 5, 6, 7, 8, 9],
-        symbol: null,
-        symbolType: [{
-                type: "add",
-                url: "../../assets/calc/add.png"
-            },
-            {
-                type: "subtract",
-                url: "../../assets/calc/subtract.png"
-            },
-            {
-                type: "multiply",
-                url: "../../assets/calc/multiply.png"
-            },
-            {
-                type: "divide",
-                url: "../../assets/calc/divide.png"
-            },
-        ],
+        currentWindowClicked: false,
+        // selecedtNum: null,
+        // operand_1: null,
+        // operand_2: null,
+        // solvtion: null,
+        // userClickNum: null,
+        // solvtionString: '',
+        // userSolvtionString: '',
+        // score: 0,
+        // num_of_pre: 1,
+        // solvtionLen: null,
+        // num_list: [1, 2, 3, 4, 5, 6, 7, 8, 9],
+        // symbol: null,
+        // symbolType: [{
+        //         type: "add",
+        //         url: "../../assets/calc/add.png"
+        //     },
+        //     {
+        //         type: "subtract",
+        //         url: "../../assets/calc/subtract.png"
+        //     },
+        //     {
+        //         type: "multiply",
+        //         url: "../../assets/calc/multiply.png"
+        //     },
+        //     {
+        //         type: "divide",
+        //         url: "../../assets/calc/divide.png"
+        //     },
+        // ],
+    },
+    currentWindowClick() {
+        this.setData({
+            currentWindowClicked: !this.data.currentWindowClicked
+        })
+        setTimeout(() => {
+            this.setData({
+                currentWindowClicked: !this.data.currentWindowClicked
+            })
+        },1000)
     },
     numClick(e) {
         const props = e.currentTarget.dataset;
@@ -66,9 +79,11 @@ Page({
                     userSolvtionString: '',
                 })
             }
-            const { solvtion } = randomKey(this);
+            const {
+                solvtion
+            } = randomKey(this);
             this.setData({
-                num_of_pre:this.data.num_of_pre + 1,
+                num_of_pre: this.data.num_of_pre + 1,
                 solvtion,
                 solvtionString: solvtion.toString(),
                 solvtionLen: solvtion.toString().length,
@@ -92,7 +107,9 @@ Page({
      * 生命周期函数--监听页面初次渲染完成
      */
     onReady: function () {
-       const { solvtion } = randomKey(this);
+        const {
+            solvtion
+        } = randomKey(this);
         this.setData({
             solvtion,
             solvtionString: solvtion.toString(),

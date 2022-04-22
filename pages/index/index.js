@@ -56,6 +56,11 @@ Page({
       url: '../calcIndex/calcIndex',
     })
   },
+  calcClick1() {
+    wx.navigateTo({
+      url: '../calc/calc',
+    })
+  },
   loginClick() {
     wx.navigateTo({
       url: '../login/login',
