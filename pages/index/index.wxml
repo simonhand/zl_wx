@@ -32,6 +32,9 @@
         <view plain="true" class="calcbutton" bindtap="calcClick" aria-role='button' aria-label='这是口算功能的按钮'>
           口算
         </view>
+        <view plain="true" class="calcbutton" bindtap="calcClick1" aria-role='button' aria-label='这是口算功能的按钮'>
+          口算
+        </view>
         <view class="calcbutton" bindtap="loginClick">
           你可算来了
         </view>

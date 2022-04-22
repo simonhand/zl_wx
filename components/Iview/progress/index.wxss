@@ -21,14 +21,14 @@
 .i-progress-inner {
     display: inline-block;
     width: 100%;
-    background-color: #f3f3f3;
+    background-color: #aaaaaa;
     border-radius: 100px;
     vertical-align: middle
 }
 
 .i-progress-bg {
     border-radius: 100px;
-    background-color: #9382da;
+    background: linear-gradient(45deg, #06edfe, #48b2fe);
     transition: all .2s linear;
     position: relative
 }
