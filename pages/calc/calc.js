@@ -1,11 +1,12 @@
 // pages/calc/calc.js
 import {
-    randomNum,
-    randomNumBetween
-} from "../../utils/random"
-import {
-    randomKey
+    level1,
+    boo
 } from './util'
+import {
+    debounce,
+    throttle
+} from '../../utils/util'
 Page({
 
     /**
@@ -13,87 +14,45 @@ Page({
      */
     data: {
         currentWindowClicked: false,
-        // selecedtNum: null,
-        // operand_1: null,
-        // operand_2: null,
-        // solvtion: null,
-        // userClickNum: null,
-        // solvtionString: '',
-        // userSolvtionString: '',
-        // score: 0,
-        // num_of_pre: 1,
-        // solvtionLen: null,
-        // num_list: [1, 2, 3, 4, 5, 6, 7, 8, 9],
-        // symbol: null,
-        // symbolType: [{
-        //         type: "add",
-        //         url: "../../assets/calc/add.png"
-        //     },
-        //     {
-        //         type: "subtract",
-        //         url: "../../assets/calc/subtract.png"
-        //     },
-        //     {
-        //         type: "multiply",
-        //         url: "../../assets/calc/multiply.png"
-        //     },
-        //     {
-        //         type: "divide",
-        //         url: "../../assets/calc/divide.png"
-        //     },
-        // ],
+        currentIndex: 0,
+        calcList: [],
+        useranswer: "",
+    },
+    timer: 1,
+    userInput(e) {
+        if (this.timer)
+            clearTimeout(this.timeout);
+            this.timer = setTimeout(() => {
+            this._userInput(e);
+        }, 600);
+        // this.$apply();
+        // throttle(this._userInput(e),1000)
+    },
+    _userInput(e) {
+        console.log("+++++++", e);
+        if (e.detail.value.length === this.data.calcList[this.data.currentIndex].answer.length) {
+            this.setData({
+                calcList: this.data.calcList.map((item, index) => {
+                    if (index === this.data.currentIndex) {
+                        item.useranswer = e.detail.value
+                    }
+                    return item
+                })
+            })
+            this.currentWindowClick();
+        }
     },
     currentWindowClick() {
         this.setData({
-            currentWindowClicked: !this.data.currentWindowClicked
+            currentWindowClicked: !this.data.currentWindowClicked,
+            useranswer: ""
         })
         setTimeout(() => {
             this.setData({
-                currentWindowClicked: !this.data.currentWindowClicked
+                currentWindowClicked: !this.data.currentWindowClicked,
+                currentIndex: this.data.currentIndex + 1
             })
-        },1000)
-    },
-    numClick(e) {
-        const props = e.currentTarget.dataset;
-        console.log("userClickNum", this.data.solvtionLen);
-        // this.data.selecedtNum = props.index;
-        if (props.num != "del") {
-            this.setData({
-                selecedtNum: props.index,
-                userSolvtionString: this.data.userSolvtionString + props.num,
-            });
-        } else {
-            this.setData({
-                selecedtNum: props.index,
-                userSolvtionString: this.data.userSolvtionString.substr(0, this.data.userSolvtionString.length - 1)
-            })
-        }
-        if (this.data.solvtionLen === this.data.userSolvtionString.length) {
-            if (this.data.userSolvtionString === this.data.solvtionString) {
-                this.setData({
-                    score: this.data.score + 1,
-                    userSolvtionString: '',
-                })
-            } else {
-                this.setData({
-                    userSolvtionString: '',
-                })
-            }
-            const {
-                solvtion
-            } = randomKey(this);
-            this.setData({
-                num_of_pre: this.data.num_of_pre + 1,
-                solvtion,
-                solvtionString: solvtion.toString(),
-                solvtionLen: solvtion.toString().length,
-            })
-        }
-        setTimeout(() => {
-            this.setData({
-                selecedtNum: null,
-            })
-        }, 100)
+        }, 1000)
     },
 
     /**
@@ -101,20 +60,20 @@ Page({
      */
     onLoad: function (options) {
         console.log(options);
+        let realCalcList = [];
+        for (let index = 0; index < 20; index++) {
+            realCalcList.push(level1.level_1());
+        }
+        this.setData({
+            calcList: realCalcList
+        })
     },
 
     /**
      * 生命周期函数--监听页面初次渲染完成
      */
     onReady: function () {
-        const {
-            solvtion
-        } = randomKey(this);
-        this.setData({
-            solvtion,
-            solvtionString: solvtion.toString(),
-            solvtionLen: solvtion.toString().length,
-        })
+
     },
 
     /**

@@ -30,6 +30,16 @@ Page({
                         fontSize: 30,
                         title: '10以内加法'
                     },
+                    {
+                        icon: 'cicon-calc3',
+                        fontSize: 30,
+                        title: '10以内加法'
+                    },
+                    {
+                        icon: 'cicon-calc3',
+                        fontSize: 30,
+                        title: '10以内加法'
+                    },
                 ]
             },
             {
