@@ -47,6 +47,31 @@ export function deepClone(obj) {
   })
   return newObj
 }
+export function throttle(fun, wait) {
+  let lastime = 0
+  return (...args) => {
+    let now = +newDate()
+    if (now - lastime > wait) {
+      lastime = now
+      fun.apply(this, args)
+    }
+  }
+}
+
+export function debounce(func, timeout) {
+  let timer;
+  return function () {
+    if (timer) {
+      // 如果在timeout秒调用 清空定时器
+      clearTimeout(timer);
+    }
+    // 每次调用都指定timeout后再执行
+    timer = setTimeout(() => {
+      timer = null;
+      func.apply(this, Array.from(arguments));
+    }, timeout);
+  };
+}
 
 export function zlEncodeList(list) {
   return JSON.stringify(list).replace(/\"/g,"+z&l+")

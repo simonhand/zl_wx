@@ -1,15 +1,15 @@
 <!--pages/calc/calc.wxml-->
-<ui-sys title="口算" navBg="bg-cyan-gradient">
+<ui-sys title="口算" navBg="bg-cyan-gradient" footer=''>
     <i-progress percent="{{ 5 / 20 * 100}}" status="active" i-class='calc-progress'></i-progress>
     <view style="margin:auto; width: 100vw; font-size: 50rpx;">
         等分100
     </view>
-    <view class="body" style="height: 800rpx; overflow: hidden;">
-        <input type="number" focus="{{true}}" style="font-size: 100rpx; position: fixed; background-color: blue; width: 25vw;height: 6vh;right: 100rpx; top: {{sys_navBar+300}}rpx;"/>
-        <view class="{{currentWindowClicked?'currentWindowClicked':'currentWindow'}}" bindtap="currentWindowClick"> <text style="position: relative; top: -1rpx;left: -100rpx;">90+80=</text></view>
+    <view class="body" style="height: 400rpx; overflow: hidden; position: absolute;">
+        <input type="number" focus="{{true}}" style="font-size: 100rpx; position: absolute; width: 25vw;height: 6vh;right: 100rpx; top: -10rpx;" model:value='{{useranswer}}' bindinput="userInput"/>
+        <view class="{{currentWindowClicked?'currentWindowClicked':'currentWindow'}}" style="position: relative;left: -100rpx;">{{calcList[currentIndex].string}}</view>
         <view class="{{currentWindowClicked?'nextWinowed':'nextWinow'}}">
-            90+80=
+            {{calcList[currentIndex+1].string}}
         </view>
-        <view class="{{currentWindowClicked?'befornextWinowed':'befornextWinow'}}">90+80=</view>
+        <view class="{{currentWindowClicked?'befornextWinowed':'befornextWinow'}}">{{calcList[currentIndex+2].string}}</view>
     </view>
 </ui-sys>

@@ -18,7 +18,7 @@
     height: 2vh;
     line-height: 10vh;
     text-align: center;
-    opacity: 0.2;
+    opacity: 0;
     /* background-color: red; */
     transition: all 1s;
 }
@@ -28,6 +28,7 @@
     font-size: 60rpx; 
     color: #666;
     margin: auto;
+    margin-top: 8rpx;
     width: 60vw;
     height: 200rpx;
     /* background-color: red; */
@@ -36,7 +37,7 @@
     position: relative;
     left: -100rpx;
     margin: auto;
-    margin-top: -90.9rpx;
+    margin-top: -89.9rpx;
     width: 90vw;
     height: 200rpx;
     font-size: 100rpx; 
@@ -55,7 +56,7 @@
 .befornextWinowed{
     margin: auto;
     width: 60vw;
-    margin-top: 8rpx;
+    margin-top: 14rpx;
     font-size: 60rpx; 
     color: #666;
     height: 200rpx;

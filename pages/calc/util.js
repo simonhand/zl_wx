@@ -484,7 +484,9 @@ export const level3 = {
         return { string,answer:answer.toString(),useranswer:""}
     },
 }
-
+export function boo(params) {
+    console.log("11111");
+}
 
 // export const randomKey = (obj) => {
 //     const symbolnum = randomNumBetween(0, 1);
