@@ -35,7 +35,7 @@
 }
 .nextWinowed{
     position: relative;
-    left: -100rpx;
+    left: -60rpx;
     margin: auto;
     margin-top: -89.9rpx;
     width: 90vw;

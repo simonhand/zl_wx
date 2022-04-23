@@ -12,93 +12,152 @@ Page({
         calcCount: "",
         modalVisible: false,
         needMoveTop: false,
+        inputIndex:-1,
         navData: [{
-                title: '基础',
-                sub: [{
-                        icon: 'cicon-calc1',
-                        // name: 'navbar',
-                        fontSize: 30,
-                        title: '1-5加减法'
-                    },
-                    {
-                        icon: 'cicon-calc2',
-                        fontSize: 30,
-                        title: '6-10加减法'
-                    },
-                    {
-                        icon: 'cicon-calc3',
-                        fontSize: 30,
-                        title: '10以内加法'
-                    },
-                    {
-                        icon: 'cicon-calc3',
-                        fontSize: 30,
-                        title: '10以内加法'
-                    },
-                    {
-                        icon: 'cicon-calc3',
-                        fontSize: 30,
-                        title: '10以内加法'
-                    },
-                ]
-            },
-            {
-                title: '进阶',
-                sub: [{
-                        icon: 'cicon-calc4',
-                        fontSize: 30,
-                        title: '30以内退位减法'
-                    },
-                    {
-                        icon: 'cicon-calc5',
-                        fontSize: 30,
-                        title: '300以内加减法'
-                    }
-                ]
-            },
-            {
-                title: '高级',
-                sub: [{
-                        icon: 'cicon-calc6',
-                        fontSize: 30,
-                        title: '100内加减'
-                    },
-                    {
-                        icon: 'cicon-calc7',
-                        fontSize: 30,
-                        title: '表内乘法'
-                    },
-                    {
-                        icon: 'cicon-calc8',
-                        fontSize: 30,
-                        title: '乘法加减'
-                    },
-                    {
-                        icon: 'cicon-calc9',
-                        fontSize: 24,
-                        title: '100内混合加减'
-                    },
-                    {
-                        icon: 'cicon-calc10',
-                        fontSize: 30,
-                        title: '表内除法'
-                    },
-                    {
-                        icon: 'cicon-calc11',
-                        fontSize: 30,
-                        title: '混合运算'
-                    }
-                ]
-            },
-        ],
+            title: '基础',
+            sub: [{
+                    icon: 'cicon-level_11',
+                    // name: 'navbar',
+                    fontSize: 30,
+                    title: '5以内的加法'
+                },
+                {
+                    icon: 'cicon-level_12',
+                    fontSize: 30,
+                    title: '5以内的减法'
+                },
+                {
+                    icon: 'cicon-level_13',
+                    fontSize: 30,
+                    title: '6-10的加法'
+                },
+                {
+                    icon: 'cicon-level_14',
+                    fontSize: 30,
+                    title: '6-10的减法'
+                },
+                {
+                    icon: 'cicon-level_15',
+                    fontSize: 30,
+                    title: '10以内的连加'
+                },
+                {
+                    icon: 'cicon-level_16',
+                    fontSize: 30,
+                    title: '10以内的连减'
+                },
+                {
+                    icon: 'cicon-level_1_1',
+                    fontSize: 30,
+                    title: '综合训练'
+                }
+            ]
+        },
+        {
+            title: '进阶',
+            sub: [{
+                    icon: 'cicon-level_21',
+                    fontSize: 30,
+                    title: '两位数的加法'
+                },
+                {
+                    icon: 'cicon-level_22',
+                    fontSize: 30,
+                    title: '两位数的减法'
+                },
+                {
+                    icon: 'cicon-level_23',
+                    fontSize: 30,
+                    title: '9以内的乘法'
+                },
+                {
+                    icon: 'cicon-level_24',
+                    fontSize: 30,
+                    title: '9以内的除法'
+                },
+                {
+                    icon: 'cicon-level_25',
+                    fontSize: 30,
+                    title: '乘法加法混合'
+                },
+                {
+                    icon: 'cicon-level_26',
+                    fontSize: 30,
+                    title: '乘法减法混合'
+                },
+                {
+                    icon: 'cicon-level_27',
+                    fontSize: 30,
+                    title: '除法加法混合'
+                },
+                {
+                    icon: 'cicon-level_28',
+                    fontSize: 30,
+                    title: '除法减法混合'
+                },
+                {
+                    icon: 'cicon-level_2_1',
+                    fontSize: 30,
+                    title: '综合练习'
+                }
+            ]
+        },
+        {
+            title: '高级',
+            sub: [{
+                    icon: 'cicon-level_31',
+                    fontSize: 30,
+                    title: '两位数除一位数'
+                },
+                {
+                    icon: 'cicon-level_32',
+                    fontSize: 30,
+                    title: '三位数除一位数'
+                },
+                {
+                    icon: 'cicon-level_33',
+                    fontSize: 30,
+                    title: '四位数除一位数'
+                },
+                {
+                    icon: 'cicon-level_34',
+                    fontSize: 30,
+                    title: '两位数乘两位数'
+                },
+                {
+                    icon: 'cicon-level_35',
+                    fontSize: 30,
+                    title: '三位数减法'
+                },
+                {
+                    icon: 'cicon-level_36',
+                    fontSize: 30,
+                    title: '三位数加法'
+                },
+                {
+                    icon: 'cicon-level_3_1',
+                    fontSize: 30,
+                    title: '综合练习'
+                }
+            ]
+        },
+    ],
     },
     inputClick() {
         this.setData({
             needMoveTop: true,
+            inputIndex:1
         })
     },
     handleOk() {
         const count = this.data.calcCount;
+        if (!count) {
+            $Message({
+                content:"输入不合法",
+                type:"error"
+            });
+            return
+        }
         if (count > 50) {
             $Message({
                 content:"题目数量不能超过50哦",
@@ -110,6 +169,7 @@ Page({
             calcCount: "",
             modalVisible: false,
             needMoveTop: false,
+            inputIndex:-1
         },() => {
             wx.navigateTo({
                 url: '../calc/calc?calcType=' + calctype + "&count=" + count,
@@ -119,7 +179,8 @@ Page({
     },
     handleClose() {
         this.setData({
-            modalVisible: false
+            modalVisible: false,
+            inputIndex:-1
         })
     },
     itemCLick(e) {

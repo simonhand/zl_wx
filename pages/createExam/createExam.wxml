@@ -8,7 +8,6 @@
                     {{index + 1}} <text class="num" data-index="{{index + 1}}"></text>
                 </view>
             </scroll-view>
-
         </view>
         <scroll-view style="height: 1000rpx; overflow: hidden;  margin-top: 20rpx;" scroll-y>
             <view class="shadow-warp ui-BG p-4 radius xl textarea" style="margin: auto;">
