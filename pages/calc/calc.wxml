@@ -1,12 +1,18 @@
 <!--pages/calc/calc.wxml-->
 <ui-sys title="口算" navBg="bg-cyan-gradient" footer=''>
-    <i-progress percent="{{ 5 / 20 * 100}}" status="active" i-class='calc-progress'></i-progress>
-    <view style="margin:auto; width: 100vw; font-size: 50rpx;">
-        等分100
+    <i-progress percent="{{ progressCount * 100}}" status="active" i-class='calc-progress'></i-progress>
+    <view style="margin:auto; width: 100vw;height: 4vh;display: flex;flex-direction: row;">
+        <view style="flex: 3;color: #666;font-size:larger;margin-left: 30rpx;">
+            ⏲计时:{{hour?hour+':':''}}{{minute?minute+':':''}}{{second}}
+        </view>
+        <view style="flex: 3;color: #666;font-size:larger;">
+            得分:{{score}}
+        </view>
+        <view style="flex: 1;color: #666; position: relative;right: 50rpx; font-size: x-large;" bindtap="setVoice" class="{{openVoice?'cicon-music':'cicon-music-off'}}" />
     </view>
     <view class="body" style="height: 400rpx; overflow: hidden; position: absolute;">
-        <input type="number" focus="{{true}}" style="font-size: 100rpx; position: absolute; width: 25vw;height: 6vh;right: 100rpx; top: -10rpx;" model:value='{{useranswer}}' bindinput="userInput"/>
-        <view class="{{currentWindowClicked?'currentWindowClicked':'currentWindow'}}" style="position: relative;left: -100rpx;">{{calcList[currentIndex].string}}</view>
+        <input type="number" focus="{{true}}" style="font-size: 100rpx; position: absolute; width: 25vw;height: 6vh;right: {{isMoreOperation?'-20rpx':' 40rpx'}}; top: -10rpx;" model:value='{{useranswer}}' bindinput="userInput" />
+        <view class="{{currentWindowClicked?'currentWindowClicked':'currentWindow'}}" style="position: relative;left: -60rpx;">{{calcList[currentIndex].string}}</view>
         <view class="{{currentWindowClicked?'nextWinowed':'nextWinow'}}">
             {{calcList[currentIndex+1].string}}
         </view>
