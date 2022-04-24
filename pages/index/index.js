@@ -34,7 +34,7 @@ Page({
     hasUserInfo: false,
     deadLineDate: "截至时间",
     exerciseCount: 0,
-    NotifyCount:0,
+    NotifyCount: 0,
   },
   // 页面显示触发
   onShow() {
@@ -169,9 +169,13 @@ Page({
     // 请求有多少个测验未做
     // 这里之所以从缓存里拿数据，按理说全局变量userinfo数据是和缓存中同步的，但是从缓存中拿是异步的又因为这是首页这个时候直接从usereinfo拿是undefined
     getWxStorage('user').then((res) =>
-      Promise.all([examIndex(res.data.course),getNotifyByUser(res.data)
-      ])
-    ).then((res) => {
+      Promise.all([examIndex(res.data.course), getNotifyByUser(res.data)])
+    ).catch(() => {
+      that.setData({
+        exerciseCount: 0,
+        NotifyCount: 0
+      })
+    }).then((res) => {
       that.setData({
         exerciseCount: res[0].data.data.examIndex[0].exerciseCount,
         NotifyCount: res[1].data.data.getNotify[0].NotifyCount

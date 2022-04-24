@@ -48,6 +48,10 @@ Component({
             type: String,
             value: 'bg-blur'
         },
+        stopNavBack:{
+            type:Boolean,
+            value:false
+        },
         styles: {   //样式
             type: String,
             value: ''
@@ -71,6 +75,7 @@ Component({
         },
     },
     lifetimes: {
+      
         created() {
             this.setLoading();
         },
@@ -96,6 +101,9 @@ Component({
         },
     },
     methods: {
+        stopNavBack(){
+            this.triggerEvent("stopNavBack")
+        },
         setTabBar() {
             let tabBar = this.data.tabbar;
             if (tabBar) {

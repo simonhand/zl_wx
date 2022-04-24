@@ -104,7 +104,8 @@ Component({
         },
         _navBack() {
             if (this.data.stopBack) {
-                this.triggerEvent("navBack");
+                console.log("1111");
+                this.triggerEvent("navBack","stopNavBack");
             } else {
                 this._backPage();
             }

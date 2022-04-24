@@ -1,5 +1,6 @@
 {
   "usingComponents": {
-    "i-progress": "../../components/Iview/progress/index"
+    "i-progress": "../../components/Iview/progress/index",
+    "ui-modal":"../../components/mp-cu/colorUI/components/ui-modal/ui-modal"
   }
 }
