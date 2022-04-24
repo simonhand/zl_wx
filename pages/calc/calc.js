@@ -3,38 +3,83 @@ import {
     level,
     audio
 } from './util'
+import {
+    submitCalc
+} from './serives'
 Page({
 
     /**
      * 页面的初始数据
      */
     data: {
-        hour:0,
-        minute:0,
-        second:0,
-        openVoice:true,
+        hour: 0,
+        minute: 0,
+        second: 0,
+        openVoice: true,
         currentWindowClicked: false,
         currentIndex: 0,
         calcList: [],
-        progressCount:0,
+        progressCount: 0,
         useranswer: "",
-        isMoreOperation:false,
-        count:0,
-        score:0,
+        isMoreOperation: false,
+        count: 0,
+        score: 0,
+        visible: false,
+        dataFrom: "navBack",
+        isLoading: false
     },
     // 防抖用的
     timer: 1,
     // 取消定时器用的
-    timer1:undefined,
-    setVoice(){
+    timer1: undefined,
+    stopNavBack(e) {
         this.setData({
-            openVoice:!this.data.openVoice
+            visible: true
+        })
+    },
+    modalClick(e) {
+        if (e.detail.confirm) {
+            if (this.data.dataFrom === 'lastCalc') {
+                // 这里是要提交口算记录
+                const obj = {
+                    calcList: this.data.calcList,
+                    score: this.data.score,
+                    calcCount: this.data.count,
+                    timer: {
+                        hour: this.data.hour,
+                        minute: this.data.minute,
+                        second: this.data.second
+                    },
+                    userId: getApp().globalData.userInfo._id
+                }
+                this.setData({
+                    isLoading: true
+                })
+                submitCalc(obj).then((res) => {
+                    console.log(res);
+                    this.setData({
+                        isLoading: false
+                    })
+                    wx.navigateBack({
+                        delta: 1
+                    })
+                })
+            } else {
+                wx.navigateBack({
+                    delta: 1
+                })
+            }
+        }
+    },
+    setVoice() {
+        this.setData({
+            openVoice: !this.data.openVoice
         })
     },
     userInput(e) {
         if (this.timer)
             clearTimeout(this.timeout);
-            this.timer = setTimeout(() => {
+        this.timer = setTimeout(() => {
             this._userInput(e);
         }, 600);
     },
@@ -48,11 +93,26 @@ Page({
                     return item
                 })
             })
+            // 正确答题加分
+            if (this.data.calcList[this.data.currentIndex].answer === this.data.calcList[this.data.currentIndex].useranswer) {
+                this.setData({
+                    score: this.data.score + 1
+                })
+                if (this.data.openVoice) {
+                    audio.correctAudio.play();
+                }
+            } else {
+                if (this.data.openVoice) {
+                    audio.errorAudio.play();
+                }
+            }
             // 这是最后一题了
-            if (this.data.currentIndex+1 === Number(this.data.count)) {
+            if (this.data.currentIndex + 1 === Number(this.data.count)) {
                 clearInterval(this.timer1);
                 this.setData({
-                    progressCount:((this.data.currentIndex+1) / this.data.count).toFixed(2)
+                    progressCount: ((this.data.currentIndex + 1) / this.data.count).toFixed(2),
+                    dataFrom: "lastCalc",
+                    visible: true
                 })
                 return;
             }
@@ -61,25 +121,13 @@ Page({
     },
     currentWindowClick() {
         this.setData({
-            progressCount:((this.data.currentIndex+1) / this.data.count).toFixed(2),
+            progressCount: ((this.data.currentIndex + 1) / this.data.count).toFixed(2),
             currentWindowClicked: !this.data.currentWindowClicked,
-            isMoreOperation:this.data.calcList[this.data.currentIndex + 1].string.length > 8?true:false,
+            isMoreOperation: this.data.calcList[this.data.currentIndex + 1].string.length > 8 ? true : false,
             useranswer: ""
         })
+
         setTimeout(() => {
-            // 正确答题加分
-            if (this.data.calcList[this.data.currentIndex].answer === this.data.calcList[this.data.currentIndex].useranswer) {
-                this.setData({
-                    score:this.data.score + 1
-                })
-                if (this.data.openVoice) {
-                    audio.correctAudio.play();
-                }
-            }else{
-                if (this.data.openVoice) {
-                    audio.errorAudio.play();
-                }
-            }
             this.setData({
                 currentWindowClicked: !this.data.currentWindowClicked,
                 currentIndex: this.data.currentIndex + 1,
@@ -87,7 +135,10 @@ Page({
         }, 1000)
     },
     // 生成对应数量对应类型的题目
-    createCalcList:function ({calcType,count}) {
+    createCalcList: function ({
+        calcType,
+        count
+    }) {
         const typeList = calcType.split('_');
         let realCalcList = []
         // 常规训练
@@ -120,38 +171,38 @@ Page({
         }
         return realCalcList
     },
-    Interval(){
+    Interval() {
         this.timer1 = setInterval(() => {
             this.setData({
-                second:this.data.second + 1
-            },() => {
+                second: this.data.second + 1
+            }, () => {
                 if (this.data.second === 60) {
                     this.setData({
-                        second:0,
-                        minute:this.data.minute + 1
-                    },() => {
+                        second: 0,
+                        minute: this.data.minute + 1
+                    }, () => {
                         if (this.data.hour === 60) {
                             this.setData({
-                                minute:0,
-                                hour:this.data.hour + 1
+                                minute: 0,
+                                hour: this.data.hour + 1
                             })
                         }
                     })
                 }
             })
-        },1000)
+        }, 1000)
     },
     /**
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
-       const realCalcList = this.createCalcList(options)
+        const realCalcList = this.createCalcList(options)
         this.setData({
-            count:Number(options.count),
+            count: Number(options.count),
             calcList: realCalcList,
-            isMoreOperation:realCalcList[0].string.length > 8?true:false
+            isMoreOperation: realCalcList[0].string.length > 8 ? true : false
         })
-       this.Interval()
+        this.Interval()
     },
 
     /**

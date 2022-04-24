@@ -151,7 +151,8 @@ Page({
     },
     handleOk() {
         const count = this.data.calcCount;
-        if (!count) {
+        console.log(Number(count));
+        if (!count || !Number(count)) {
             $Message({
                 content:"输入不合法",
                 type:"error"

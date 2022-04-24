@@ -1,6 +1,11 @@
 <!--pages/calc/calc.wxml-->
-<ui-sys title="口算" navBg="bg-cyan-gradient" footer=''>
+<ui-sys title="口算" navBg="bg-cyan-gradient" footer='' stopNavBack  bind:stopNavBack="stopNavBack" id="ui" needLoading="{{isLoading}}">
     <i-progress percent="{{ progressCount * 100}}" status="active" i-class='calc-progress'></i-progress>
+    <ui-modal show="{{visible}}" mask="40" align="bottom" bind:success="modalClick" data-from="{{dataFrom}}" showCancel="{{ dataFrom === 'navBack'}}">
+        <view style="width: 100vw;height: 200rpx;line-height: 200rpx;text-align: center; font-size: 30rpx;">
+            {{dataFrom === 'navBack' ? '将不保存当前做题记录，确认离开口算界面吗 ？': "这是最后一题了将提交口算记录"}}
+        </view>
+    </ui-modal>
     <view style="margin:auto; width: 100vw;height: 4vh;display: flex;flex-direction: row;">
         <view style="flex: 3;color: #666;font-size:larger;margin-left: 30rpx;">
             ⏲计时:{{hour?hour+':':''}}{{minute?minute+':':''}}{{second}}
@@ -11,7 +16,7 @@
         <view style="flex: 1;color: #666; position: relative;right: 50rpx; font-size: x-large;" bindtap="setVoice" class="{{openVoice?'cicon-music':'cicon-music-off'}}" />
     </view>
     <view class="body" style="height: 400rpx; overflow: hidden; position: absolute;">
-        <input type="number" focus="{{true}}" style="font-size: 100rpx; position: absolute; width: 25vw;height: 6vh;right: {{isMoreOperation?'-20rpx':' 40rpx'}}; top: -10rpx;" model:value='{{useranswer}}' bindinput="userInput" />
+        <input type="number" focus="{{ dataFrom === 'navBack'}}" style="font-size: 100rpx; position: absolute; width: 25vw;height: 6vh;right: {{isMoreOperation?'-20rpx':' 40rpx'}}; top: -10rpx;" model:value='{{useranswer}}' bindinput="userInput" />
         <view class="{{currentWindowClicked?'currentWindowClicked':'currentWindow'}}" style="position: relative;left: -60rpx;">{{calcList[currentIndex].string}}</view>
         <view class="{{currentWindowClicked?'nextWinowed':'nextWinow'}}">
             {{calcList[currentIndex+1].string}}

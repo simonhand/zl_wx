@@ -22,6 +22,9 @@ export const getWxStorage = (key) => {
       encrypt:true,
       success(res){
         resolve(res)
+      },
+      fail(e){
+        reject(e)
       }
     })
   })
