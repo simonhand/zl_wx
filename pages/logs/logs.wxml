@@ -1,5 +1,22 @@
-<ui-sys title="我的记录" img="/static/img/4put2.png" imgBottom navBg="bg-cyan-gradient" isTabbar>
+<ui-sys title="我的记录" img="/static/img/4put2.png" imgBottom navBg="bg-cyan-gradient" isTabbar footer="" needLoading="{{isLoading}}">
   <view class="p-3 text-center">
-    <ui-tab tab="{{[{ name:'测验',icon:'cicon-event-list',tag:'15'},{icon:'cicon-community-o', name:'通知',tag:'12'},{name:'口算',icon:'cicon-numcode',tag:'8'}]}}" tpl="btn" mark="bg-white radius" ui="bg-cyan-gradient radius" curColor="text-orange" inline />
+    <ui-tab tab="{{[{ name:'测验',icon:'cicon-event-list',tag:tabTotal.exerciseCount},{icon:'cicon-community-o', name:'通知',tag:tabTotal.notifyCount},{name:'口算',icon:'cicon-numcode',tag:tabTotal.calcCount}]}}" tpl="btn" mark="bg-white radius" ui="bg-cyan-gradient radius" curColor="text-orange" inline bind:change="tabChange"/>
   </view>
+  <scroll-view style="height: 70vh;position: fixed; bottom: 148rpx;" scroll-y bindscrolltolower="scrolltolower">
+    <i-swipeout i-class="i-swipeout-demo-item" actions="{{actions}}" wx:for="{{recordList}}" wx:key="index" data-index="{{index}}" bind:change="swipeoutClick">
+            <view slot="content" style="height: 60px;">
+                <view class="classCard">
+                    <view class="left-class-card">
+                        <image src="{{'https://luqiao-1305980897.cos.ap-nanjing.myqcloud.com/Dh9dVubXiqRr0ad6553724a7b73b5834673dd918e47d.jpg'}}" class="imageClass"></image>
+                    </view>
+                    <view class="right-class-card">
+                        <view class="right-class-card-top"><text>小程序</text> <text>10</text></view>
+                        <view class="right-class-card-bottom">
+                            <view>授课教师:张乐</view>
+                        </view>
+                    </view>
+                </view>
+            </view>
+        </i-swipeout>
+  </scroll-view>
 </ui-sys>
