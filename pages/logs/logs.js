@@ -1,7 +1,7 @@
 // logs.js
 const util = require('../../utils/util.js')
 import { $Toast } from '../../components/Iview/base/index'
-import { getTabTotal } from './services'
+import { getTabTotal ,getExerciseRecord} from './services'
 const app = getApp()
 Page({
   data: {
@@ -44,23 +44,16 @@ Page({
       this.setData({
         tabTotal:res.data.data.getTabTotal
       })
-      console.log(res);
     })
   },
   onLoad() {
-    this.setData({
-      logs: (wx.getStorageSync('logs') || []).map(log => {
-        return {
-          date: util.formatTime(new Date(log)),
-          timeStamp: log
-        }
-      })
+    const userId = app.globalData.userInfo._id
+    getExerciseRecord(userId).then((item) => {
+        this.setData({
+            recordList:[[...item.data.data.getExerciseRecord]]
+        })
+        console.log(item);
     })
   },
-  inputClick(e){
-    const props = e.currentTarget.dataset;
-    this.setData({
-      userInputIndex: props.index,
-  })
-  }
+
 })

@@ -10,3 +10,25 @@ export const getTabTotal = (userId) => {
     })
     return zlrequest(playLoad,"POST");
 }
+export const getExerciseRecord = (userId) => {
+    const playLoad = JSON.stringify({
+        query:`query getExerciseRecord{getExerciseRecord(userId:"${userId}"){
+            _id
+            createrId
+            createrAvatarUrl
+            courseName
+            exerciseId
+            exercisesCorrectRecord
+            exercisesScoreRecord
+        }}`
+    })
+    return zlrequest(playLoad,"POSt")
+}
+
+export const getNotifyRecord = (userId) => {
+
+}
+
+export const getCalcRecord = (userId) => {
+
+}
