@@ -15,7 +15,7 @@ App({
     // 小程序启动后设置全局变量
     wx.getStorage({
       key:"user",
-      encryptL:true,
+      encrypt:true,
       success(res){
         that.globalData.userInfo = res.data;
       },

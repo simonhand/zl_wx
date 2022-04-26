@@ -1,11 +1,10 @@
 import { zlrequest } from '../../utils/zlGraphql'
-const app = getApp()
-export const examIndex = (obj) => {
+export const examIndex = (obj,_id) => {
     const arr = obj.map((item) => "\""+item.invitationCode+"\"")
     const playLoad = JSON.stringify({
         query: `
         query examIndex {
-            examIndex(invitationCodeList:[${arr.toString()}],userId:"${app.globalData.userInfo._id}",from:"index") {
+            examIndex(invitationCodeList:[${arr.toString()}],userId:"${_id}",from:"index") {
                 exerciseCount
             }
           }
