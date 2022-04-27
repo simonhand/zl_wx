@@ -25,8 +25,27 @@ export const getExerciseRecord = (userId) => {
     return zlrequest(playLoad,"POSt")
 }
 
-export const getNotifyRecord = (userId) => {
-
+export const getNotifyRecord = (userId,course) => {
+    const arr = course.map((item) => "\"" + item.invitationCode + "\"")
+    const palyLoad = JSON.stringify({
+        query: `query getNotify{
+            getNotify(invitationCodeList:[${arr.toString()}],userId:"${userId}",from:"record"){
+                _id
+                createrAvatarUrl,
+                createrId,
+                course_id,
+                courseName,
+                teacherName,
+                invitationCode,
+                textArea,
+                imgList,
+                meta{                  
+                    createdAt
+                }
+            }
+        }`
+    })
+    return zlrequest(palyLoad, "POST")
 }
 
 export const getCalcRecord = (userId) => {
