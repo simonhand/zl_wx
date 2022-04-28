@@ -8,11 +8,12 @@ export const submitCalc = (obj) => {
         score,
         calcCount,
         timer,
-        userId
+        userId,
+        calcType
     } = obj
     const palyLoad = JSON.stringify({
         query: `
-            query submitCalc{submitCalc(calcList:"${zlEncodeList(calcList)}",score:${score},calcCount:${calcCount},timer:"${zlEncodeList(timer)}",userId:"${userId}"){
+            query submitCalc{submitCalc(calcList:"${zlEncodeList(calcList)}",score:${score},calcCount:${calcCount},timer:"${zlEncodeList(timer)}",userId:"${userId}",calcType:"${calcType}"){
                 userId
             }}
         `

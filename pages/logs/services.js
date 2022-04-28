@@ -1,18 +1,20 @@
-import { zlrequest } from '../../utils/zlGraphql'
+import {
+    zlrequest
+} from '../../utils/zlGraphql'
 
 export const getTabTotal = (userId) => {
     const playLoad = JSON.stringify({
-        query : `query getTabTotal{getTabTotal(userId:"${userId}"){
+        query: `query getTabTotal{getTabTotal(userId:"${userId}"){
             exerciseCount
             notifyCount
             calcCount
         } } `
     })
-    return zlrequest(playLoad,"POST");
+    return zlrequest(playLoad, "POST");
 }
 export const getExerciseRecord = (userId) => {
     const playLoad = JSON.stringify({
-        query:`query getExerciseRecord{getExerciseRecord(userId:"${userId}"){
+        query: `query getExerciseRecord{getExerciseRecord(userId:"${userId}"){
             _id
             createrId
             createrAvatarUrl
@@ -22,10 +24,10 @@ export const getExerciseRecord = (userId) => {
             exercisesScoreRecord
         }}`
     })
-    return zlrequest(playLoad,"POSt")
+    return zlrequest(playLoad, "POSt")
 }
 
-export const getNotifyRecord = (userId,course) => {
+export const getNotifyRecord = (userId, course) => {
     const arr = course.map((item) => "\"" + item.invitationCode + "\"")
     const palyLoad = JSON.stringify({
         query: `query getNotify{
@@ -49,5 +51,17 @@ export const getNotifyRecord = (userId,course) => {
 }
 
 export const getCalcRecord = (userId) => {
-
+    const palyLoad = JSON.stringify({
+        query: `query getCalcRecord{
+            getCalcRecord(userId:"${userId}"){
+                calcList,
+                score,
+                calcCount,
+                timer,
+                userId,
+                calcType
+            }
+        }`
+    })
+    return zlrequest(palyLoad,"POST")
 }
