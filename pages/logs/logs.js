@@ -21,7 +21,7 @@ Page({
         logs: [],
         tabIndex: 0,
         modalVisible:false,
-        recordList: [],
+        recordList: [-1,-1,-1],
         tabTotal: {},
         clickItem:{},
         isLoading: false,
@@ -58,25 +58,47 @@ Page({
         })
         if (!this.data.recordList[e.detail.index]) {
             if (e.detail.index === 1) {
-                this.pageGetNotify()
+                this.pageGetNotify();
+            }
+            if (e.detail.index === 2) {
+                this.pageGetCalc();
             }
         }
     },
     scrolltolower() {
         console.log("触底了");
-
+    },
+    pageGetCalc(){
+        const userId = app.globalData.userInfo._id;
+        getCalcRecord(userId).then((res) => {
+            this.data.recordList[2] = res.data.data.getCalcRecord.map((item) => {
+                item.calcList = zlDecodeList(item.calcList);
+                item.timer = zlDecodeList(item.timer);
+                return item
+            })
+            const realrecordList = this.data.recordList
+            this.setData({
+                isLoading:false,
+                recordList:realrecordList,
+            })
+        })
     },
     pageGetNotify() {
         const userId = app.globalData.userInfo._id;
         const course = app.globalData.userInfo.course;
         getNotifyRecord(userId, course).then((res) => {
             this.setData({
-                recordList: [...this.data.recordList, res.data.data.getNotify.map((item) => {
-                    item.imgList = zlDecodeList(item.imgList).map(_item => "https://" + _item);
-                    const date = new Date(Number(item.meta.createdAt));
-                    item.meta.createdAt = formateDate.call(date, "MM-dd hh:mm")
-                    return item;
-                })],
+               
+            })
+            this.data.recordList[1] =  res.data.data.getNotify.map((item) => {
+                item.imgList = zlDecodeList(item.imgList).map(_item => "https://" + _item);
+                const date = new Date(Number(item.meta.createdAt));
+                item.meta.createdAt = formateDate.call(date, "MM-dd hh:mm")
+                return item;
+            })
+            const realrecordList = this.data.recordList
+            this.setData({
+                recordList:realrecordList,
                 isLoading: false
             })
         })

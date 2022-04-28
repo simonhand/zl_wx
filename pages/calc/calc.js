@@ -26,7 +26,8 @@ Page({
         score: 0,
         visible: false,
         dataFrom: "navBack",
-        isLoading: false
+        isLoading: false,
+        calcType:"",
     },
     // 防抖用的
     timer: 1,
@@ -50,6 +51,7 @@ Page({
                         minute: this.data.minute,
                         second: this.data.second
                     },
+                    calcType:this.data.calcType,
                     userId: getApp().globalData.userInfo._id
                 }
                 this.setData({
@@ -139,6 +141,9 @@ Page({
         calcType,
         count
     }) {
+        this.setData({
+            calcType:calcType
+        })
         const typeList = calcType.split('_');
         let realCalcList = []
         // 常规训练
