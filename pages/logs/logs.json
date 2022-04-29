@@ -9,6 +9,7 @@
     "zl-timepicker":"../../components/zl-timepicker/timepicker",
     "i-swipeout":"../../components/Iview/swipeout/index",
     "i-rate":"../../components/Iview/rate/index",
-    "ui-modal":"../../components/mp-cu/colorUI/components/ui-modal/ui-modal"
+    "ui-modal":"../../components/mp-cu/colorUI/components/ui-modal/ui-modal",
+    "app-nav-li": "../../components/mp-sdk/components/app-nav-li/app-nav-li"
   }
 }

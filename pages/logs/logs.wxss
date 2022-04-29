@@ -21,5 +21,16 @@
   height: 80px;
   margin-top: -60px;
 }
+
+.calc_card{
+    display: flex;
+    flex-direction: column;
+}
+.calc_card_right{
+    position: relative;
+    top: -60rpx;
+    left: -10rpx;
+}
+
 @import '../readNotify/readNotify.wxss'
 

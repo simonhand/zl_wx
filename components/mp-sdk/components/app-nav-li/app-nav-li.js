@@ -6,6 +6,10 @@ Component({
         addGlobalClass: true
     },
     properties: {
+        height:{
+            type:String,
+            value:"auto"
+        },
         fontSize:{
             type:Number,
             value:30,

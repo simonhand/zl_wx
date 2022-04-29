@@ -1,5 +1,6 @@
 // logs.js
 const util = require('../../utils/util.js')
+import { calcType } from '../../config/secret'
 import {
     $Toast
 } from '../../components/Iview/base/index'
@@ -46,6 +47,12 @@ Page({
                 clickItem:{...this.data.recordList[1][e.currentTarget.dataset.index]}
             })
         }
+        if (this.data.tabIndex === 2) {
+            this.setData({
+                modalVisible:true,
+                clickItem:{...this.data.recordList[2][e.currentTarget.dataset.index]}
+            })
+        }
     },
     // 删除记录点击了
     swipeoutClick(e){
@@ -74,6 +81,18 @@ Page({
             this.data.recordList[2] = res.data.data.getCalcRecord.map((item) => {
                 item.calcList = zlDecodeList(item.calcList);
                 item.timer = zlDecodeList(item.timer);
+                item.rate = Math.round((item.score / item.calcCount) * 5);
+                const calcTypeList = item.calcType.split('_');
+                if (calcTypeList.length === 2) {
+                    item.icon = calcType[calcTypeList[1].charAt(0)-1].sub[calcTypeList[1].charAt(1)-1].icon;
+                    item.title = calcType[calcTypeList[1].charAt(0)-1].sub[calcTypeList[1].charAt(1)-1].title;
+                    item.fontSize = calcType[calcTypeList[1].charAt(0)-1].sub[calcTypeList[1].charAt(1)-1].fontSize;
+                }
+                if (calcTypeList.length === 3) {
+                    item.icon = calcType[calcTypeList[1].charAt(0)-1].sub[calcTypeList[2].charAt(0)-1].icon;
+                    item.title = calcType[calcTypeList[1].charAt(0)-1].sub[calcTypeList[2].charAt(0)-1].title;
+                    item.fontSize = calcType[calcTypeList[1].charAt(0)-1].sub[calcTypeList[2].charAt(0)-1].fontSize;
+                }
                 return item
             })
             const realrecordList = this.data.recordList
@@ -101,6 +120,13 @@ Page({
                 recordList:realrecordList,
                 isLoading: false
             })
+        })
+    },
+    viewImage(e) {
+        console.log(e.currentTarget.dataset.url);
+        wx.previewImage({
+            current: e.currentTarget.dataset.url,
+            urls: this.data.clickItem.imgList
         })
     },
     // 页面显示触发

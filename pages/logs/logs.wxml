@@ -20,36 +20,68 @@
                 </view>
             </view>
         </i-swipeout>
-        <i-swipeout i-class="i-swipeout-demo-item" actions="{{actions}}" wx:for="{{recordList[tabIndex]}}" wx:key="index" data-index="{{index}}" bind:change="swipeoutClick" wx:if="{{tabIndex === 1}}" >
-                <view slot="content" style="height: 60px;" >
-                    <view class="classCard" bindtap="cardClick" data-index="{{index}}">
-                        <view class="left-class-card">
-                            <image src="{{item.createrAvatarUrl}}" class="imageClass"></image>
+        <i-swipeout i-class="i-swipeout-demo-item" actions="{{actions}}" wx:for="{{recordList[tabIndex]}}" wx:key="index" data-index="{{index}}" bind:change="swipeoutClick" wx:if="{{tabIndex === 1}}">
+            <view slot="content" style="height: 60px;">
+                <view class="classCard" bindtap="cardClick" data-index="{{index}}">
+                    <view class="left-class-card">
+                        <image src="{{item.createrAvatarUrl}}" class="imageClass"></image>
+                    </view>
+                    <view class="right-class-card">
+                        <view class="right-class-card-top"><text>{{item.courseName}}</text>
+                            <text class="notify_textArea">{{item.textArea}}</text>
                         </view>
-                        <view class="right-class-card">
-                            <view class="right-class-card-top"><text>{{item.courseName}}</text>
-                                <text class="notify_textArea">{{item.textArea}}</text>
+                        <view style="display: flex;flex-direction: row;">
+                            <view style="line-height: 58rpx;">
+                                {{item.meta.createdAt}}
                             </view>
-                            <view style="display: flex;flex-direction: row;">
-                                <view style="line-height: 58rpx;">
-                                    {{item.meta.createdAt}}
-                                </view>
-                                <view class="cu-avatar-group" wx:if="{{item.imgList.length > 0}}">
-                                    <block wx:for="{{item.imgList}}" wx:key="index">
-                                        <view class="cu-avatar round sm" wx:key="index" class="cu-avatar round sm" style="background-image:url({{item}});"></view>
-                                    </block>
-                                </view>
+                            <view class="cu-avatar-group" wx:if="{{item.imgList.length > 0}}">
+                                <block wx:for="{{item.imgList}}" wx:key="index">
+                                    <view class="cu-avatar round sm" wx:key="index" class="cu-avatar round sm" style="background-image:url({{item}});"></view>
+                                </block>
                             </view>
                         </view>
                     </view>
                 </view>
-            </i-swipeout>
+            </view>
+        </i-swipeout>
+        <i-swipeout i-class="i-swipeout-demo-item" actions="{{actions}}" wx:for="{{recordList[tabIndex]}}" wx:key="index" data-index="{{index}}" bind:change="swipeoutClick" wx:if="{{tabIndex === 2}}">
+            <view slot="content" style="height: 60px;">
+                <view class="classCard calc_card" bindtap="cardClick" data-index="{{index}}">
+                    <view class="ui-item p-3 " bindtap="itemCLick" data-calcType="{{item.icon}}" style="position:relative;top: -20rpx;border-radius: 200rpx;display: inline;">
+                        <app-nav-li data="{{item}}" fontSize="{{item.fontSize}}" height="200" />
+                    </view>
+                    <view class="right-class-card calc_card_right">
+                        <view class="right-class-card-top">
+                            <view style="line-height: 58rpx;">
+                                <i-rate value="{{item.rate}}" size="20" />
+                            </view>
+                        </view>
+                        <view style="color: #666666; font-size: 25rpx;">
+                            得分：{{item.score}} 题数：{{item.calcCount}}
+                        </view>
+                    </view>
+                </view>
+            </view>
+        </i-swipeout>
     </scroll-view>
-    <ui-modal show="{{modalVisible}}" confirmText="确定" transparent mask="40" showCancel="{{false}}" title="通知详情" bind:success="modalConfirm">
-        <view class="p-5 flex-center" style="flex-direction: column;" wx:if="{{tabIndex === 1}}">
-            <view class="notify_textArea_modal">{{clickItem.textArea}}</view>
-            <view style="margin-top: 30rpx;display: flex;justify-content: left; ">
+    <ui-modal show="{{modalVisible}}" confirmText="确定" transparent mask="40" showCancel="{{false}}" title="{{tabIndex === 1?'通知详情':clickItem.title}}" bind:success="modalConfirm">
+        <view class="p-5 flex-center" style="flex-direction: column;" wx:if="{{tabIndex === 1 || tabIndex === 2}}">
+            <view class="notify_textArea_modal" wx:if="{{tabIndex === 1 }}">{{clickItem.textArea}}</view>
+            <view style="margin-top: 30rpx;display: flex;justify-content: left;" wx:if="{{tabIndex === 1 }}">
                 <image wx:for="{{clickItem.imgList}}" wx:key="index" src="{{item}}" style="width: 150rpx;height: 150rpx;margin-left: 10rpx;" data-url="{{item}}" bindtap="viewImage"></image>
+            </view>
+            <view style="position: relative; top: -70rpx;" wx:if="{{tabIndex ===2}}">
+                得分：{{clickItem.score}} 题数：{{clickItem.calcCount}}
+            </view>
+            <view style="margin-top: 30rpx; display: grid; grid-template-columns: 300rpx 300rpx; grid-gap: 30rpx;margin:auto;align-items: center;max-height: 600rpx;overflow: scroll;" wx:if="{{tabIndex ===2}}">
+                <block wx:for="{{clickItem.calcList}}" wx:key="index">
+                    <view style="position: relative;">
+                        <view style="font-size: 32rpx;display: inline-block;">
+                            {{item.string}} {{item.useranswer}}
+                        </view>
+                        <image wx:if="{{item.answer !==item.useranswer}}" src="/static/img/error.png" style="width: 30rpx;height: 30rpx;display: inline-block;position: relative;top: 20rpx;"></image>
+                    </view>
+                </block>
             </view>
         </view>
     </ui-modal>
