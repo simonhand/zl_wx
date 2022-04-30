@@ -22,7 +22,7 @@ Page({
         logs: [],
         tabIndex: 0,
         modalVisible:false,
-        recordList: [-1,-1,-1],
+        recordList: [[],[],[]],
         tabTotal: {},
         clickItem:{},
         isLoading: false,
@@ -41,6 +41,11 @@ Page({
         })
     },
     cardClick(e){
+        if (this.data.tabIndex === 0) {
+            wx.navigateTo({
+                url:"../exam/exam?from=record&exerciseId="+this.data.recordList[0][e.currentTarget.dataset.index].exerciseId
+            })
+        }
         if (this.data.tabIndex === 1) {
             this.setData({
                 modalVisible:true,
@@ -59,11 +64,12 @@ Page({
         console.log(e);
     },
     tabChange(e) {
+        console.log("切换tab");
         this.setData({
             tabIndex: e.detail.index,
             isLoading: !this.data.recordList[e.detail.index] ? true : false,
         })
-        if (!this.data.recordList[e.detail.index]) {
+        if (this.data.recordList[e.detail.index].length === 0) {
             if (e.detail.index === 1) {
                 this.pageGetNotify();
             }
@@ -75,10 +81,26 @@ Page({
     scrolltolower() {
         console.log("触底了");
     },
+    pageGetExercise(){
+        const userId = app.globalData.userInfo._id
+        getExerciseRecord(userId).then((item) => {
+            const realExerciseRecord = this.data.recordList[0].concat(...item.data.data.getExerciseRecord.map((item) => {
+                return {
+                    ...item,
+                    starRate: Math.round(Number(item.exercisesScoreRecord) / item.exercisesCorrectRecord.length) * 5
+                }
+            }))
+            this.data.recordList[0] = realExerciseRecord
+            const realRecordList = this.data.recordList
+            this.setData({
+                recordList:realRecordList
+            })
+        })
+    },
     pageGetCalc(){
         const userId = app.globalData.userInfo._id;
         getCalcRecord(userId).then((res) => {
-            this.data.recordList[2] = res.data.data.getCalcRecord.map((item) => {
+            this.data.recordList[2] = this.data.recordList[2].concat(res.data.data.getCalcRecord.map((item) => {
                 item.calcList = zlDecodeList(item.calcList);
                 item.timer = zlDecodeList(item.timer);
                 item.rate = Math.round((item.score / item.calcCount) * 5);
@@ -94,7 +116,7 @@ Page({
                     item.fontSize = calcType[calcTypeList[1].charAt(0)-1].sub[calcTypeList[2].charAt(0)-1].fontSize;
                 }
                 return item
-            })
+            }))
             const realrecordList = this.data.recordList
             this.setData({
                 isLoading:false,
@@ -106,15 +128,12 @@ Page({
         const userId = app.globalData.userInfo._id;
         const course = app.globalData.userInfo.course;
         getNotifyRecord(userId, course).then((res) => {
-            this.setData({
-               
-            })
-            this.data.recordList[1] =  res.data.data.getNotify.map((item) => {
+            this.data.recordList[1] = this.data.recordList[1].concat(res.data.data.getNotify.map((item) => {
                 item.imgList = zlDecodeList(item.imgList).map(_item => "https://" + _item);
                 const date = new Date(Number(item.meta.createdAt));
                 item.meta.createdAt = formateDate.call(date, "MM-dd hh:mm")
                 return item;
-            })
+            }))
             const realrecordList = this.data.recordList
             this.setData({
                 recordList:realrecordList,
@@ -146,18 +165,6 @@ Page({
         })
     },
     onLoad() {
-        const userId = app.globalData.userInfo._id
-        getExerciseRecord(userId).then((item) => {
-            this.setData({
-                recordList: [item.data.data.getExerciseRecord.map((item) => {
-                    return {
-                        ...item,
-                        starRate: Math.round(Number(item.exercisesScoreRecord) / item.exercisesCorrectRecord.length) * 5
-                    }
-                })]
-            })
-            console.log(item);
-        })
+       this.pageGetExercise()
     },
-
 })

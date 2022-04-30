@@ -5,7 +5,7 @@
     <scroll-view style="height: 70vh;position: fixed; bottom: 148rpx;" scroll-y bindscrolltolower="scrolltolower">
         <i-swipeout i-class="i-swipeout-demo-item" actions="{{actions}}" wx:for="{{recordList[tabIndex]}}" wx:key="index" data-index="{{index}}" bind:change="swipeoutClick" wx:if="{{tabIndex===0 }}">
             <view slot="content" style="height: 60px;">
-                <view class="classCard">
+                <view class="classCard"  bindtap="cardClick" data-index="{{index}}">
                     <view class="left-class-card">
                         <image src="{{item.createrAvatarUrl}}" class="imageClass"></image>
                     </view>

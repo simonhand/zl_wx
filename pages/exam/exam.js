@@ -4,7 +4,7 @@ import {
 } from '../../components/Iview/base/index'
 import {
     getExam,
-    submitExam
+    submitExam,
 } from "./service"
 import {
     deepClone
@@ -17,6 +17,7 @@ Page({
      */
     data: {
         target:false,
+        from:'examIndex',
         tips:"确认提交？",
         isLoading: false,
         loaingString: null,
@@ -172,6 +173,7 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
+        console.log(options);
         if (options.from === 'examIndex') {
             getExam(options.id).then((res) => {
                 const exerciseList = res.data.data.getExam.exerciseList.map((item) => {
@@ -204,6 +206,11 @@ Page({
                     }),
                     isCorrectUserInputKey:exerciseList.map(() => false)
                 })
+            })
+        }
+        if (options.from === 'record') {
+            getExam(options.exerciseId,"record").then((item) => {
+                console.log('item',item);
             })
         }
     },
