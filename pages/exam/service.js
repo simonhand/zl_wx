@@ -2,16 +2,17 @@ import {
     zlrequest
 } from '../../utils/zlGraphql'
 import { zlEncodeList } from '../../utils/util'
-export const getExam = (examId) => {
+export const getExam = (examId,from) => {
     const palyLoad = JSON.stringify({
         query:`
         query getExam {
-            getExam(id:"${examId}"){
+            getExam(id:"${examId}", ${from==='record'?'from:"record"':''}){
               _id
               createrAvatarUrl
               createrId
               course_id
               courseName
+              ${from==='record'?'userInputKeyList':''}
               exerciseList {
                 iscorrectExerciseType
                 textArea
