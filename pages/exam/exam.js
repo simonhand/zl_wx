@@ -7,7 +7,7 @@ import {
     submitExam,
 } from "./service"
 import {
-    deepClone
+    deepClone, zlDecodeList
 } from "../../utils/util.js"
 const app = getApp()
 let excrseInfo = {}
@@ -29,7 +29,10 @@ Page({
         userInputKeyList: [],
         isCorrectUserInputKey:[],
         keyList: [], // 答案
-        correctExerciseType: false
+        correctExerciseType: false,
+        userInputKeyList:[],
+        // 这个值记录从记录跳转过来的
+        exercisesCorrectRecord:[]
     },
     viewImage(e) {
         wx.previewImage({
@@ -209,8 +212,20 @@ Page({
             })
         }
         if (options.from === 'record') {
-            getExam(options.exerciseId,"record").then((item) => {
-                console.log('item',item);
+            getExam(options.exerciseId,"record").then((res) => {
+                console.log(res);
+                res.data.data.getExam.userInputKeyList = zlDecodeList(res.data.data.getExam.userInputKeyList)
+                res.data.data.getExam.exerciseList = res.data.data.getExam.exerciseList.map((item) => {
+                    item.imgList = item.imgList.map((item) => 'https://' + item)
+                    console.log("item",item);
+                    return item
+                })
+                this.setData({
+                    from:"record",
+                    exercisesCorrectRecord:res.data.data.getExam.exercisesCorrectRecord,
+                    exercisesList:res.data.data.getExam.exerciseList,
+                    userInputKeyList:res.data.data.getExam.userInputKeyList
+                })
             })
         }
     },

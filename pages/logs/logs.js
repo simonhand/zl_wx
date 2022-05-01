@@ -87,7 +87,7 @@ Page({
             const realExerciseRecord = this.data.recordList[0].concat(...item.data.data.getExerciseRecord.map((item) => {
                 return {
                     ...item,
-                    starRate: Math.round(Number(item.exercisesScoreRecord) / item.exercisesCorrectRecord.length) * 5
+                    starRate: Math.round(Number(item.exercisesScoreRecord) / item.exercisesCorrectRecord.length * 5) 
                 }
             }))
             this.data.recordList[0] = realExerciseRecord
@@ -163,8 +163,12 @@ Page({
                 tabTotal: res.data.data.getTabTotal
             })
         })
+        // 请求测验记录
+    },
+    onReady(){
+        this.pageGetExercise()
     },
     onLoad() {
-       this.pageGetExercise()
+      
     },
 })
