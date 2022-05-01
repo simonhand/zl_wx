@@ -12,6 +12,7 @@ export const getExam = (examId,from) => {
               createrId
               course_id
               courseName
+              exercisesCorrectRecord
               ${from==='record'?'userInputKeyList':''}
               exerciseList {
                 iscorrectExerciseType

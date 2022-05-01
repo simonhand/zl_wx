@@ -83,7 +83,8 @@ scroll-view.cu-steps .cu-item {
 
 .cu-steps.steps-arrow .cu-item::before,
 .cu-steps.steps-arrow .cu-item::after {
-    content: "\e603";
+    /* content: "\e603"; */
+    content: "\2612";
     font-family: "colorui";
     height: 30rpx;
     border-bottom-width: 0px;
@@ -163,8 +164,8 @@ scroll-view.cu-steps .cu-item {
     transform: translateY(0rpx);
 }
 
-.cu-steps .cu-item[class*="text-"] .num.err::after {
-    content: "\e603";
+.cu-steps .cu-item-error[class*="text-"] .num::after {
+    content: "\e6ed";
 }
 
 .padding-lr-xl {
@@ -174,6 +175,9 @@ scroll-view.cu-steps .cu-item {
 
 .text-blue {
     color: #0081ff;
+}
+.text-red {
+    color: red;
 }
 
 .bg-white {
