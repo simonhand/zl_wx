@@ -7,7 +7,8 @@ import {
     submitExam,
 } from "./service"
 import {
-    deepClone, zlDecodeList
+    deepClone,
+    zlDecodeList
 } from "../../utils/util.js"
 const app = getApp()
 let excrseInfo = {}
@@ -16,9 +17,9 @@ Page({
      * 页面的初始数据
      */
     data: {
-        target:false,
-        from:'examIndex',
-        tips:"确认提交？",
+        target: false,
+        from: 'examIndex',
+        tips: "确认提交？",
         isLoading: false,
         loaingString: null,
         userType: -1,
@@ -27,12 +28,12 @@ Page({
         keyIndex: ["A", "B", "C", "D", "E"],
         currentIndex: 0,
         userInputKeyList: [],
-        isCorrectUserInputKey:[],
+        isCorrectUserInputKey: [],
         keyList: [], // 答案
         correctExerciseType: false,
-        userInputKeyList:[],
+        userInputKeyList: [],
         // 这个值记录从记录跳转过来的
-        exercisesCorrectRecord:[]
+        exercisesCorrectRecord: []
     },
     viewImage(e) {
         wx.previewImage({
@@ -52,30 +53,31 @@ Page({
                 }
                 return item
             })
-        },this.iscorrectKey())
+        }, this.iscorrectKey())
     },
-    checkkeyChange(e){
+    checkkeyChange(e) {
         const _index = e.currentTarget.dataset.index
         this.setData({
-            userInputKeyList:this.data.userInputKeyList.map((item,index) => {
+            userInputKeyList: this.data.userInputKeyList.map((item, index) => {
                 if (index === this.data.currentIndex) {
                     item[_index].trueKey = !item[_index].trueKey
                 }
                 return item
             })
-        },this.iscorrectKey())
+        }, this.iscorrectKey())
     },
-    iscorrectKey(){
+    iscorrectKey() {
         const currentIndex = this.data.currentIndex;
-        const list =  this.data.userInputKeyList[currentIndex]
+        const list = this.data.userInputKeyList[currentIndex]
         const that = this
+
         function foo(type) {
             that.setData({
-                isCorrectUserInputKey:that.data.isCorrectUserInputKey.map((item,_index) => {
-                  if(_index === currentIndex){
-                      item = type
-                  }   
-                  return item
+                isCorrectUserInputKey: that.data.isCorrectUserInputKey.map((item, _index) => {
+                    if (_index === currentIndex) {
+                        item = type
+                    }
+                    return item
                 })
             })
         }
@@ -85,7 +87,7 @@ Page({
                     foo(true);
                     return
                 }
-            }else{
+            } else {
                 if (list[index].keyValue) {
                     foo(true);
                     return
@@ -97,13 +99,13 @@ Page({
     nextExercises() {
         if (this.data.currentIndex === this.data.exercisesList.length - 1) {
             $Message({
-                content:"已经事最后一题了",
-                type:"warning"
+                content: "已经事最后一题了",
+                type: "warning"
             })
             return;
         }
         this.setData({
-            currentIndex:this.data.currentIndex + 1
+            currentIndex: this.data.currentIndex + 1
         })
     },
     numClick(e) {
@@ -114,61 +116,73 @@ Page({
     submit() {
         for (const item of this.data.isCorrectUserInputKey) {
             this.setData({
-                tips:"确认提交？"
+                tips: "确认提交？"
             })
-            if(!item){
-               this.setData(
-                 {tips:"你仍有题目未作答，确认提交吗"},
-                 this.setData({
-                     target:true
-                 })
-               )
-            }else{
+            if (!item) {
                 this.setData({
-                    target:true
+                        tips: "你仍有题目未作答，确认提交吗"
+                    },
+                    this.setData({
+                        target: true
+                    })
+                )
+            } else {
+                this.setData({
+                    target: true
                 })
             }
         }
     },
-    modalOK(e){
+    modalOK(e) {
         if (e.detail.confirm) {
             // 自动评分
             let exercisesScoreRecord = 0; // 统计得了多少分，一题一分
             let exercisesCorrectRecord = []; // 统计哪些题目对的哪些题目错的
-            const exercisesList =  this.data.exercisesList
-            const userInputKeyList =  this.data.userInputKeyList
-            function socre(index,attr) {
+            const exercisesList = this.data.exercisesList
+            const userInputKeyList = this.data.userInputKeyList
+
+            function socre(index, attr) {
                 let flag = false
-                    for (let _index = 0;  _index < exercisesList[index].keyList.length; _index++) {
-                        if(exercisesList[index].keyList[_index][attr] !== userInputKeyList[index][_index][attr]){
-                            break;
-                        }
-                        if (_index === exercisesList[index].keyList.length - 1) {
-                            flag = true
-                        }
+                for (let _index = 0; _index < exercisesList[index].keyList.length; _index++) {
+                    if (exercisesList[index].keyList[_index][attr] !== userInputKeyList[index][_index][attr]) {
+                        break;
                     }
-                    if (flag) {
-                        exercisesCorrectRecord.push(true);
-                        exercisesScoreRecord += 1;
-                    }else{
-                        exercisesCorrectRecord.push(false);
+                    if (_index === exercisesList[index].keyList.length - 1) {
+                        flag = true
                     }
-            }
-            for (let index =0 ; index < exercisesList.length; index ++) {
-                if (exercisesList[index].exercisesType === 0) {
-                    socre(index,'trueKey')
-                }else{
-                    socre(index,'keyValue')
+                }
+                if (flag) {
+                    exercisesCorrectRecord.push(true);
+                    exercisesScoreRecord += 1;
+                } else {
+                    exercisesCorrectRecord.push(false);
                 }
             }
-            submitExam({...excrseInfo,exerciseId:excrseInfo._id,exercisesScoreRecord,exercisesCorrectRecord,userInputKeyList,userId:app.globalData.userInfo._id})
-            app.globalData.helpNavigate = { from:"exam",status:"success" }
-            wx.switchTab({
-              url: '/pages/index/index',
+            for (let index = 0; index < exercisesList.length; index++) {
+                if (exercisesList[index].exercisesType === 0) {
+                    socre(index, 'trueKey')
+                } else {
+                    socre(index, 'keyValue')
+                }
+            }
+            submitExam({
+                ...excrseInfo,
+                exerciseId: excrseInfo._id,
+                exercisesScoreRecord,
+                exercisesCorrectRecord,
+                userInputKeyList,
+                userId: app.globalData.userInfo._id
             })
-        }else{
+            app.globalData.helpNavigate = {
+                from: "exam",
+                status: "success"
+            }
+            wx.switchTab({
+                url: '/pages/index/index',
+            })
+        } else {
             this.setData({
-                target:false
+                target: false
             })
         }
     },
@@ -207,24 +221,39 @@ Page({
                             return item.keyList
                         }
                     }),
-                    isCorrectUserInputKey:exerciseList.map(() => false)
+                    isCorrectUserInputKey: exerciseList.map(() => false)
                 })
             })
         }
         if (options.from === 'record') {
-            getExam(options.exerciseId,"record").then((res) => {
+            getExam(options.exerciseId, "record").then((res) => {
                 console.log(res);
                 res.data.data.getExam.userInputKeyList = zlDecodeList(res.data.data.getExam.userInputKeyList)
                 res.data.data.getExam.exerciseList = res.data.data.getExam.exerciseList.map((item) => {
                     item.imgList = item.imgList.map((item) => 'https://' + item)
-                    console.log("item",item);
+                    console.log("item", item);
                     return item
                 })
                 this.setData({
-                    from:"record",
-                    exercisesCorrectRecord:res.data.data.getExam.exercisesCorrectRecord,
-                    exercisesList:res.data.data.getExam.exerciseList,
-                    userInputKeyList:res.data.data.getExam.userInputKeyList
+                    from: "record",
+                    exercisesCorrectRecord: res.data.data.getExam.exercisesCorrectRecord,
+                    exercisesList: res.data.data.getExam.exerciseList.map((item) => {
+                        item.correctKeyStr = []
+                        if (item.exercisesType === 0) {
+                            item.keyList.map((_item, _index) => {
+                                if (_item.trueKey) {
+                                    item.correctKeyStr.push(this.data.keyIndex[_index])
+                                }
+                            })
+                        } else {
+                            item.keyList.map((_item, _index) => {
+                                item.correctKeyStr.push(_item.keyValue)
+                            })
+                        }
+                        item.correctKeyStr = item.correctKeyStr.join(',');
+                        return item
+                    }),
+                    userInputKeyList: res.data.data.getExam.userInputKeyList
                 })
             })
         }

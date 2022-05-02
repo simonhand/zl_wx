@@ -10,6 +10,8 @@
     "i-swipeout":"../../components/Iview/swipeout/index",
     "i-rate":"../../components/Iview/rate/index",
     "ui-modal":"../../components/mp-cu/colorUI/components/ui-modal/ui-modal",
-    "app-nav-li": "../../components/mp-sdk/components/app-nav-li/app-nav-li"
+    "app-nav-li": "../../components/mp-sdk/components/app-nav-li/app-nav-li",
+    "ui-loading":"../../components/mp-cu/colorUI/components/ui-loading/ui-loading",
+    "i-message":"../../components/Iview/message/index"
   }
 }

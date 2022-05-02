@@ -54,7 +54,7 @@
                     <view wx:if="{{from==='record'}}" style="font-weight: 600; color: #666; margin-top: 18rpx;">
                         <ui-form-group title="正确答案" contentui="justify-center" ui="radio-group checkkey">
                             <view>
-                                哈哈哈哈
+                                {{exercisesList[currentIndex].correctKeyStr}}
                             </view>
                         </ui-form-group>
                     </view>

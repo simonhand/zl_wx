@@ -1,9 +1,11 @@
 // logs.js
-const util = require('../../utils/util.js')
-import { calcType } from '../../config/secret'
 import {
+    $Message,
     $Toast
 } from '../../components/Iview/base/index'
+import {
+    calcType
+} from '../../config/secret'
 import {
     zlDecodeList
 } from "../../utils/util"
@@ -14,18 +16,26 @@ import {
     getTabTotal,
     getExerciseRecord,
     getNotifyRecord,
-    getCalcRecord
+    getCalcRecord,
+    deleteCalcRecord
 } from './services'
 const app = getApp()
 Page({
     data: {
         logs: [],
         tabIndex: 0,
-        modalVisible:false,
-        recordList: [[],[],[]],
+        modalVisible: false,
+        scrollUpdateing: false,
+        recordList: [
+            [],
+            [],
+            []
+        ],
+        haveMoreData: true,
         tabTotal: {},
-        clickItem:{},
+        clickItem: {},
         isLoading: false,
+        isGetMoreData: false,
         actions: [{
             name: '删除记录',
             color: '#fff',
@@ -35,36 +45,54 @@ Page({
             background: '#FF7F00'
         }],
     },
-    modalConfirm(){
+    modalConfirm() {
         this.setData({
-            modalVisible:false
+            modalVisible: false
         })
     },
-    cardClick(e){
+    cardClick(e) {
         if (this.data.tabIndex === 0) {
             wx.navigateTo({
-                url:"../exam/exam?from=record&exerciseId="+this.data.recordList[0][e.currentTarget.dataset.index].exerciseId
+                url: "../exam/exam?from=record&exerciseId=" + this.data.recordList[0][e.currentTarget.dataset.index].exerciseId
             })
         }
         if (this.data.tabIndex === 1) {
             this.setData({
-                modalVisible:true,
-                clickItem:{...this.data.recordList[1][e.currentTarget.dataset.index]}
+                modalVisible: true,
+                clickItem: {
+                    ...this.data.recordList[1][e.currentTarget.dataset.index]
+                }
             })
         }
         if (this.data.tabIndex === 2) {
             this.setData({
-                modalVisible:true,
-                clickItem:{...this.data.recordList[2][e.currentTarget.dataset.index]}
+                modalVisible: true,
+                clickItem: {
+                    ...this.data.recordList[2][e.currentTarget.dataset.index]
+                }
             })
         }
     },
     // 删除记录点击了
-    swipeoutClick(e){
-        console.log(e);
+    swipeoutClick(e) {
+        deleteCalcRecord(this.data.recordList[2][e.currentTarget.dataset.index]._id).then((item) => {
+            if (item.errMsg !== "request:ok") {
+                $Message({
+                    content: item.errMsg,
+                    type: "error"
+                })
+                return
+            }
+            const temp_recordList = this.data.recordList;
+            temp_recordList[2] = temp_recordList[2].filter((_item) =>
+                _item._id !== item.data.data.deleteCalcRecord._id
+            )
+            this.setData({
+                recordList: temp_recordList
+            })
+        })
     },
     tabChange(e) {
-        console.log("切换tab");
         this.setData({
             tabIndex: e.detail.index,
             isLoading: !this.data.recordList[e.detail.index] ? true : false,
@@ -79,70 +107,184 @@ Page({
         }
     },
     scrolltolower() {
-        console.log("触底了");
+        // 上拉加载更多
+        this.setData({
+            isGetMoreData: true
+        })
+        if (this.data.recordList[this.data.tabIndex].length === Object.values(this.data.tabTotal)[this.data.tabIndex]) {
+            this.setData({
+                haveMoreData: false,
+            }, () => {
+                setTimeout(() => {
+                    this.setData({
+                        isGetMoreData: false,
+                        haveMoreData: true
+                    })
+                }, 1000)
+            })
+            return;
+        }
+        try {
+            switch (this.data.tabIndex) {
+                case 0:
+                    this.pageGetExercise('getMore')
+                    break;
+                case 1:
+                    this.pageGetNotify('getMore')
+                    break;
+                case 2:
+                    this.pageGetCalc('getMore')
+                    break;
+                default:
+                    break;
+            }
+        } catch (error) {
+            $Message({
+                content: error,
+                type: "error"
+            })
+            console.log("下拉出现的错误", error);
+        }
     },
-    pageGetExercise(){
+    scrolltoupper() {
+        // 下拉更新更多
+        const timer = setTimeout(function () {
+            $Message({
+                content: "更新失败",
+                type: "error"
+            })
+            that.setData({
+                scrollUpdateing: false,
+            })
+        }, 8000);
+        if (this.data.tabIndex === 0) {
+            this.recordList = [
+                [], this.data.recordList[1], this.data.recordList[2]
+            ]
+            this.pageGetExercise('update', timer);
+        }
+        if (this.data.tabIndex === 1) {
+            this.recordList = [this.data.recordList[0],
+                [], this.data.recordList[2]
+            ]
+            this.pageGetNotify('update', timer);
+        }
+        if (this.data.tabIndex === 2) {
+            this.recordList = [this.data.recordList[0], this.data.recordList[1],
+                []
+            ]
+            this.pageGetCalc('update', timer);
+        }
+        const that = this;
+    },
+    pageGetExercise(from, timer) {
         const userId = app.globalData.userInfo._id
-        getExerciseRecord(userId).then((item) => {
-            const realExerciseRecord = this.data.recordList[0].concat(...item.data.data.getExerciseRecord.map((item) => {
-                return {
-                    ...item,
-                    starRate: Math.round(Number(item.exercisesScoreRecord) / item.exercisesCorrectRecord.length * 5) 
-                }
-            }))
+        getExerciseRecord(userId, from === 'getMore' ? this.data.recordList[0].length : 0).then((item) => {
+            let realExerciseRecord
+            if (from === 'update') {
+                realExerciseRecord = item.data.data.getExerciseRecord.map((item) => {
+                    return {
+                        ...item,
+                        starRate: Math.round(Number(item.exercisesScoreRecord) / item.exercisesCorrectRecord.length * 5)
+                    }
+                });
+                clearTimeout(timer);
+                this.setData({
+                    scrollUpdateing: false,
+                });
+            } else {
+                realExerciseRecord = this.data.recordList[0].concat(...item.data.data.getExerciseRecord.map((item) => {
+                    return {
+                        ...item,
+                        starRate: Math.round(Number(item.exercisesScoreRecord) / item.exercisesCorrectRecord.length * 5)
+                    }
+                }))
+            }
+            if (from === 'getMore') {
+                this.setData({
+                    isGetMoreData: false
+                })
+            }
             this.data.recordList[0] = realExerciseRecord
             const realRecordList = this.data.recordList
             this.setData({
-                recordList:realRecordList
+                recordList: realRecordList
             })
         })
     },
-    pageGetCalc(){
+    pageGetCalc(from, timer) {
         const userId = app.globalData.userInfo._id;
-        getCalcRecord(userId).then((res) => {
-            this.data.recordList[2] = this.data.recordList[2].concat(res.data.data.getCalcRecord.map((item) => {
+        getCalcRecord(userId, from === 'getMore' ? this.data.recordList[2].length : 0).then((res) => {
+            let realCalcRecordList = res.data.data.getCalcRecord.map((item) => {
                 item.calcList = zlDecodeList(item.calcList);
                 item.timer = zlDecodeList(item.timer);
                 item.rate = Math.round((item.score / item.calcCount) * 5);
                 const calcTypeList = item.calcType.split('_');
                 if (calcTypeList.length === 2) {
-                    item.icon = calcType[calcTypeList[1].charAt(0)-1].sub[calcTypeList[1].charAt(1)-1].icon;
-                    item.title = calcType[calcTypeList[1].charAt(0)-1].sub[calcTypeList[1].charAt(1)-1].title;
-                    item.fontSize = calcType[calcTypeList[1].charAt(0)-1].sub[calcTypeList[1].charAt(1)-1].fontSize;
+                    item.icon = calcType[calcTypeList[1].charAt(0) - 1].sub[calcTypeList[1].charAt(1) - 1].icon;
+                    item.title = calcType[calcTypeList[1].charAt(0) - 1].sub[calcTypeList[1].charAt(1) - 1].title;
+                    item.fontSize = calcType[calcTypeList[1].charAt(0) - 1].sub[calcTypeList[1].charAt(1) - 1].fontSize;
                 }
                 if (calcTypeList.length === 3) {
-                    item.icon = calcType[calcTypeList[1].charAt(0)-1].sub[calcTypeList[2].charAt(0)-1].icon;
-                    item.title = calcType[calcTypeList[1].charAt(0)-1].sub[calcTypeList[2].charAt(0)-1].title;
-                    item.fontSize = calcType[calcTypeList[1].charAt(0)-1].sub[calcTypeList[2].charAt(0)-1].fontSize;
+                    item.icon = calcType[calcTypeList[1].charAt(0) - 1].sub[calcTypeList[2].charAt(0) - 1].icon;
+                    item.title = calcType[calcTypeList[1].charAt(0) - 1].sub[calcTypeList[2].charAt(0) - 1].title;
+                    item.fontSize = calcType[calcTypeList[1].charAt(0) - 1].sub[calcTypeList[2].charAt(0) - 1].fontSize;
                 }
                 return item
-            }))
+            })
+            if (from === 'update') {
+                this.data.recordList[2] = realCalcRecordList;
+                clearTimeout(timer);
+                this.setData({
+                    scrollUpdateing: false,
+                })
+            } else {
+                this.data.recordList[2] = this.data.recordList[2].concat(realCalcRecordList)
+            }
+            if (from === 'getMore') {
+                this.setData({
+                    isGetMoreData: false
+                })
+            }
             const realrecordList = this.data.recordList
             this.setData({
-                isLoading:false,
-                recordList:realrecordList,
+                isLoading: false,
+                recordList: realrecordList,
             })
         })
     },
-    pageGetNotify() {
+    pageGetNotify(from, timer) {
         const userId = app.globalData.userInfo._id;
         const course = app.globalData.userInfo.course;
-        getNotifyRecord(userId, course).then((res) => {
-            this.data.recordList[1] = this.data.recordList[1].concat(res.data.data.getNotify.map((item) => {
+        getNotifyRecord(userId, course, from === 'getMore' ? this.data.recordList[1].length : 0).then((res) => {
+            const realNotifyrecordList = res.data.data.getNotify.map((item) => {
                 item.imgList = zlDecodeList(item.imgList).map(_item => "https://" + _item);
                 const date = new Date(Number(item.meta.createdAt));
                 item.meta.createdAt = formateDate.call(date, "MM-dd hh:mm")
                 return item;
-            }))
+            })
+            if (from === 'update') {
+                this.data.recordList[1] = realNotifyrecordList;
+                clearTimeout(timer);
+                this.setData({
+                    scrollUpdateing: false,
+                })
+            } else {
+                this.data.recordList[1] = this.data.recordList[1].concat(realNotifyrecordList)
+            }
+            if (from === 'getMore') {
+                this.setData({
+                    isGetMoreData: false
+                })
+            }
             const realrecordList = this.data.recordList
             this.setData({
-                recordList:realrecordList,
+                recordList: realrecordList,
                 isLoading: false
             })
         })
     },
     viewImage(e) {
-        console.log(e.currentTarget.dataset.url);
         wx.previewImage({
             current: e.currentTarget.dataset.url,
             urls: this.data.clickItem.imgList
@@ -165,10 +307,10 @@ Page({
         })
         // 请求测验记录
     },
-    onReady(){
+    onReady() {
         this.pageGetExercise()
     },
     onLoad() {
-      
+
     },
 })

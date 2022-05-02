@@ -12,9 +12,9 @@ export const getTabTotal = (userId) => {
     })
     return zlrequest(playLoad, "POST");
 }
-export const getExerciseRecord = (userId) => {
+export const getExerciseRecord = (userId,skip) => {
     const playLoad = JSON.stringify({
-        query: `query getExerciseRecord{getExerciseRecord(userId:"${userId}"){
+        query: `query getExerciseRecord{getExerciseRecord(userId:"${userId}",skip:${skip}){
             _id
             createrId
             createrAvatarUrl
@@ -27,11 +27,11 @@ export const getExerciseRecord = (userId) => {
     return zlrequest(playLoad, "POSt")
 }
 
-export const getNotifyRecord = (userId, course) => {
+export const getNotifyRecord = (userId, course,skip) => {
     const arr = course.map((item) => "\"" + item.invitationCode + "\"")
     const palyLoad = JSON.stringify({
         query: `query getNotify{
-            getNotify(invitationCodeList:[${arr.toString()}],userId:"${userId}",from:"record"){
+            getNotify(invitationCodeList:[${arr.toString()}],userId:"${userId}",from:"record",skip:${skip}){
                 _id
                 createrAvatarUrl,
                 createrId,
@@ -50,18 +50,30 @@ export const getNotifyRecord = (userId, course) => {
     return zlrequest(palyLoad, "POST")
 }
 
-export const getCalcRecord = (userId) => {
+export const getCalcRecord = (userId,skip) => {
     const palyLoad = JSON.stringify({
         query: `query getCalcRecord{
-            getCalcRecord(userId:"${userId}"){
+            getCalcRecord(userId:"${userId}",skip:${skip}){
                 calcList,
                 score,
                 calcCount,
                 timer,
                 userId,
-                calcType
+                calcType,
+                _id
             }
         }`
     })
     return zlrequest(palyLoad,"POST")
+}
+
+export const deleteCalcRecord = (calcId) => {
+    const palyLoad = JSON.stringify({
+        query: `query deleteCalcRecord{
+            deleteCalcRecord(calcId:"${calcId}"){
+               _id
+            }
+        }`
+    });
+    return zlrequest(palyLoad,"POST");
 }
