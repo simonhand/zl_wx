@@ -1,68 +1,47 @@
 <!--index.wxml-->
 <ui-sys img="/static/img/4put2.png" imgBottom imgTop isTabbar>
-  <view style="margin-top: {{sys_navBar+ 100}}rpx;">
-    <i-spin fix wx:if="{{loading}}"></i-spin>
-    <i-message id="message" />
-    <i-toast id="toast" />
-    <view class="container" style="z-index: 99999;">
-      <image src="../../assets/home/home3.png" class="imgtitle"></image>
-      <view class="box">
-        <view plain="true" class="examButton" bindtap="handleOpenModal" data-from="createNotify"  style="margin-top: 20px;">
-          创建通知
-        </view>
-        <i-badge count="{{NotifyCount}}" style="margin-top: 20px;">
-          <view plain="true" class="examButton" bindtap="handleNavigate" data-from="readNotify">
-            我的通知
-          </view>
-        </i-badge>
-      </view>
-      <image src="../../assets/home/home2.png" class="imgtitle"></image>
-      <view class="box">
-        <i-badge count="{{exerciseCount}}" style="margin-top: 20px;">
-          <view plain="true" class="examButton" bindtap="handleOpenModalToExam">
-            小测验来咯
-          </view>
-        </i-badge>
-        <view plain="true" class="examButton" style="margin-top: 21px;" bindtap="handleOpenModal" data-from="createExam">
-          创建小测验
-        </view>
-      </view>
-      <image src="../../assets/home/home1.png" class="imgtitle1"></image>
-      <view class="box">
-        <view plain="true" class="calcbutton" bindtap="calcClick" aria-role='button' aria-label='这是口算功能的按钮'>
-          口算
-        </view>
-        <view plain="true" class="calcbutton" bindtap="calcClick1" aria-role='button' aria-label='这是口算功能的按钮'>
-          口算
-        </view>
-        <view class="calcbutton" bindtap="loginClick">
-          你可算来了
-        </view>
-      </view>
-      <zl-modal title="请选择班级" visible="{{ modelVisible }}" tips="若无对应班级，请前往我的班级创建" bind:ok="handleOk" bind:cancel="handleClose">
-        <view class="index_modal">
-          <zl-select classes="{{teacherCourseList}}" bind:selectItemClick="selectItemClick" />
-          <zl-timepicker startDate="{{deadLineDate}}" bind:timePickerOK="timePickerOK" />
-        </view>
-      </zl-modal>
+    <view style="margin-top: {{sys_navBar+ 100}}rpx;">
+        <i-spin fix wx:if="{{loading}}"></i-spin>
+        <i-message id="message" />
+        <i-toast id="toast" />
+        <ui-swiper info="{{swiperList}}" height="48vw" dotStyle="line" dotCur="ui-BG-Main" />
+        <scroll-view class="container" style="z-index: 99999;" scroll-y style="height: 53vh;">
+            <view class="ui-container">
+                <ui-title title="教师" depth="2" isIcon ui="ml-3" />
+                <view class="ui-grid ui-cols-2">
+                    <block wx:for="{{navData[0]}}" wx:for-index="sub_index" wx:key="sub_index">
+                        <view class="ui-item p-3" bindtap="itemCLick" data-navDataIndex="{{0}}" data-itemIndex="{{sub_index}}">
+                            <app-nav-li data="{{item}}" fontSize="{{item.fontSize}}" />
+                        </view>
+                    </block>
+                </view>
+            </view>
+            <view class="ui-container">
+                <ui-title title="学生" depth="2" isIcon ui="ml-3" />
+                <view class="ui-grid ui-cols-2">
+                    <view class="ui-item p-3" bindtap="itemCLick" data-calcType="{{myNotify.icon}}" data-navDataIndex="{{1}}" data-itemIndex="{{3}}">
+                        <app-nav-li data="{{myNotify}}" fontSize="{{myNotify.fontSize}}" />
+                    </view>
+                    <i-badge count="{{NotifyCount}}" style="margin-left:-20rpx;">
+                    </i-badge>
+                    <view class="ui-item p-3" style="position:relative;left: 20rpx;" bindtap="itemCLick" data-calcType="{{myExam.icon}}" data-navDataIndex="{{1}}" data-itemIndex="{{4}}">
+                        <app-nav-li data="{{myExam}}" fontSize="{{myExam.fontSize}}" />
+                    </view>
+                    <i-badge count="{{exerciseCount}}">
+                    </i-badge>
+                    <block wx:for="{{navData[1]}}" wx:for-index="sub_index" wx:key="sub_index">
+                        <view class="ui-item p-3" bindtap="itemCLick" data-calcType="{{item.icon}}" data-navDataIndex="{{1}}" data-itemIndex="{{sub_index}}">
+                            <app-nav-li data="{{item}}" fontSize="{{item.fontSize}}" />
+                        </view>
+                    </block>
+                </view>
+            </view>
+            <zl-modal title="请选择班级" visible="{{ modelVisible }}" tips="若无对应班级，请前往我的班级创建" bind:ok="handleOk" bind:cancel="handleClose">
+                <view class="index_modal">
+                    <zl-select classes="{{teacherCourseList}}" bind:selectItemClick="selectItemClick" />
+                    <zl-timepicker startDate="{{deadLineDate}}" bind:timePickerOK="timePickerOK" />
+                </view>
+            </zl-modal>
+        </scroll-view>
     </view>
-
-    <!-- <view class="userinfo">
-    <block wx:if="{{canIUseOpenData}}">
-      <view class="userinfo-avatar" bindtap="bindViewTap">
-        <open-data type="userAvatarUrl"></open-data>
-      </view>
-      <open-data type="userNickName"></open-data>
-    </block>
-    <block wx:elif="{{!hasUserInfo}}">
-      <button wx:if="{{canIUseGetUserProfile}}" bindtap="getUserProfile"> 获取头像昵称 </button>
-      <button wx:elif="{{canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
-      <view wx:else> 请使用1.4.4及以上版本基础库 </view>
-    </block>
-    <block wx:else>
-      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
-      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
-    </block>
-  </view> -->
-  </view>
 </ui-sys>
