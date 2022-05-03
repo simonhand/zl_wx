@@ -23,6 +23,13 @@ let queryCourse = [];
 let fromBtn = ''
 Page({
     data: {
+        swiperList: [{
+                img: "/static/img/45fc.png"
+            },
+            {
+                img: "/static/img/d0f2.png"
+            }
+        ],
         loading: false,
         motto: 'Hello World',
         userInfo: {},
@@ -35,6 +42,42 @@ Page({
         deadLineDate: "截至时间",
         exerciseCount: 0,
         NotifyCount: 0,
+        navData: [
+            [{
+                icon: 'cicon-level_11',
+                fontSize: 30,
+                title: '创建小测验'
+            }, {
+                icon: 'cicon-level_12',
+                fontSize: 30,
+                title: '创建通知'
+            }, {
+                icon: 'cicon-level_12',
+                fontSize: 30,
+                title: '我的课程'
+            }],
+            [{
+                    icon: 'cicon-level_11',
+                    fontSize: 30,
+                    title: '口算'
+                },
+                {
+                    icon: 'cicon-level_12',
+                    fontSize: 30,
+                    title: '我的课程'
+                }
+            ]
+        ],
+        myNotify: {
+            icon: 'cicon-level_13',
+            fontSize: 30,
+            title: '我的通知'
+        },
+        myExam:{
+            icon: 'cicon-level_14',
+            fontSize: 30,
+            title: '我的测验'
+        }
     },
     // 页面显示触发
     onShow() {
@@ -46,6 +89,55 @@ Page({
         }
     },
     // 事件处理函数
+    itemCLick(e) {
+        switch (e.currentTarget.dataset.navdataindex) {
+            case 0:
+                switch (e.currentTarget.dataset.itemindex) {
+                    case 0:
+                        this.handleOpenModal("createExam");
+                        break;
+                    case 1:
+                        this.handleOpenModal("createNotify");
+                        break;
+                    case 2:
+                        wx.navigateTo({
+                            url: "/pages/myclass/myclass"
+                        })
+                        break;
+                    default:
+                        $Message({
+                            content: "未知选项"
+                        })
+                        break;
+                }
+                break;
+            case 1:
+                switch (e.currentTarget.dataset.itemindex) {
+                    case 0:
+                        this.calcClick();
+                        break;
+                    case 1:
+                        wx.navigateTo({
+                            url: "/pages/myclass/myclass"
+                        })
+                        break;
+                    case 3:
+                        this.handleNavigate();
+                        break;
+                    case 4:
+                        this.handleOpenModalToExam();
+                        break;
+                    default:
+                        $Message({
+                            content: "未知选项"
+                        })
+                        break;
+                }
+                break;
+            default:
+                break;
+        }
+    },
     handleNavigate() {
         wx.navigateTo({
             url: '/pages/readNotify/readNotify',
@@ -54,11 +146,6 @@ Page({
     calcClick() {
         wx.navigateTo({
             url: '../calcIndex/calcIndex',
-        })
-    },
-    calcClick1() {
-        wx.navigateTo({
-            url: '../calc/calc',
         })
     },
     loginClick() {
@@ -74,19 +161,16 @@ Page({
     timePickerOK(data) {
         console.log(data);
     },
-    handleOpenModalToExam({
-        detail
-    }) {
-        // console.log(detail);
+    handleOpenModalToExam() {
         wx.navigateTo({
             url: '../examIndex/examIndex',
         })
     },
-    handleOpenModal(e) {
-        if (e.currentTarget.dataset.from === 'createNotify') {
+    handleOpenModal(type) {
+        if (type === 'createNotify') {
             fromBtn = "createNotify"
         }
-        if (e.currentTarget.dataset.from === 'createExam') {
+        if (type === 'createExam') {
             fromBtn = "createExam"
         }
         // 弹出Modal窗
@@ -169,7 +253,7 @@ Page({
         // 请求有多少个测验未做
         // 这里之所以从缓存里拿数据，按理说全局变量userinfo数据是和缓存中同步的，但是从缓存中拿是异步的又因为这是首页这个时候直接从usereinfo拿是undefined
         getWxStorage('user').then((res) => {
-            return Promise.all([examIndex(res.data.course,res.data._id), getNotifyByUser(res.data)])
+            return Promise.all([examIndex(res.data.course, res.data._id), getNotifyByUser(res.data)])
         }).catch((e) => {
             that.setData({
                 exerciseCount: 0,

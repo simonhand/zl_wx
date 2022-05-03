@@ -1,4 +1,4 @@
-<view class="ui-page {{'theme-' + $cuStore.sys_theme}} {{'main-' + $cuStore.sys_main}} {{'font-' + $cuStore.sys_text}}">
+<view class="ui-page {{'theme-' + $cuStore.sys_theme}} {{'main-' + $cuStore.sys_main}} {{'font-' + $cuStore.sys_text}}" >
     <view class="page-body {{bg}} {{ui}}" style="{{styles}}">
         <view class="page-body-main">
             <app-navbar navBg="{{navBg}}" title="{{title}}" wx:if="{{title}}" stopBack="{{stopNavBack}}" bind:stopNavBack="stopNavBack" />
