@@ -51,6 +51,7 @@ Page({
         this.setData({
             exercisesType: e.detail
         })
+        this.checkExercise();
     },
     addKey() {
         const _keylist = this.data.keyList;
@@ -61,6 +62,7 @@ Page({
                 trueKey: false,
             }]
         })
+        this.checkExercise();
     },
     delKey(e) {
         const _index = e.currentTarget.dataset.index
@@ -69,6 +71,7 @@ Page({
                 item.keyIndex !== this.data.keyList[_index].keyIndex
             )
         })
+        this.checkExercise();
     },
     keyInput(e) {
         const index = e.currentTarget.dataset.index
@@ -80,6 +83,7 @@ Page({
                 return item
             })
         })
+        this.checkExercise();
     },
     checkkeyChange(e) {
         const _index = e.currentTarget.dataset.index
@@ -91,6 +95,7 @@ Page({
                 return item
             })
         })
+        this.checkExercise();
     },
     nextExercises(from = 'next') {
         const that = this;
@@ -210,6 +215,16 @@ Page({
         })
         
     },
+    checkExercise(){
+        this.setData({
+            exercisesList:this.data.exercisesList.map((item,index) => {
+                if (index === this.data.currentIndex) {
+                    item.iscorrectExerciseType = this.isCorrectExercise(this)
+                }
+                return item
+            })
+        })
+    },
     isCorrectExercise(obj = undefined) {
         const that = obj || this
         // 题干必填  配图选填 选择题选项必填答案必填 填空题答案必填
@@ -232,7 +247,7 @@ Page({
     onLoad: function (options) {
         if (options.from === 'index') {
             this.setData({
-                urlParams: JSON.parse(options.course)
+                urlParams: {...JSON.parse(options.course),exerciseName:options.exerciseName}
             }, () => {
                 console.log(this.data.urlParams);
             })

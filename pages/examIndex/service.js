@@ -7,6 +7,7 @@ export const examIndex = (obj) => {
         query examIndex {
             examIndex(invitationCodeList:[${arr.toString()}],userId:"${app.globalData.userInfo._id}") {
               _id
+              exerciseName
               courseName
               teacherName
               createrAvatarUrl

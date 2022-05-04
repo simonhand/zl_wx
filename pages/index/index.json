@@ -8,7 +8,6 @@
     "zl-select":"../../components/zl-select",
     "i-spin": "../../components/Iview/spin",
     "i-message":"../../components/Iview/message/index",
-    "zl-timepicker":"../../components/zl-timepicker/timepicker",
     "ui-swiper":"../../components/mp-cu/colorUI/components/ui-swiper/ui-swiper",
     "app-nav-li": "../../components/mp-sdk/components/app-nav-li/app-nav-li",
     "ui-title":"../../components/mp-cu/colorUI/components/ui-title/ui-title"

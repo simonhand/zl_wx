@@ -1,7 +1,6 @@
 // logs.js
 import {
     $Message,
-    $Toast
 } from '../../components/Iview/base/index'
 import {
     calcType
@@ -23,6 +22,7 @@ const app = getApp()
 Page({
     data: {
         logs: [],
+        userType:0,
         tabIndex: 0,
         modalVisible: false,
         scrollUpdateing: false,
@@ -51,6 +51,9 @@ Page({
         })
     },
     cardClick(e) {
+        if (this.data.userType===0) {
+            return
+        }
         if (this.data.tabIndex === 0) {
             wx.navigateTo({
                 url: "../exam/exam?from=record&exerciseId=" + this.data.recordList[0][e.currentTarget.dataset.index].exerciseId
@@ -179,13 +182,15 @@ Page({
     },
     pageGetExercise(from, timer) {
         const userId = app.globalData.userInfo._id
-        getExerciseRecord(userId, from === 'getMore' ? this.data.recordList[0].length : 0).then((item) => {
+        getExerciseRecord(userId, from === 'getMore' ? this.data.recordList[0].length : 0,app.globalData.userInfo.userType).then((item) => {
             let realExerciseRecord
             if (from === 'update') {
                 realExerciseRecord = item.data.data.getExerciseRecord.map((item) => {
+                    const date =new Date(Number(item.meta.createdAt));
+                    item.meta.createdAt = formateDate.call(date,"yyyy-MM-dd")
                     return {
                         ...item,
-                        starRate: Math.round(Number(item.exercisesScoreRecord) / item.exercisesCorrectRecord.length * 5)
+                        starRate:this.data.userType? Math.round(Number(item.exercisesScoreRecord) / item.exercisesCorrectRecord.length * 5):0
                     }
                 });
                 clearTimeout(timer);
@@ -194,9 +199,11 @@ Page({
                 });
             } else {
                 realExerciseRecord = this.data.recordList[0].concat(...item.data.data.getExerciseRecord.map((item) => {
+                    const date =new Date(Number(item.meta.createdAt));
+                    item.meta.createdAt = formateDate.call(date,"yyyy-MM-dd")
                     return {
                         ...item,
-                        starRate: Math.round(Number(item.exercisesScoreRecord) / item.exercisesCorrectRecord.length * 5)
+                        starRate:this.data.userType? Math.round(Number(item.exercisesScoreRecord) / item.exercisesCorrectRecord.length * 5):0
                     }
                 }))
             }
@@ -256,7 +263,7 @@ Page({
     pageGetNotify(from, timer) {
         const userId = app.globalData.userInfo._id;
         const course = app.globalData.userInfo.course;
-        getNotifyRecord(userId, course, from === 'getMore' ? this.data.recordList[1].length : 0).then((res) => {
+        getNotifyRecord(userId, course, from === 'getMore' ? this.data.recordList[1].length : 0,app.globalData.userInfo.userType).then((res) => {
             const realNotifyrecordList = res.data.data.getNotify.map((item) => {
                 item.imgList = zlDecodeList(item.imgList).map(_item => "https://" + _item);
                 const date = new Date(Number(item.meta.createdAt));
@@ -300,8 +307,9 @@ Page({
             })
         }
         // 请求tab框上的数量
-        getTabTotal(userId).then((res) => {
+        getTabTotal(userId,app.globalData.userInfo.userType).then((res) => {
             this.setData({
+                userType:app.globalData.userInfo.userType,
                 tabTotal: res.data.data.getTabTotal
             })
         })

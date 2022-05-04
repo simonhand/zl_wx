@@ -1,7 +1,8 @@
 <ui-sys title="我的记录" img="/static/img/4put2.png" imgBottom navBg="bg-cyan-gradient" isTabbar footer="" needLoading="{{isLoading}}">
     <i-message id="message" />
     <view class="p-3 text-center">
-        <ui-tab tab="{{[{ name:'测验',icon:'cicon-event-list',tag:tabTotal.exerciseCount},{icon:'cicon-community-o', name:'通知',tag:tabTotal.notifyCount},{name:'口算',icon:'cicon-numcode',tag:tabTotal.calcCount}]}}" tpl="btn" mark="bg-white radius" ui="bg-cyan-gradient radius" curColor="text-orange" inline bind:change="tabChange" />
+        <ui-tab wx:if="{{userType === 1}}" tab="{{[{ name:'测验',icon:'cicon-event-list',tag:tabTotal.exerciseCount},{icon:'cicon-community-o', name:'通知',tag:tabTotal.notifyCount},{name:'口算',icon:'cicon-numcode',tag:tabTotal.calcCount}]}}" tpl="btn" mark="bg-white radius" ui="bg-cyan-gradient radius" curColor="text-orange" inline bind:change="tabChange" />
+        <ui-tab wx:else tab="{{[{ name:'我创建的测验',icon:'cicon-event-list',tag:tabTotal.exerciseCount},{icon:'cicon-community-o', name:'我创建的通知',tag:tabTotal.notifyCount}]}}" tpl="btn" mark="bg-white radius" ui="bg-cyan-gradient radius" curColor="text-orange" inline bind:change="tabChange" />
     </view>
     <scroll-view style="height: 70vh;position: fixed; bottom:{{isGetMoreData?'170':'148'}}rpx;" scroll-y bindscrolltolower="scrolltolower" bindrefresherrefresh='scrolltoupper' refresher-enabled="{{true}}" refresher-threshold="{{65}}" refresher-triggered="{{scrollUpdateing}}">
         <i-swipeout i-class="i-swipeout-demo-item" actions="{{actions}}" wx:for="{{recordList[tabIndex]}}" wx:key="index" data-index="{{index}}" bind:change="swipeoutClick" wx:if="{{tabIndex===0 }}" disableTouchLeft>
@@ -11,10 +12,13 @@
                         <image src="{{item.createrAvatarUrl}}" class="imageClass"></image>
                     </view>
                     <view class="right-class-card">
-                        <view class="right-class-card-top"><text>{{item.courseName}}</text> <text>{{tabIndex===0?'得分:'+item.exercisesScoreRecord:''}}</text></view>
+                        <view class="right-class-card-top"><text class="detail_text" wx:if="{{userType}}">{{item.exerciseName || item.courseName}}</text><text wx:if="{{userType}}">  {{item.meta.createdAt}}</text><text wx:else>{{item.exerciseName || item.courseName}}</text></view>
                         <view class="right-class-card-bottom">
-                            <view>
+                            <view wx:if="{{userType}}">
                                 <i-rate value="{{item.starRate}}" size="26" />
+                            </view>
+                            <view wx:else>
+                                创建时间:{{item.meta.createdAt}}
                             </view>
                         </view>
                     </view>

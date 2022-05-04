@@ -3,7 +3,7 @@
     <view class="exam_index_container">
         <scroll-view scroll-y class="exam_index_scroll">
             <view wx:for="{{examList}}"  wx:key="item" data-index="{{index}}" bindtap="examCardClick">
-                <zl-card title="{{item.courseName}}" extra="{{item.teacherName}}" thumb="{{item.createrAvatarUrl}}" lableList="{{['课程名称：','教师名称：']}}">
+                <zl-card title="{{item.exerciseName}}" extra="{{item.teacherName}}" thumb="{{item.createrAvatarUrl}}" lableList="{{['测验名称：','教师名称：']}}">
                     <view slot="content">创建日期 {{item.meta.createdAt}}</view>
                 </zl-card>
             </view>

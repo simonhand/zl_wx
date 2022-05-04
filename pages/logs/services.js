@@ -1,10 +1,10 @@
 import {
     zlrequest
 } from '../../utils/zlGraphql'
-
-export const getTabTotal = (userId) => {
+const app = getApp()
+export const getTabTotal = (userId,userType) => {
     const playLoad = JSON.stringify({
-        query: `query getTabTotal{getTabTotal(userId:"${userId}"){
+        query: `query getTabTotal{getTabTotal(userId:"${userId}",userType:${userType}){
             exerciseCount
             notifyCount
             calcCount
@@ -12,26 +12,30 @@ export const getTabTotal = (userId) => {
     })
     return zlrequest(playLoad, "POST");
 }
-export const getExerciseRecord = (userId,skip) => {
+export const getExerciseRecord = (userId,skip,userType) => {
     const playLoad = JSON.stringify({
-        query: `query getExerciseRecord{getExerciseRecord(userId:"${userId}",skip:${skip}){
+        query: `query getExerciseRecord{getExerciseRecord(userId:"${userId}",skip:${skip},userType:${userType}){
             _id
             createrId
+            exerciseName
             createrAvatarUrl
             courseName
             exerciseId
             exercisesCorrectRecord
             exercisesScoreRecord
+            meta {
+                createdAt
+            }
         }}`
     })
     return zlrequest(playLoad, "POSt")
 }
 
-export const getNotifyRecord = (userId, course,skip) => {
+export const getNotifyRecord = (userId, course,skip,userType) => {
     const arr = course.map((item) => "\"" + item.invitationCode + "\"")
     const palyLoad = JSON.stringify({
         query: `query getNotify{
-            getNotify(invitationCodeList:[${arr.toString()}],userId:"${userId}",from:"record",skip:${skip}){
+            getNotify(invitationCodeList:[${arr.toString()}],userId:"${userId}",from:"record",skip:${skip},userType:${userType}){
                 _id
                 createrAvatarUrl,
                 createrId,
