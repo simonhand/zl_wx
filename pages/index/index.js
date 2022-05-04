@@ -20,9 +20,9 @@ import {
 const app = getApp();
 let selectedIndex = -1;
 let queryCourse = [];
-let fromBtn = ''
 Page({
     data: {
+        fromBtn:'',
         swiperList: [{
                 img: "/static/img/45fc.png"
             },
@@ -31,15 +31,14 @@ Page({
             }
         ],
         loading: false,
-        motto: 'Hello World',
         userInfo: {},
+        userType:-1,
         modelVisible: false,
-        canIUse: wx.canIUse('button.open-type.getUserInfo'),
         canIUseGetUserProfile: false,
         teacherCourseList: [],
-        canIUseOpenData: wx.canIUse('open-data.type.userAvatarUrl') && wx.canIUse('open-data.type.userNickName'), // 如需尝试获取用户信息可改为false
         hasUserInfo: false,
-        deadLineDate: "截至时间",
+        exerciseName:"",
+        inputIndex:-1,
         exerciseCount: 0,
         NotifyCount: 0,
         navData: [
@@ -89,9 +88,21 @@ Page({
         }
     },
     // 事件处理函数
+    inputClick(){
+        this.setData({
+            inputIndex:1
+        })
+    },
     itemCLick(e) {
         switch (e.currentTarget.dataset.navdataindex) {
             case 0:
+                if (this.data.userType) {
+                    $Message({
+                        content:"您目前是学生身份,如需更换，请在个人中心修改",
+                        type:"warning"
+                    }) 
+                    return 
+                }
                 switch (e.currentTarget.dataset.itemindex) {
                     case 0:
                         this.handleOpenModal("createExam");
@@ -112,6 +123,13 @@ Page({
                 }
                 break;
             case 1:
+                if (!this.data.userType) {
+                    $Message({
+                        content:"您目前是教师身份,如需更换，请在个人中心修改",
+                        type:"warning"
+                    }) 
+                    return 
+                }
                 switch (e.currentTarget.dataset.itemindex) {
                     case 0:
                         this.calcClick();
@@ -168,10 +186,14 @@ Page({
     },
     handleOpenModal(type) {
         if (type === 'createNotify') {
-            fromBtn = "createNotify"
+            this.setData({
+                fromBtn:"createNotify"
+            })
         }
         if (type === 'createExam') {
-            fromBtn = "createExam"
+            this.setData({
+                fromBtn:"createExam"
+            })
         }
         // 弹出Modal窗
         haveUserInfo() && getTeacherCourse(app.globalData.userInfo._id).then(
@@ -211,20 +233,28 @@ Page({
     },
     handleClose() {
         this.setData({
-            modelVisible: false
+            modelVisible: false,
+            inputIndex:-1
         });
     },
     handleOk() {
         if (selectedIndex === -1) {
             $Message({
-                content: "请选择课程",
+                content: "请选择对应课程",
                 type: "warning"
+            })
+            return;
+        }
+        if (this.data.exerciseName === '' && this.data.fromBtn === 'createExam') {
+            $Message({
+                content:"请输入测试名称",
+                type:"warning"
             })
             return;
         }
         wx.navigateTo({
             // url:``
-            url: `..${fromBtn=== 'createExam'?'/createExam/createExam':'/'+fromBtn+'/'+fromBtn}?from=index&course=` + JSON.stringify(queryCourse[selectedIndex]),
+            url: `..${this.data.fromBtn=== 'createExam'?'/createExam/createExam':'/'+this.data.fromBtn+'/'+this.data.fromBtn}?from=index&course=` + JSON.stringify(queryCourse[selectedIndex]) + `&exerciseName=${this.data.exerciseName}`,
             // url:"../createExam/createExam?from=index&course=" + JSON.stringify(queryCourse[selectedIndex]),
             success: () => {
                 this.setData({
@@ -232,17 +262,18 @@ Page({
                 })
             }
         })
-        fromBtn = ''
+        // this.setData({
+        //     fromBtn:""
+        // })
     },
     onLoad(options) {
-
-        if (wx.getUserProfile) {
-            this.setData({
-                canIUseGetUserProfile: true
-            })
-        }
+    
     },
     onShow() {
+        // 
+        this.setData({
+            userType:app.globalData.userInfo.userType
+        })
         // 我愿称之为天坑 ！！！
         if (typeof this.getTabBar === 'function' && this.getTabBar()) {
             this.getTabBar().setData({
