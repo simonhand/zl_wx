@@ -28,6 +28,7 @@ Page({
         dataFrom: "navBack",
         isLoading: false,
         calcType:"",
+        starCount:0,
     },
     // 防抖用的
     timer: 1,
@@ -39,7 +40,8 @@ Page({
         })
     },
     modalClick(e) {
-        if (e.detail.confirm) {
+        console.log("222",e);
+        if (e.detail.confirm || e.detail.from === 'submitCalc') {
             if (this.data.dataFrom === 'lastCalc') {
                 // 这里是要提交口算记录
                 const obj = {
@@ -114,7 +116,8 @@ Page({
                 this.setData({
                     progressCount: ((this.data.currentIndex + 1) / this.data.count).toFixed(2),
                     dataFrom: "lastCalc",
-                    visible: true
+                    visible: true,
+                    starCount: Math.round((this.data.score / this.data.count) * 5)
                 })
                 return;
             }

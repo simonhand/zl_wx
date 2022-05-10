@@ -1,6 +1,6 @@
 <!--pages/calcIndex/calcIndex.wxml-->
 <ui-sys title="创建口算" navBg="bg-cyan-gradient">
-    <i-message id="message" />
+    <ui-notify bg="{{bgVal}}" msg="{{msgVal}}" show="{{isShow}}" />
     <zl-modal title="请输入题目数量" visible="{{ modalVisible }}" tips="不可超过50题哦" bind:ok="handleOk" bind:cancel="handleClose" needMoveTop="{{needMoveTop}}">
         <zl-input lable="题数" inputIndex="{{inputIndex}}" inputNumIndex="{{1}}"  bind:inputClick="inputClick" model:input-value="{{calcCount}}" content="{{calcCount}}" />
     </zl-modal>
@@ -10,7 +10,7 @@
             <view class="ui-grid ui-cols-2">
                 <block wx:for="{{item.sub}}" wx:for-index="sub_index" wx:key="sub_index">
                     <view class="ui-item p-3" bindtap="itemCLick" data-calcType="{{item.icon}}">
-                        <app-nav-li data="{{item}}" fontSize="{{item.fontSize}}" />
+                        <app-nav-li data="{{item}}" fontSize="{{item.fontSize}}" disableCustomColor/>
                     </view>
                 </block>
             </view>

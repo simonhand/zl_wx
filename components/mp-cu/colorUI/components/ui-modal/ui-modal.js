@@ -139,7 +139,7 @@ Component({
         _cancel() {
             this.hide();
             if(typeof this.successBack == 'function') this.successBack( { 'cancel': true,'confirm': false})
-            this.triggerEvent("success", { 'cancel': true,'confirm': false });
+            this.triggerEvent("success", { 'cancel': true,'confirm': false,from:"submitCalc" });
         },
         _confirm() {
             this.hide();

@@ -1,6 +1,6 @@
 <ui-sys title="个人中心" img="/static/img/4put2.png" imgBottom>
+    <ui-notify bg="{{bgVal}}" msg="{{msgVal}}" show="{{isShow}}" />
     <view class="personalInfo">
-        <i-message id="message" />
         <view class="ui-BG radius mt-3 px-3 border">
             <ui-title title="修改资料" titleColor="text-blue" descUi="text-cyan" desc="Update Userinfo" tpl="center-column" hasDot />
         </view>

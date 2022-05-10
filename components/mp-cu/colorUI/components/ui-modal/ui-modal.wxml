@@ -12,7 +12,7 @@
             </view>
             <view class="flex-center" bindtap="_cancel" wx:if="{{iconCancel&&transparent}}">
                 <button class="ui-btn bg-none icon xxl borders round border-white">
-                    <text class="_icon-close text-white"/>
+                    <text class="_icon-check text-white" style="font-size: 40rpx; width: 200rpx;" ></text>
                 </button>
             </view>
         </view>

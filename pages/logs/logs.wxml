@@ -53,7 +53,7 @@
             <view slot="content" style="height: 60px;">
                 <view class="classCard calc_card" bindtap="cardClick" data-index="{{index}}">
                     <view class="ui-item p-3 " bindtap="itemCLick" data-calcType="{{item.icon}}" style="position:relative;top: -20rpx;border-radius: 200rpx;display: inline;">
-                        <app-nav-li data="{{item}}" fontSize="{{item.fontSize}}" height="200" />
+                        <app-nav-li data="{{item}}" fontSize="{{item.fontSize}}" height="200" disableCustomColor/>
                     </view>
                     <view class="right-class-card calc_card_right">
                         <view class="right-class-card-top">
@@ -81,7 +81,7 @@
             <view style="position: relative; top: -70rpx;" wx:if="{{tabIndex ===2}}">
                 得分：{{clickItem.score}} 题数：{{clickItem.calcCount}}
             </view>
-            <view style="margin-top: 30rpx; display: grid; grid-template-columns: 300rpx 300rpx; grid-gap: 30rpx;margin:auto;align-items: center;height: 500rpx;overflow: scroll;" wx:if="{{tabIndex ===2}}">
+            <view style="margin-top: 30rpx; display: grid; grid-template-columns: 300rpx 300rpx; grid-gap: 30rpx;margin:auto;align-items: center;max-height: 500rpx;overflow: scroll;" wx:if="{{tabIndex ===2}}">
                 <block wx:for="{{clickItem.calcList}}" wx:key="index">
                     <view style="position: relative;">
                         <view style="font-size: 32rpx;display: inline-block;">

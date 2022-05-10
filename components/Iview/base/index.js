@@ -30,8 +30,38 @@ function Message(options) {
 
     ctx.handleShow(options);
 }
+function zlMessage(page,{content,type}) {
+    let color;
+    switch (type) {
+        case 'error':
+            color ="bg-red"
+            break;
+        case 'warning':
+            color ="bg-orange"
+            break;
+        case 'success':
+            color = "bg-blue"
+            break;
+        default:
+            color = "bg-blue"
+            break;
+    }
+    page.setData({
+        msgVal:content,
+        bgVal:color,
+        isShow:true
+    },() => {
+        setTimeout(() => {
+            page.setData({
+                isShow:false,
+                msgVal:"",
+            })
+        },1800)
+    })
+}
 
 module.exports = {
     $Toast: Toast,
-    $Message: Message
+    $Message: Message,
+    zlMessage
 };

@@ -22,7 +22,6 @@ Component({
     },
     methods:{
         stopBack(){
-            console.log("2222");
             this.triggerEvent("stopNavBack")
         }
     }

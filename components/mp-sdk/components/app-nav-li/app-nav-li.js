@@ -1,11 +1,16 @@
 Component({
-    data: {
-        colorName: ''
-    },
     options: {
         addGlobalClass: true
     },
     properties: {
+        colorName:{
+            type:String,
+            value:"random"
+        },
+        disableCustomColor:{
+            type:Boolean,
+            value:false,
+        },
         height:{
             type:String,
             value:"auto"
@@ -30,7 +35,7 @@ Component({
     methods:{
         //随机生成库内颜色名
         getColor() {
-            let colorArr = ['yellow', 'orange', 'red', 'pink', 'mauve', 'purple', 'blue', 'cyan', 'green', 'olive', 'grey', 'brown'];
+            let colorArr = ['yellow', 'orange', 'red', 'pink', 'mauve', 'purple', 'blue', 'cyan', 'green', 'olive', 'brown'];
             return colorArr[Math.floor(Math.random() * colorArr.length)]
         }
     },
