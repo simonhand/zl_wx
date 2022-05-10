@@ -12,7 +12,7 @@
                     <view class="ui-grid ui-cols-2">
                         <block wx:for="{{navData[0]}}" wx:for-index="sub_index" wx:key="sub_index">
                             <view class="ui-item p-3" bindtap="itemCLick" data-navDataIndex="{{0}}" data-itemIndex="{{sub_index}}">
-                                <app-nav-li data="{{item}}" fontSize="{{item.fontSize}}" />
+                                <app-nav-li data="{{item}}" fontSize="{{item.fontSize}}" colorName="{{userType === -1 || userType === 1?'gery':'random'}}"/>
                             </view>
                         </block>
                     </view>
@@ -21,18 +21,18 @@
                     <ui-title title="学生" depth="2" isIcon ui="ml-3" />
                     <view class="ui-grid ui-cols-2">
                         <view class="ui-item p-3" bindtap="itemCLick" data-calcType="{{myNotify.icon}}" data-navDataIndex="{{1}}" data-itemIndex="{{3}}">
-                            <app-nav-li data="{{myNotify}}" fontSize="{{myNotify.fontSize}}" />
+                            <app-nav-li data="{{myNotify}}" fontSize="{{myNotify.fontSize}}" colorName="{{userType === -1 || userType === 0?'gery':'random'}}"/>
                         </view>
-                        <i-badge count="{{NotifyCount}}" style="margin-left:-20rpx;" wx:if="{{userType}}">
+                        <i-badge count="{{NotifyCount}}" style="margin-left:-20rpx;" wx:if="{{userType}}" colorName="{{userType === -1 || userType === 0?'gery':'random'}}">
                         </i-badge>
                         <view class="ui-item p-3" style="position:relative;left: {{userType?'20rpx':'0'}};" bindtap="itemCLick" data-calcType="{{myExam.icon}}" data-navDataIndex="{{1}}" data-itemIndex="{{4}}">
-                            <app-nav-li data="{{myExam}}" fontSize="{{myExam.fontSize}}" />
+                            <app-nav-li data="{{myExam}}" fontSize="{{myExam.fontSize}}" colorName="{{userType === -1 || userType === 0?'gery':'random'}}"/>
                         </view>
                         <i-badge count="{{exerciseCount}}" wx:if="{{userType}}">
                         </i-badge>
                         <block wx:for="{{navData[1]}}" wx:for-index="sub_index" wx:key="sub_index">
                             <view class="ui-item p-3" bindtap="itemCLick" data-calcType="{{item.icon}}" data-navDataIndex="{{1}}" data-itemIndex="{{sub_index}}">
-                                <app-nav-li data="{{item}}" fontSize="{{item.fontSize}}" />
+                                <app-nav-li data="{{item}}" fontSize="{{item.fontSize}}" colorName="{{userType === -1 || userType === 0?'gery':'random'}}"/>
                             </view>
                         </block>
                     </view>

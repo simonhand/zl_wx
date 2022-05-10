@@ -10,7 +10,7 @@ import {
 } from './service'
 import {   getTeacherCourse } from '../../commonservice/courseservice'
 import {
-    $Message
+    zlMessage
 } from '../../components/Iview/base/index'
 import {
     updateUserInfo
@@ -44,6 +44,9 @@ Page({
             icon: 'close',
             background: '#FF7F00'
         }],
+        bgVal:"",
+        msgVal:"",
+        isShow:false
     },
     // input事件函数
     // 事件函数触发
@@ -67,13 +70,14 @@ Page({
     },
     handleOk() {
         const user = app.globalData.userInfo;
+        const that =this
         // userType === 0代表老师反之是学生
         if (this.data.userType) {
             // 学生端的处理
             // 先检测该学生是否添加过该课程
             for (const iterator of app.globalData.userInfo.course) {
                 if (iterator.invitationCode === this.data.invitationCode) {
-                    $Message({
+                    zlMessage(that,{
                         content: "该课程已被添加",
                         type: "error"
                     });
@@ -86,7 +90,7 @@ Page({
             }).then(
                 (value) => {
                     if (!value.data.data.addCourse) {
-                        $Message({
+                        zlMessage(that,{
                             content: "该课程不存在",
                             type: "error"
                         })
@@ -102,14 +106,14 @@ Page({
                         invitationCode: value.data.data.addCourse.invitationCode
                     });
                     updateUserInfo(app.globalData.userInfo);
-                    $Message({
+                    zlMessage(that,{
                         content: "添加成功",
                         type: "success"
                     })
                 }
             ).catch((e) => {
                 console.log("error", e);
-                $Message({
+                zlMessage(that,{
                     content: "添加失败",
                     type: "error"
                 })
@@ -137,13 +141,13 @@ Page({
                         students: []
                     }]
                 })
-                $Message({
+                zlMessage(that,{
                     content: "课程创建成功",
                     type: "success"
                 })
             }).catch((error) => {
                 console.log(error);
-                $Message({
+                zlMessage(that,{
                     content: "课程创建失败",
                     type: "error"
                 })
@@ -158,6 +162,7 @@ Page({
     },
     // 退出课程确认
     handleOk1() {
+        const that = this
         let checkCourse = this.data.userType === 1 ? this.data.studentsCourseList[swipeoutIndex] : this.data.courseList[swipeoutIndex];
         deleteCourse(app.globalData.userInfo._id, this.data.userType, checkCourse._id, checkCourse.invitationCode).then(
             (res) => {
@@ -169,7 +174,7 @@ Page({
                     })
                     app.globalData.userInfo.course = this.data.studentsCourseList
                     updateUserInfo(app.globalData.userInfo)
-                    $Message({
+                    zlMessage(that,{
                         content: "退出成功",
                         type: "success"
                     })
@@ -178,7 +183,7 @@ Page({
                         tipVisible: false,
                         courseList: this.data.courseList.filter((item) => item._id !== checkCourse._id)
                     })
-                    $Message({
+                    zlMessage(that,{
                         content: "退出成功",
                         type: "success"
                     })
@@ -186,7 +191,7 @@ Page({
             }
         ).catch((e) => {
             console.log("error", e);
-            $Message({
+            zlMessage(that,{
                 content: "出现错误",
                 type: "error"
             })

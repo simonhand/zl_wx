@@ -1,6 +1,6 @@
 <!--pages/createExam/createExam.wxml-->
 <ui-sys title="创建小测验" img="/static/img/4put2.png" navBg="bg-cyan-gradient" imgBottom needLoading="{{isLoading}}" loaingString="{{loaingString}}">
-    <i-message id="message" />
+    <ui-notify bg="{{bgVal}}" msg="{{msgVal}}" show="{{isShow}}" />
     <view class="page">
         <view>
             <scroll-view scroll-x class="bg-white response cu-steps steps-bottom shadow-warp" style="width: 590rpx; border-radius: 25rpx; margin-top: 20rpx;"  scroll-with-animation>

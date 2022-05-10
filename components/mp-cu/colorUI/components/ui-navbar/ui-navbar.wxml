@@ -8,7 +8,7 @@
             </block>
             <block wx:else>
                 <view class="left">
-                    <view class="back" wx:if="{{back && !capsule}}" bindtap="_navBack">
+                    <view class="back" wx:if="{{back && !capsule}}" bindtap="_navBack" >
                         <view class="back-icon icon-fw text-xl {{isFirstPage?'_icon-home-o':'_icon-back'}} {{statusCur}} {{opacityBg?'opacityIcon':''}}"/>
                         <view>{{ backtext }}</view>
                     </view>

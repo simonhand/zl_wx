@@ -4,7 +4,7 @@ import {
     uploadImgToCos
 } from "../../utils/uploadImg"
 import {
-    $Message
+    zlMessage
 } from '../../components/Iview/base/index'
 import {
     createExerciseRequset
@@ -28,7 +28,10 @@ Page({
         imgList: [], // 题干配图
         exercisesType: 0, // 0 代表选择题， 1 代表填空题
         keyList: [], // 答案
-        correctExerciseType: false
+        correctExerciseType: false,
+        bgVal:"",
+        msgVal:"",
+        isShow:false
     },
     ocrClick() {
         uploadImg(this, "../imgCut/imgCut?from=createExam&src=");
@@ -162,7 +165,7 @@ Page({
         this.nextExercises('submit')
         for (const iterator of this.data.exercisesList) {
             if (!iterator.iscorrectExerciseType) {
-                $Message({
+                $zlMessage(this,{
                     content: "存在不符合规则的题目",
                     type: "wraning"
                 })
@@ -208,7 +211,7 @@ Page({
               url: '../index/index',
             })
         }).catch((error) => {
-            $Message({
+            $zlMessage({
                 content:"创建失败" + error,
                 type:"error"
             })

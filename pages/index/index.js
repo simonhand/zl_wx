@@ -27,7 +27,7 @@ Page({
                 img: "/static/img/45fc.png"
             },
             {
-                img: "/static/img/d0f2.png"
+                img: "/static/img/d0f2zl.png"
             }
         ],
         loading: false,
@@ -43,15 +43,15 @@ Page({
         NotifyCount: 0,
         navData: [
             [{
-                icon: 'cicon-level_11',
+                icon: 'cicon-level_23',
                 fontSize: 30,
                 title: '创建小测验'
             }, {
-                icon: 'cicon-level_12',
+                icon: 'cicon-level_22',
                 fontSize: 30,
                 title: '创建通知'
             }, {
-                icon: 'cicon-level_12',
+                icon: 'cicon-level_21',
                 fontSize: 30,
                 title: '我的课程'
             }],
@@ -94,6 +94,13 @@ Page({
         })
     },
     itemCLick(e) {
+        // 未登录
+        if (this.data.userType === -1) {
+            wx.navigateTo({
+              url: '/pages/login/login',
+            })
+            return
+        }
         switch (e.currentTarget.dataset.navdataindex) {
             case 0:
                 if (this.data.userType) {
@@ -175,9 +182,6 @@ Page({
         wx.navigateTo({
             url: '../home/home'
         })
-    },
-    timePickerOK(data) {
-        console.log(data);
     },
     handleOpenModalToExam() {
         wx.navigateTo({
@@ -270,10 +274,6 @@ Page({
     
     },
     onShow() {
-        // 
-        this.setData({
-            userType:app.globalData.userInfo.userType
-        })
         // 我愿称之为天坑 ！！！
         if (typeof this.getTabBar === 'function' && this.getTabBar()) {
             this.getTabBar().setData({
@@ -284,11 +284,18 @@ Page({
         // 请求有多少个测验未做
         // 这里之所以从缓存里拿数据，按理说全局变量userinfo数据是和缓存中同步的，但是从缓存中拿是异步的又因为这是首页这个时候直接从usereinfo拿是undefined
         getWxStorage('user').then((res) => {
+            console.log(res.data.userType);
+            this.setData({
+                userType:res.data.userType
+            },() => {
+                console.log("我更新了usertype",this.data.userType);
+            })
             return Promise.all([examIndex(res.data.course, res.data._id), getNotifyByUser(res.data)])
         }).catch((e) => {
             that.setData({
                 exerciseCount: 0,
-                NotifyCount: 0
+                NotifyCount: 0,
+                userType: -1
             })
         }).then((res) => {
             that.setData({

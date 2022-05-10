@@ -1,15 +1,28 @@
 <view class="doc-card" style="height: {{height?height+'rpx;':'auto'}};">
-    <navigator url="/pages/document/{{data.name}}/{{data.name}}" class="flex radius doc-card-navigator {{'bg-'+colorName+'-gradient'}}" style="{{height!== 'auto'?'height:115rpx':''}}">
+    <navigator url="/pages/document/{{data.name}}/{{data.name}}" class="flex radius doc-card-navigator {{!disableCustomColor?'bg-'+parse.getColor(colorName)+'-gradient':'bg-'+colorName+'-gradient'}}" style="{{height!== 'auto'?'height:115rpx':''}}">
         <view class="flex-sub p-4 doc-text">
             <view class="doc-title" style="font-size: {{fontSize}}rpx;">{{ data.title }}</view>
-            <view class="text-lg text-Abc text-lighter doc-name" >{{ data.name }}</view>
+            <view class="text-lg text-Abc text-lighter doc-name">{{ data.name }}</view>
         </view>
-        <view class="mt-2 mr-1 pt-4 pr-4 pl-2 doc-icon" >
-            <text class="icon-xl text-xl {{data.icon}}" style="{{height!== 'auto'?'position: relative;top:-10rpx':''}}"/>
+        <view class="mt-2 mr-1 pt-4 pr-4 pl-2 doc-icon">
+            <text class="icon-xl text-xl {{data.icon}}" style="{{height!== 'auto'?'position: relative;top:-10rpx':''}}" />
         </view>
-        <view class="doc-dot doc-dot1 {{'bg-'+colorName+'-gradient'}}" style="{{height!== 'auto'?'height:50rpx':''}}"/>
-        <view class="doc-dot doc-dot2 {{'bg-'+colorName+'-gradient'}}" style="{{height!== 'auto'?'height:40rpx':''}}"/>
-        <view class="doc-dot doc-dot3 {{'bg-'+colorName+'-gradient'}}" style="{{height!== 'auto'?'height:30rpx':''}}"/>
+        <view class="doc-dot doc-dot1 {{!disableCustomColor?disableCustomColor?'bg-'+parse.getColor(colorName)+'-gradient':'bg-'+colorName+'-gradient':'bg-'+colorName+'-gradient'}}" style="{{height!== 'auto'?'height:50rpx':''}}" />
+        <view class="doc-dot doc-dot2 {{!disableCustomColor?'bg-'+parse.getColor(colorName)+'-gradient':'bg-'+colorName+'-gradient'}}" style="{{height!== 'auto'?'height:40rpx':''}}" />
+        <view class="doc-dot doc-dot3 {{!disableCustomColor?'bg-'+parse.getColor(colorName)+'-gradient':'bg-'+colorName+'-gradient'}}" style="{{height!== 'auto'?'height:30rpx':''}}" />
     </navigator>
-    <view class="doc-bg {{'bg-'+colorName}}" wx:if="{{data.icon}}" style="{{height!== 'auto'?'height:30rpx':''}}"/>
+    <view class="doc-bg {{!disableCustomColor?'bg-'+parse.getColor(colorName)+'-gradient':'bg-'+colorName+'-gradient'}}" wx:if="{{data.icon}}" style="{{height!== 'auto'?'height:30rpx':''}}" />
 </view>
+
+<wxs module="parse">
+    //随机生成库内颜色名
+    module.exports = {
+        getColor: function(colorName) {
+            var colorArr = ['yellow', 'orange', 'red', 'pink', 'mauve', 'purple', 'blue', 'cyan', 'green', 'olive', 'brown'];
+            if (colorName !== "random") {
+                return 'grey'
+            }
+            return colorArr[Math.floor(Math.random() * colorArr.length)]
+        }
+    }
+</wxs>

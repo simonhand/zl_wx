@@ -2,7 +2,7 @@
 import { updateUserInfo } from './service'
 import { updateUserInfo as updateUserInfoStorage } from '../../utils/updateWxstorage'
 import { uploadImg } from '../../utils/uploadImg'
-import { $Message  } from '../../components/Iview/base/index'
+import { zlMessage  } from '../../components/Iview/base/index'
 const app = getApp()
 Page({
 
@@ -17,20 +17,18 @@ Page({
         grade:"",
         gender:"男",
         phone:"",
-        userType: 1
+        userType: 1,
+        bgVal:"",
+        msgVal:"",
+        isShow:false
     },
     submit(){
         updateUserInfo({...this.data,_id:app.globalData.userInfo._id}).then((res) => {
             updateUserInfoStorage(res.data.data.updateUserInfomation);
-            $Message({
+            zlMessage(this,{
                 content:"保存成功",
                 type:"success"
             })
-            // setTimeout(()=> {
-            //     wx.switchTab({
-            //       url: '../profile/profile',
-            //     })
-            // },600)
         });
     },
     genderClick(){

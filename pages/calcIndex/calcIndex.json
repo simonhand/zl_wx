@@ -4,6 +4,6 @@
     "zl-modal":"../../components/zl-modal",
     "zl-input":"../../components/zl-input",
     "app-nav-li": "../../components/mp-sdk/components/app-nav-li/app-nav-li",
-    "i-message":"../../components/Iview/message/index"
+    "ui-notify":"../../components/mp-cu/colorUI/components/ui-notify/ui-notify"
   }
 }

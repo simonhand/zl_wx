@@ -1,7 +1,7 @@
 <!--pages/personalInfo/personalInfo.wxml-->
 <ui-sys doc title="课程" img="/static/img/4put2.png" imgBottom>
 <view class="personalInfoPage">
-    <i-message id="message" />
+    <ui-notify bg="{{bgVal}}" msg="{{msgVal}}" show="{{isShow}}" />
     <zl-modal title="{{userType === 0 ? '创建新的班级':'请输入班级邀请码'}}" visible="{{ modalVisible }}" tips="{{userType === 0 ? '学生可通过邀请码加入班级' : '若不知道,请向授课教师询问'}}" bind:ok="handleOk" bind:cancel="handleClose" needMoveTop="{{ inputIndex === 1 ? true :false}}">
         <zl-input wx:if="{{userType}}" lable="邀请码" inputIndex="{{inputIndex}}" inputNumIndex="{{2}}" data-index="{{2}}" bind:inputClick="inputClick" model:input-value="{{invitationCode}}" content="{{invitationCode}}" />
         <form wx:else class="createClassForm">
@@ -43,7 +43,7 @@
                         <image src="{{item.createrAvatarUrl}}" class="imageClass"></image>
                     </view>
                     <view class="right-class-card">
-                        <view class="right-class-card-top"><text>{{item.courseName}}</text><text> {{item.teacherName}}</text><text style="color: #666; margin-left: 12px;">{{item.students.length || 0}}人</text></view>
+                        <view class="right-class-card-top"><text>{{item.courseName}}</text><text> {{item.teacherName}}</text><text style="color: #666; margin-left: 12px;">{{item.studentsNumber || 0}}人</text></view>
                         <view class="right-class-card-bottom">
                             <view>邀请码: {{item.invitationCode}}</view>
                             <image src="/static/profile/copy.png" class="copyImage" bindtap="copyClick" data-index="{{index}}"></image>

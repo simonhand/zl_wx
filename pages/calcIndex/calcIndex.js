@@ -1,6 +1,6 @@
 // pages/calcIndex/calcIndex.js
 import {
-    $Message
+    zlMessage,
 } from '../../components/Iview/base/index'
 import {calcType} from '../../config/secret'
 const app = getApp()
@@ -15,7 +15,10 @@ Page({
         modalVisible: false,
         needMoveTop: false,
         inputIndex:-1,
-        navData: calcType
+        navData: calcType,
+        bgVal:"",
+        msgVal:"",
+        isShow:false
     },
     inputClick() {
         this.setData({
@@ -27,17 +30,17 @@ Page({
         const count = this.data.calcCount;
         console.log(Number(count));
         if (!count || !Number(count)) {
-            $Message({
+            zlMessage(this,{
                 content:"输入不合法",
-                type:"error"
-            });
+                type:'error'
+            })
             return
         }
         if (count > 50) {
-            $Message({
+            zlMessage(this,{
                 content:"题目数量不能超过50哦",
                 type:"warning"
-            });
+            })
             return
         }
         this.setData({

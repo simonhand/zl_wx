@@ -5,6 +5,7 @@
     "zl-cell": "../../components/zl-cell/index",
     "zl-switch":"../../components/zl-switch/zl-switch",
     "i-message":"../../components/Iview/message/index",
-    "ui-title":"../../components/mp-cu/colorUI/components/ui-title/ui-title"
+    "ui-title":"../../components/mp-cu/colorUI/components/ui-title/ui-title",
+    "ui-notify":"../../components/mp-cu/colorUI/components/ui-notify/ui-notify"
   }
 }

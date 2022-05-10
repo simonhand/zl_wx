@@ -1,6 +1,13 @@
 Component({
     externalClasses: ['i-class'],
+    // data:{
+    //     starSize : [5,10,20,10,5]
+    // },
     properties : {
+        starSize:{
+            type:Array,
+            value:[20,40,60,40,20]
+        },
         count : {
             type : Number,
             value : 5
@@ -8,6 +15,10 @@ Component({
         value : {
             type : Number,
             value : 0
+        },
+        custom:{
+            type:Boolean,
+            value:false
         },
         disabled : {
             type : Boolean,

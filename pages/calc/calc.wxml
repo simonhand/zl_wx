@@ -1,9 +1,23 @@
 <!--pages/calc/calc.wxml-->
-<ui-sys title="口算" navBg="bg-cyan-gradient" footer='' stopNavBack  bind:stopNavBack="stopNavBack" id="ui" needLoading="{{isLoading}}">
+<ui-sys title="口算" navBg="bg-cyan-gradient" footer='' stopNavBack bind:stopNavBack="stopNavBack" id="ui" needLoading="{{isLoading}}">
     <i-progress percent="{{ progressCount * 100}}" status="active" i-class='calc-progress'></i-progress>
-    <ui-modal show="{{visible}}" mask="40" align="bottom" bind:success="modalClick" data-from="{{dataFrom}}" showCancel="{{ dataFrom === 'navBack'}}">
+    <ui-modal show="{{visible &&dataFrom === 'navBack'}}" mask="40" align="bottom" bind:success="modalClick" data-from="{{dataFrom}}" showCancel="{{ dataFrom === 'navBack'}}">
         <view style="width: 100vw;height: 200rpx;line-height: 200rpx;text-align: center; font-size: 30rpx;">
-            {{dataFrom === 'navBack' ? '将不保存当前做题记录，确认离开口算界面吗 ？': "这是最后一题了将提交口算记录"}}
+            将不保存当前做题记录，确认离开口算界面吗 ？
+        </view>
+    </ui-modal>
+    <ui-modal show="{{visible &&dataFrom !== 'navBack'}}" transparent mask="40" iconCancel data-from="{{dataFrom}}" bind:success="modalClick">
+        <view style="height: 400rpx;">
+            <view class="flex-center" style="font-size: 40rpx;">
+                <text wx:if="{{starCount<3}}" style="color: skyblue">继续努力啊 ！</text>
+                <text wx:if="{{starCount >= 3 && starCount <= 4}}" style="color: orange">你真帮 ！</text>
+                <text wx:if="{{starCount === 5}}" style="color: orangered">无懈可击 ！</text>
+            </view>
+            <view class="p-5 flex-center">
+                <i-rate value="{{starCount}}" size="26" custom>
+                </i-rate>
+            </view>
+            <view class='flex-center' style="font-size: 30rpx;"><text>题目总数:{{count}}</text><text style="margin-left: 20rpx;">用时:{{hour?hour+'时':''}}{{minute?minute+'分':''}}{{second?second+'秒':''}} </text> <text style="margin-left: 20rpx;"> 得分：{{score}}</text></view>
         </view>
     </ui-modal>
     <view style="margin:auto; width: 100vw;height: 4vh;display: flex;flex-direction: row;">

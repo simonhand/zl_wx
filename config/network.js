@@ -1,8 +1,4 @@
-const baseUrl = 'http://127.0.0.1:3000/graphql'
-// const baseUrl = 'http://192.168.0.3:3000/graphql'
-// const baseUrl = 'http://192.168.1.103:3000/graphql'
-// const baseUrl = 'http://loaclhost:3000/graphql'
-// const baseUrl = 'http://192.168.138.73:3000/graphql'
+const baseUrl = 'http://43.138.63.218:3636/graphql'
 
 module.exports = {
     baseUrl
