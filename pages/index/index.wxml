@@ -4,7 +4,7 @@
         <i-spin fix wx:if="{{loading}}"></i-spin>
         <i-message id="message" />
         <i-toast id="toast" />
-        <ui-swiper info="{{swiperList}}" height="48vw" dotStyle="line" dotCur="ui-BG-Main" />
+        <ui-swiper info="{{swiperList}}" height="48vw" dotStyle="line" dotCur="ui-BG-Main" bind:swiperClick="swiperClick"/>
         <scroll-view class="container" style="z-index: 99999;" scroll-y style="height: 53vh;">
             <view style="display: flex;flex-direction:{{userType?'column-reverse':'column'}};">
                 <view class="ui-container">

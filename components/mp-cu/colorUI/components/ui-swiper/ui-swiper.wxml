@@ -1,9 +1,9 @@
-<view class="ui-swiper {{mode}} {{swiperCss}}">
+<view class="ui-swiper {{mode}} {{swiperCss}}" style="width: 90vw; margin: auto; ">
     <swiper circular="{{circular}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" class="swiper"
             style="{{height?'height: ' + height:''}}" bindchange="swiperChange">
         <swiper-item wx:for="{{info}}" wx:key="index" class="swiper-item {{cur === index?'cur':''}}" data-item="{{item}}" bindtap="toTap">
             <view class="ui-swiper-main radius">
-                <image src="{{item[imgName]}}" style="{{imgHeight?'height: '+imgHeight:''}}" class="image" mode="aspectFill"/>
+                <image src="{{item[imgName]}}" style="{{imgHeight?'height: '+imgHeight:''}}" class="image" mode="aspectFill" bindtap="imageClick" data-index="{{index}}"/>
             </view>
         </swiper-item>
     </swiper>
