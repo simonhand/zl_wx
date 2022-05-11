@@ -24,10 +24,10 @@ Page({
     data: {
         fromBtn:'',
         swiperList: [{
-                img: "/static/img/45fc.png"
+                img: "/static/img/welcome.gif"
             },
             {
-                img: "/static/img/d0f2zl.png"
+                img: "https://static-1305980897.cos.ap-nanjing.myqcloud.com/calc.gif"
             }
         ],
         loading: false,
@@ -88,6 +88,11 @@ Page({
         }
     },
     // 事件处理函数
+    swiperClick(e){
+        if (e.detail === 1) {
+            this.calcClick();
+        }
+    },
     inputClick(){
         this.setData({
             inputIndex:1

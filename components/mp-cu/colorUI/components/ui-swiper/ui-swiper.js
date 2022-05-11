@@ -60,6 +60,9 @@ Component({
             this.setData({cur: e.detail.current})
             this.triggerEvent("change",e.detail.current);
         },
+        imageClick(e){
+            this.triggerEvent("swiperClick",e.currentTarget.dataset.index);
+        },
         toTap(e) {
             let item = e.currentTarget.dataset.item;
             //如果类型、url为空，或者类型为eve时，以事件返回。
