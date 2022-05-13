@@ -1,7 +1,7 @@
-import { $Message  } from '../../components/Iview/base/index'
+import { zlMessage  } from '../../components/Iview/base/index'
 import {zlrequest } from '../../utils/zlGraphql'
 const app = getApp()
-export const loginUser = ({loginuname,loginpwd}) => {
+export const loginUser = ({loginuname,loginpwd},page) => {
     const payload = JSON.stringify({
         query:`
         query loginuser {
@@ -31,7 +31,7 @@ export const loginUser = ({loginuname,loginpwd}) => {
           const userInfo = res.data.data.loginuser;
           if (!userInfo) {
               // 登录失败的处理
-            $Message ({
+            zlMessage (page,{
                 type:'error',
                 content:"用户名或密码错误",
                 mask: false
@@ -47,7 +47,7 @@ export const loginUser = ({loginuname,loginpwd}) => {
                 app.globalData.userInfo = userInfo
               }
           })
-          $Message ({
+          zlMessage (page,{
             type:'success',
             content:"登录成功",
             mask: false
@@ -61,9 +61,9 @@ export const loginUser = ({loginuname,loginpwd}) => {
       })
 }
 
-export const registerUser = ({registeruname = "",registerpwd ="",hasRegister=false,openid="",nickName="",avatarUrl="",isWxUser=false}) => {
+export const registerUser = ({registeruname = "",registerpwd ="",hasRegister=false,openid="",nickName="",avatarUrl="",isWxUser=false},page) => {
     if (hasRegister) {
-        $Message ({
+        zlMessage (page,{
             type:"error",
             content:"该用户已经存在"
         })
