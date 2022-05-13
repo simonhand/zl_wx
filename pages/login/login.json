@@ -1,5 +1,6 @@
 {
   "usingComponents": {
-    "i-message":"../../components/Iview/message/index"
+    "i-message":"../../components/Iview/message/index",
+    "ui-notify":"../../components/mp-cu/colorUI/components/ui-notify/ui-notify"
   }
 }
