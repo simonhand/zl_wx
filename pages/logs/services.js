@@ -20,6 +20,7 @@ export const getExerciseRecord = (userId,skip,userType) => {
             exerciseName
             createrAvatarUrl
             courseName
+            course_id
             exerciseId
             exercisesCorrectRecord
             exercisesScoreRecord
@@ -76,6 +77,36 @@ export const deleteCalcRecord = (calcId) => {
         query: `query deleteCalcRecord{
             deleteCalcRecord(calcId:"${calcId}"){
                _id
+            }
+        }`
+    });
+    return zlrequest(palyLoad,"POST");
+}
+
+export const getDoneExerciseStudents = (course_id,exerciseRecordId) => {
+    const palyLoad = JSON.stringify({
+        query: `query getDoneExerciseStudents{
+            getDoneExerciseStudents(course_id:"${course_id}",exerciseRecordId:"${exerciseRecordId}"){
+               _id
+               uname
+               nickName
+               realName
+               avatarUrl
+            }
+        }`
+    });
+    return zlrequest(palyLoad,"POST");
+}
+
+export const getReadNotifyStudents = (notifyId) => {
+    const palyLoad = JSON.stringify({
+        query: `query getReadNotifyStudents{
+            getReadNotifyStudents(notifyId:"${notifyId}"){
+               _id
+               uname
+               nickName
+               realName
+               avatarUrl
             }
         }`
     });

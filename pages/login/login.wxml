@@ -1,46 +1,46 @@
 <ui-sys title="登录注册" img="/static/img/4put2.png" imgBottom>
-<view style="width: 100%; display: flex; flex-direction: row; justify-content: center; margin-top: 30px;">
-    <image src="https://static-1305980897.cos.ap-nanjing.myqcloud.com/login.gif" class="logo"></image>
-</view>
-<ui-notify bg="{{bgVal}}" msg="{{msgVal}}" show="{{isShow}}" />
-<view class="card" style="margin-top: {{sys_navBar + 500}}rpx;">
-    <view class="front {{ flag === false ? '.front-turn':''}}">
-        <form>
-            <view class="inputText" id="id" >
-                <input type="text" required maxlength="15" data-index="{{0}}"  class="{{ inputIndex === 0 || loginuname ? 'focus':'' }}" bindtap="inputClick" bindinput="unameInput"/>  
-                <span data-placeholder="你的姓名"></span>
-            </view>
-            <view class="inputText" id="password">
-                <input type="password" required pattern=".{6,}" title="Password less than six digits" maxlength="16" data-index="{{1}}"  class="{{ inputIndex === 1 || loginpwd ? 'focus':'' }}" bindtap="inputClick" bindinput="pwdInput"/>
-                <span data-placeholder="别偷看"></span>
-            </view>
-            <view style="display: flex; flex-direction: row; justify-content: center;">
-                <view type="submit" formType="submit" value="Login" class="button" style="line-height: 45px; color: #666;" bindtap="wechatloginClick">
-                    <image src="../../assets/login/wechat.png" class="buttoImage"/>
-                    <text>微信</text>
+    <view style="width: 100%; display: flex; flex-direction: row; justify-content: center; margin-top: 30px;">
+        <image src="https://static-1305980897.cos.ap-nanjing.myqcloud.com/login.gif" class="logo"></image>
+    </view>
+    <ui-notify bg="{{bgVal}}" msg="{{msgVal}}" show="{{isShow}}" />
+    <view class="card" style="margin-top: {{sys_navBar + 500}}rpx;">
+        <view class="front {{ flag === false ? '.front-turn':''}}">
+            <form>
+                <view class="inputText" id="id">
+                    <input type="text" required maxlength="15" data-index="{{0}}" class="{{ inputIndex === 0 || loginuname ? 'focus':'' }}" bindtap="inputClick" bindinput="unameInput" />
+                    <span data-placeholder="你的姓名"></span>
                 </view>
-                <view type="submit" formType="submit" value="Login" class="button" style="line-height: 45px; color: #666;" bindtap="loginClick">登录</view>
-            </view>
-            <p class="register"  bindtap="cardClick" >没有账号？</p>
-        </form>
+                <view class="inputText" id="password">
+                    <input type="password" required pattern=".{6,}" title="Password less than six digits" maxlength="16" data-index="{{1}}" class="{{ inputIndex === 1 || loginpwd ? 'focus':'' }}" bindtap="inputClick" bindinput="pwdInput" />
+                    <span data-placeholder="别偷看"></span>
+                </view>
+                <view style="display: flex; flex-direction: row; justify-content: center;">
+                    <view type="submit" formType="submit" value="Login" class="button" style="line-height: 45px; color: #666;" bindtap="wechatloginClick">
+                        <image src="../../assets/login/wechat.png" class="buttoImage" />
+                        <text>微信</text>
+                    </view>
+                    <view type="submit" formType="submit" value="Login" class="button" style="line-height: 45px; color: #666;" bindtap="loginClick">登录</view>
+                </view>
+                <p class="register" bindtap="cardClick">没有账号？</p>
+            </form>
+        </view>
+        <view class="back {{ flag === false ? '.back-turn':''}}">
+            <form>
+                <view class="inputText" id="email">
+                    <input type="email" required maxlength="30" data-index="{{2}}" class="{{ inputIndex === 2 || registeruname ? 'focus':'' }}" bindtap="inputClick" bindinput="registerUnameInput" bindblur="registeUsernameClick" />
+                    <span data-placeholder="你的姓名"></span>
+                </view>
+                <view class="inputText" id="email">
+                    <input type="email" required maxlength="30" data-index="{{3}}" class="{{ inputIndex === 3 || registerpwd ? 'focus':'' }}" bindtap="inputClick" bindinput="registerpwdInput" />
+                    <span data-placeholder="别偷看"></span>
+                </view>
+                <view class="inputText" id="email">
+                    <input type="email" required maxlength="30" data-index="{{4}}" class="{{ inputIndex === 4 || registerpwdAgain ? 'focus':'' }}" bindtap="inputClick" bindinput="registerPwdInputAgain" />
+                    <span data-placeholder="再输入一次"></span>
+                </view>
+                <view type="submit" value="Register" class="registerbutton" style="line-height: 45px; color:#666" bindtap="registeClick">注册</view>
+                <p class="login_" bindtap="cardClick">我又想起账号了！</p>
+            </form>
+        </view>
     </view>
-    <view class="back {{ flag === false ? '.back-turn':''}}">
-        <form>
-            <view class="inputText" id="email">
-                <input type="email" required maxlength="30" data-index="{{2}}"  class="{{ inputIndex === 2 || registeruname ? 'focus':'' }}" bindtap="inputClick" bindinput="registerUnameInput" bindblur="registeUsernameClick"/>
-                <span data-placeholder="你的姓名"></span>
-            </view>
-            <view class="inputText" id="email">
-                <input type="email" required maxlength="30" data-index="{{3}}"  class="{{ inputIndex === 3 || registerpwd ? 'focus':'' }}" bindtap="inputClick" bindinput="registerpwdInput"/>
-                <span data-placeholder="别偷看"></span>
-            </view>
-            <view class="inputText" id="email">
-                <input type="email" required maxlength="30" data-index="{{4}}"  class="{{ inputIndex === 4 || registerpwdAgain ? 'focus':'' }}" bindtap="inputClick" bindinput="registerPwdInputAgain"/>
-                <span data-placeholder="再输入一次"></span>
-            </view>
-            <view type="submit" value="Register" class="registerbutton" style="line-height: 45px; color:#666" bindtap="registeClick">注册</view>
-            <p class="login_"   bindtap="cardClick" >我又想起账号了！</p>
-        </form>
-    </view>
-</view>
 </ui-sys>
