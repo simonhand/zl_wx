@@ -16,15 +16,17 @@ import {
     getExerciseRecord,
     getNotifyRecord,
     getCalcRecord,
-    deleteCalcRecord
+    deleteCalcRecord,
+    getDoneExerciseStudents,
+    getReadNotifyStudents
 } from './services'
 const app = getApp()
 Page({
     data: {
-        logs: [],
-        userType:0,
+        userType:-1,
         tabIndex: 0,
         modalVisible: false,
+        teacherModalVisible:false,
         scrollUpdateing: false,
         recordList: [
             [],
@@ -44,14 +46,45 @@ Page({
             icon: 'delete',
             background: '#FF7F00'
         }],
+        doneExerciseStudents:[],
+        readNotifyStudents:[]
     },
     modalConfirm() {
         this.setData({
-            modalVisible: false
+            modalVisible: false,
+            teacherModalVisible:false
         })
     },
     cardClick(e) {
         if (this.data.userType===0) {
+            if (this.data.tabIndex === 0) {
+                this.setData({
+                    teacherModalVisible:true
+                });
+                getDoneExerciseStudents(this.data.recordList[0][e.currentTarget.dataset.index].course_id,this.data.recordList[0][e.currentTarget.dataset.index]._id).then((res) => {
+                    if (res.errMsg!=="request:ok") {
+                        zlMessage(this,{content:"网络请求错误",type:"error"})
+                        return
+                    }
+                    this.setData({
+                        doneExerciseStudents:res.data.data.getDoneExerciseStudents
+                    })
+                })
+            }
+            if (this.data.tabIndex === 1) {
+                this.setData({
+                    teacherModalVisible:true
+                });
+                getReadNotifyStudents(this.data.recordList[1][e.currentTarget.dataset.index]._id).then((res) => {
+                    if (res.errMsg!=="request:ok") {
+                        zlMessage(this,{content:"网络请求错误",type:"error"})
+                        return
+                    }
+                   this.setData({
+                       readNotifyStudents:res.data.data.getReadNotifyStudents
+                   })
+                })
+            }
             return
         }
         if (this.data.tabIndex === 0) {
@@ -310,7 +343,8 @@ Page({
         getTabTotal(userId,app.globalData.userInfo.userType).then((res) => {
             this.setData({
                 userType:app.globalData.userInfo.userType,
-                tabTotal: res.data.data.getTabTotal
+                tabTotal: res.data.data.getTabTotal,
+                userType:app.globalData.userInfo.userType
             })
         })
         // 请求测验记录

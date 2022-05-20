@@ -7,12 +7,12 @@
     <scroll-view style="height: 70vh;position: fixed; bottom:{{isGetMoreData?'170':'148'}}rpx;" scroll-y bindscrolltolower="scrolltolower" bindrefresherrefresh='scrolltoupper' refresher-enabled="{{true}}" refresher-threshold="{{65}}" refresher-triggered="{{scrollUpdateing}}">
         <i-swipeout i-class="i-swipeout-demo-item" actions="{{actions}}" wx:for="{{recordList[tabIndex]}}" wx:key="index" data-index="{{index}}" bind:change="swipeoutClick" wx:if="{{tabIndex===0 }}" disableTouchLeft>
             <view slot="content" style="height: 60px;">
-                <view class="classCard"  bindtap="cardClick" data-index="{{index}}">
+                <view class="classCard" bindtap="cardClick" data-index="{{index}}">
                     <view class="left-class-card">
                         <image src="{{item.createrAvatarUrl}}" class="imageClass"></image>
                     </view>
                     <view class="right-class-card">
-                        <view class="right-class-card-top"><text class="detail_text" wx:if="{{userType}}">{{item.exerciseName || item.courseName}}</text><text wx:if="{{userType}}">  {{item.meta.createdAt}}</text><text wx:else>{{item.exerciseName || item.courseName}}</text></view>
+                        <view class="right-class-card-top"><text class="detail_text" wx:if="{{userType}}">{{item.exerciseName || item.courseName}}</text><text wx:if="{{userType}}"> {{item.meta.createdAt}}</text><text wx:else>{{item.exerciseName || item.courseName}}</text></view>
                         <view class="right-class-card-bottom">
                             <view wx:if="{{userType}}">
                                 <i-rate value="{{item.starRate}}" size="26" />
@@ -53,7 +53,7 @@
             <view slot="content" style="height: 60px;">
                 <view class="classCard calc_card" bindtap="cardClick" data-index="{{index}}">
                     <view class="ui-item p-3 " bindtap="itemCLick" data-calcType="{{item.icon}}" style="position:relative;top: -20rpx;border-radius: 200rpx;display: inline;">
-                        <app-nav-li data="{{item}}" fontSize="{{item.fontSize}}" height="200" disableCustomColor/>
+                        <app-nav-li data="{{item}}" fontSize="{{item.fontSize}}" height="200" disableCustomColor />
                     </view>
                     <view class="right-class-card calc_card_right">
                         <view class="right-class-card-top">
@@ -69,8 +69,8 @@
             </view>
         </i-swipeout>
     </scroll-view>
-    <view style="position: fixed;bottom: 148rpx;width: 100vw;text-align: center;" class="text-blue record-loading"  wx:if="{{isGetMoreData}}">
-        <ui-loading size="lg" color="text-blue" wx:if="{{haveMoreData}}"/>{{haveMoreData?"加载中":"😀没用更多了"}}
+    <view style="position: fixed;bottom: 148rpx;width: 100vw;text-align: center;" class="text-blue record-loading" wx:if="{{isGetMoreData}}">
+        <ui-loading size="lg" color="text-blue" wx:if="{{haveMoreData}}" />{{haveMoreData?"加载中":"😀没用更多了"}}
     </view>
     <ui-modal show="{{modalVisible}}" confirmText="确定" transparent mask="40" showCancel="{{false}}" title="{{tabIndex === 1?'通知详情':clickItem.title}}" bind:success="modalConfirm">
         <view class="p-5 flex-center" style="flex-direction: column;" wx:if="{{tabIndex === 1 || tabIndex === 2}}">
@@ -88,6 +88,26 @@
                             {{item.string}} {{item.useranswer}}
                         </view>
                         <image wx:if="{{item.answer !==item.useranswer}}" src="/static/img/error.png" style="width: 30rpx;height: 30rpx;display: inline-block;position: relative;top: 20rpx;"></image>
+                    </view>
+                </block>
+            </view>
+        </view>
+    </ui-modal>
+    <ui-modal show="{{teacherModalVisible}}" confirmText="确定" transparent mask="40" showCancel="{{false}}" title="{{tabIndex === 1?'通知阅读情况':'测验完成情况'}}" bind:success="modalConfirm">
+        <view class="p-5 flex-center" style="flex-direction: column;" wx:if="{{(tabIndex === 0||tabIndex === 1) && userType === 0}}">
+            <view style="position: relative; top: -70rpx;" wx:if="{{tabIndex ===0}}">
+               以下是完成的同学姓名
+            </view>
+            <view style="position: relative; top: -70rpx;" wx:if="{{tabIndex ===1}}">
+               以下已读的同学姓名
+            </view>
+            <view style="margin-top: 30rpx; display: grid; grid-template-columns: 300rpx 300rpx; grid-gap: 30rpx;margin:auto;align-items: center;max-height: 500rpx;overflow: scroll;">
+                <block  wx:for="{{tabIndex === 0? doneExerciseStudents:readNotifyStudents}}" wx:key="index">
+                    <view style="position: relative;height: 80;">
+                        <image src="{{item.avatarUrl}}" style="width: 60rpx;height: 60rpx;display: inline-block;border-radius: 50%;"></image>
+                        <view style="font-size: 32rpx;display: inline-block;margin-left: 20rpx;">
+                            {{item.realName || item.nickName || item.uname}}
+                        </view>
                     </view>
                 </block>
             </view>

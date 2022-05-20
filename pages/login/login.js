@@ -1,5 +1,7 @@
 // pages/login/login.js
-import { $Message  } from '../../components/Iview/base/index'
+import {
+    zlMessage
+} from '../../components/Iview/base/index'
 import { isNullObj } from '../../utils/util'
 import { loginUser, registerUser,checkUser } from "./servies.js";
 import { appScret } from "../../config/secret"
@@ -18,6 +20,9 @@ Page({
         registeruname:"",
         registerpwd:"",
         registerpwdAgain:"",
+        bgVal:"",
+        msgVal:"",
+        isShow:false
     },
     // input事件
     unameInput:function(v) {
@@ -51,7 +56,7 @@ Page({
         const checkedUser =await checkUser({ userInputName });
         if (!!checkedUser) {
             hasRegister = true;
-            $Message ({
+            zlMessage (this,{
                 content:"用户名已注册",
                 type:"error"
             })
@@ -72,18 +77,18 @@ Page({
     },
     loginClick:function(e) {
         if (!(this.data.loginuname && this.data.loginpwd)) {
-            $Message ({
+            zlMessage (this,{
                 type:'warning',
                 content:'用户名或密码不可为空'
             })
             return;
         }
-        loginUser({loginuname:this.data.loginuname,loginpwd:this.data.loginpwd});
+        loginUser({loginuname:this.data.loginuname,loginpwd:this.data.loginpwd},this);
     },
 
     registeClick:function() {
         if (hasRegister) {
-                $Message ({
+                zlMessage (this,{
                     type:'error',
                     content:'该用户名已被注册'
                 })
@@ -91,20 +96,20 @@ Page({
             }
         if (!(this.data.registeruname && this.data.registerpwd
         )) {
-            $Message ({
+            zlMessage (this,{
                 type:'warning',
                 content:'注册用户名或密码不可为空'
             })
             return;
         }
         if (this.data.registerpwdAgain !== this.data.registerpwd ) {
-            $Message ({
+            zlMessage (this,{
                 type:"warning",
                 content:"两次输入密码不一致"
             });
             return;
         }
-        registerUser({registeruname:this.data.registeruname,registerpwd:this.data.registerpwd,hasRegister});
+        registerUser({registeruname:this.data.registeruname,registerpwd:this.data.registerpwd,hasRegister},this);
     },
 
     
@@ -153,7 +158,7 @@ Page({
         // user为空是第一次登录进行注册
         if (isNullObj(_checkUser)) {
             registerUser({...user,hasRegister:false,isWxUser:true});
-            $Message({
+            zlMessage(this,{
                 content:"注册成功",
                 type:"success"
               });
