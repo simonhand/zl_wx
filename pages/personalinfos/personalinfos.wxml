@@ -9,24 +9,22 @@
                 <i-cell title="头像" is-link>
                     <image src="{{avatarUrl}}" bindtap="avatarClick" slot="footer" style="width: 80rpx; height: 80rpx; border-radius: 50%;" />
                 </i-cell>
-                <zl-cell title="真实姓名" is-link i-class="i-cell" model:modlevalue="{{realName}}" input>
+                <zl-cell title="用户名" is-link i-class="i-cell" model:modlevalue="{{realName}}" input>
                 </zl-cell>
                 <zl-cell title="昵称" is-link i-class="i-cell" input model:modlevalue="{{nickName}}"></zl-cell>
-                <zl-cell title="年级" is-link i-class="i-cell" input model:modlevalue="{{grade}}"></zl-cell>
-                <zl-cell title="年龄" is-link i-class="i-cell" input model:modlevalue="{{age}}"></zl-cell>
+                <!-- <zl-cell title="年级" is-link i-class="i-cell" input model:modlevalue="{{grade}}"></zl-cell> -->
                 <zl-cell title="身份">
                     <view slot="footer" style="display: flex; flex-direction: row; align-items: center;">
                         <view style="margin-right: 20rpx;line-height: 100%;height: 100%;color: #666;">{{userType===0?"教师":"学生"}}</view>
                         <zl-switch checked bindtap="userTypeClick" />
                     </view>
                 </zl-cell>
-                <zl-cell title="性别">
+                <!-- <zl-cell title="性别">
                     <view slot="footer" style="display: flex; flex-direction: row; align-items: center;">
                         <view style="margin-right: 20rpx;line-height: 100%;height: 100%;color: #666;">{{gender}}</view>
                         <zl-switch checked bindtap="genderClick" />
                     </view>
-                </zl-cell>
-                <zl-cell title="家长电话" is-link input model:modlevalue="{{phone}}"></zl-cell>
+                </zl-cell> -->
             </i-cell-group>
         </view>
         <view class="submit" bindtap="submit">

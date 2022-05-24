@@ -155,3 +155,16 @@ export const checkUser = async ({userInputName="",userOpenId=""}) => {
   })
   return user
 }
+
+export const getOpenId = ({code,appid,secret}) => {
+ const playLoad = JSON.stringify({
+     query:`
+     {
+        getOpenId(code:"${code}"){
+            openid,
+        }
+      }
+     `
+    })
+    return zlrequest(playLoad,"POST")
+}

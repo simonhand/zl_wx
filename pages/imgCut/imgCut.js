@@ -4,7 +4,7 @@ import {
 } from "../../utils/uploadImg"
 import {
     graphqlSetAvatar,
-    ocrImg
+    getOcrString
 } from "./service"
 import { $Message  } from '../../components/Iview/base/index'
 let cropper = null;
@@ -73,10 +73,11 @@ Page({
                     uploadImgToCos(tempFilePath, (res) => {
                         _ocrImg = 'https://' + res.Location
                         // 这里要注意一定要这进行ocr因为照片上传时异步的
-                        ocrImg(_ocrImg).then((ocrString) => {
+                        getOcrString(_ocrImg).then((ocrString) => {
+                            console.log("ocrString",ocrString);
                             // ocr因为时一次性的成功后可以删除存储对象中的img
                             deleteCosImg(res.Location.split('/')[1])
-                            const _ocrString = ocrString.data.items.reduce((pre, item) => pre + item.text, "")
+                            const _ocrString = JSON.parse(ocrString.data.data.getOcrString.ocrStr).items.reduce((pre, item) => pre + item.text, "")
                             // 获取路由栈，因为navigateBack不能携带参数，通过获取createExam对象完成数据操作
                             const pages = getCurrentPages()
                             const createExamPage = pages[pages.length - 2]
