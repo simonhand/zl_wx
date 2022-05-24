@@ -3,8 +3,7 @@ import {
     zlMessage
 } from '../../components/Iview/base/index'
 import { isNullObj } from '../../utils/util'
-import { loginUser, registerUser,checkUser } from "./servies.js";
-import { appScret } from "../../config/secret"
+import { loginUser, registerUser,checkUser,getOpenId } from "./servies.js";
 const app = getApp();
 let hasRegister = false;
 Page({
@@ -117,24 +116,9 @@ Page({
        const wxLogin = new Promise((resolve,reject) => {
         wx.login({
             success(res) {
-               wx.request({
-                 url: 'https://api.weixin.qq.com/sns/jscode2session',
-                 data:{
-                   //小程序唯一标识
-                   appid: appScret.appid,
-                   //小程序的 app secret
-                   secret: appScret.secret,
-                   grant_type: 'authorization_code',
-                   js_code: res.code
-                 },
-                 method:"GET",
-                 success(res){
-                   resolve(res)
-                 },
-                 fail(error){
-                    reject(error)
-                 }
-               })
+                getOpenId({ code:res.code}).then((res)=>{
+                        resolve(res.data.data.getOpenId)
+                    })
             },
           }) 
        })
@@ -151,8 +135,8 @@ Page({
        })
       Promise.all([wxLogin,wxGetUserPrpfile]).then(async (res) => {
         console.log(res);
-        const openId = res[0].data.openid;
-        const user ={ openid:res[0].data.openid, ...res[1].userInfo }
+        const openId = res[0].openid;
+        const user ={ openid:res[0].openid, ...res[1].userInfo }
         const _checkUser =await checkUser({userOpenId:openId});
         console.log("_checkUser",_checkUser);
         // user为空是第一次登录进行注册

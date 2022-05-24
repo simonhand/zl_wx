@@ -380,6 +380,20 @@ export const level = {
                 useranswer: ""
             }
         },
+        primeFactors:function(n){
+            var c = 0;
+            var factors=[];
+            while(c<=n){
+                if(n % c == 0){
+                    factors.push(c);
+                    c++
+                }
+                else{
+                    c++;
+                }
+            }
+            return factors;
+            },
     },
     // 高级
     level3: {
