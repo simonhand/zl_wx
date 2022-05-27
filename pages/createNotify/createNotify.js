@@ -1,4 +1,5 @@
 // pages/createNotify/createNotify.js
+import { zlMessage } from "../../components/Iview/base/index"
 import {
     uploadImg,
     uploadImgToCos
@@ -12,7 +13,10 @@ Page({
     data: {
         imgList: [], // 题干配图
         urlParams:undefined,
-        textArea:""
+        textArea:"",
+        bgVal:"",
+        msgVal:"",
+        isShow:false
     },
     viewImage(e) {
         wx.previewImage({
@@ -29,6 +33,13 @@ Page({
         })
     },
     submit() {
+        if (this.data.textArea === "") {
+            zlMessage(this,{
+                content:"通知内容不可为空",
+                type:"warning"
+            })
+            return;
+        }
         const promiseListImg = this.data.imgList.map(item => new Promise((reslove, reject) => {
             uploadImgToCos(item, res => {
                 reslove(res.Location)

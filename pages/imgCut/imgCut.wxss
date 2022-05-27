@@ -15,7 +15,10 @@ page {
 
 
 .bar {
+    position: fixed;
+    bottom: 10rpx;
     height: 80rpx;
+    width: 100vw;
     padding-bottom: 36rpx;
     display: flex;
     flex-direction: row;

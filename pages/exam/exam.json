@@ -4,6 +4,7 @@
     "ui-radio":"../../components/mp-cu/colorUI/components/ui-radio/ui-radio",
     "ui-checkbox":"../../components/mp-cu/colorUI/components/ui-checkbox/ui-checkbox",
     "i-message":"../../components/Iview/message/index",
-    "ui-modal":"../../components/mp-cu/colorUI/components/ui-modal/ui-modal"
+    "ui-modal":"../../components/mp-cu/colorUI/components/ui-modal/ui-modal",
+    "ui-notify":"../../components/mp-cu/colorUI/components/ui-notify/ui-notify"
   }
 }
