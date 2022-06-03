@@ -9,7 +9,7 @@
                 <i-cell title="头像" is-link>
                     <image src="{{avatarUrl}}" bindtap="avatarClick" slot="footer" style="width: 80rpx; height: 80rpx; border-radius: 50%;" />
                 </i-cell>
-                <zl-cell title="用户名" is-link i-class="i-cell" model:modlevalue="{{realName}}" input>
+                <zl-cell title="用户名" is-link i-class="i-cell" model:modlevalue="{{realName}}" input inputable>
                 </zl-cell>
                 <zl-cell title="昵称" is-link i-class="i-cell" input model:modlevalue="{{nickName}}"></zl-cell>
                 <!-- <zl-cell title="年级" is-link i-class="i-cell" input model:modlevalue="{{grade}}"></zl-cell> -->

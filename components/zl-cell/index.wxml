@@ -9,7 +9,7 @@
     </view>
     <view catchtap="navigateTo" class="i-cell-ft">
         <block wx:if="{{value}}">{{ value }}</block>
-        <input wx:if="{{input}}" type="text" model:value="{{modlevalue}}" placeholder="{{modlevalue?'':'未填写'}}" bindinput="inputUpdate"/>
+        <input wx:if="{{input}}" disabled="{{inputable}}" type="text" model:value="{{modlevalue}}" placeholder="{{modlevalue?'':'未填写'}}" bindinput="inputUpdate"/>
         <block wx:else>
             <slot name="footer"></slot>
         </block>
