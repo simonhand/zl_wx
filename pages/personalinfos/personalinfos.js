@@ -58,9 +58,10 @@ Page({
      */
     onReady: function () {
         this.setData({
+
             userType:app.globalData.userInfo.userType,
             avatarUrl: app.globalData.userInfo?.avatarUrl,
-            realName: app.globalData.userInfo?.realName,
+            realName: app.globalData.userInfo?.uname,
             nickName:app.globalData.userInfo?.nickName,
             age:app.globalData.userInfo?.age,
             grade:app.globalData.userInfo?.grade,

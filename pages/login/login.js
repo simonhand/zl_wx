@@ -86,6 +86,21 @@ Page({
     },
 
     registeClick:function() {
+        const unamereg = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,12}$/
+        if (!unamereg.test(this.data.registeruname)) {
+            zlMessage(this,{
+                content:"用户名需要6到12数字或字母",
+                type:"warning"
+            })
+            return;
+        }
+        if (this.data.registerpwd.length <=8 || this.data.registerpwd.length >= 16) {
+            zlMessage(this,{
+                content:"密码长度不能少于8位多于16位",
+                type:"warning"
+            })
+            return;
+        }
         if (hasRegister) {
                 zlMessage (this,{
                     type:'error',

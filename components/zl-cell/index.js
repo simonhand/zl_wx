@@ -53,6 +53,10 @@ Component({
         url: {
             type: String,
             value: ''
+        },
+        inputable:{
+            type:Boolean,
+            value:false
         }
     },
 
