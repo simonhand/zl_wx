@@ -14,7 +14,8 @@
         "pages/myclass/myclass",
         "pages/imgCut/imgCut",
         "pages/readNotify/readNotify",
-        "pages/calcIndex/calcIndex"
+        "pages/calcIndex/calcIndex",
+        "pages/about/about"
     ],
     "window": {
         "backgroundTextStyle": "light",
