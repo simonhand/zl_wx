@@ -1,0 +1,15 @@
+<ui-sys title=" "  img="/static/img/4put2.png" navBg="bg-cyan-gradient" imgBottom>
+    <view class="ui-BG radius mt-3 px-3 border flex-center" style="width: 80vw; margin: auto;">
+            <ui-title title="程序介绍" titleColor="text-blue" descUi="text-cyan" desc="App " tpl="center-column" hasDot />
+     </view>
+     <view class="shadow-warp ui-BG p-4 radius xl textarea" style="margin: auto; margin-top: 50rpx;">
+            <textarea  maxlength="-1" style="width: 600rpx; height: 350rpx; background-color: #fcfcfc; font-size: 40rpx;overflow: scroll;" disabled>
+                    <rich-text style="text-indent: 2em; font-size: 40rpx;">该程序主要服务于中小学生日常口算基础强化训练与口算能力提升提升。本团队设置学生与教师模式，教师能更方便的布置教学任务。家长可从记录界面更直观的了解到孩子口算水平与平时学习状况。增加孩子训练时的趣味性。</rich-text>
+            </textarea>
+    </view>
+    <view class="flex-center" style="margin-top:40rpx;">
+         <image src="/static/img/QR.jpg"  style="width: 300rpx; height: 300rpx; border-radius: 25rpx;"></image>
+    </view>
+    <view class="radius xl textarea flex-center" style="margin: auto;font-size: small;color: #666;">小程序二维码</view>
+</ui-sys>
+
