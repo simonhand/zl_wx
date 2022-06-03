@@ -1,6 +1,6 @@
 // logs.js
 import {
-    $Message,
+    zlMessage,
 } from '../../components/Iview/base/index'
 import {
     calcType
@@ -18,7 +18,8 @@ import {
     getCalcRecord,
     deleteCalcRecord,
     getDoneExerciseStudents,
-    getReadNotifyStudents
+    getReadNotifyStudents,
+    
 } from './services'
 const app = getApp()
 Page({
@@ -47,7 +48,10 @@ Page({
             background: '#FF7F00'
         }],
         doneExerciseStudents:[],
-        readNotifyStudents:[]
+        readNotifyStudents:[],
+        bgVal:"",
+        msgVal:"",
+        isShow:false
     },
     modalConfirm() {
         this.setData({
@@ -124,6 +128,7 @@ Page({
                 _item._id !== item.data.data.deleteCalcRecord._id
             )
             this.setData({
+                tabTotal:{...this.data.tabTotal,calcCount:this.data.tabTotal.calcCount - 1},
                 recordList: temp_recordList
             })
         })

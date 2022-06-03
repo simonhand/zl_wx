@@ -1,6 +1,6 @@
 // pages/createExam/createExam.js
 import {
-    $Message
+    zlMessage
 } from '../../components/Iview/base/index'
 import {
     getExam,
@@ -33,7 +33,10 @@ Page({
         correctExerciseType: false,
         userInputKeyList: [],
         // 这个值记录从记录跳转过来的
-        exercisesCorrectRecord: []
+        exercisesCorrectRecord: [],
+        bgVal:"",
+        msgVal:"",
+        isShow:false
     },
     viewImage(e) {
         wx.previewImage({
@@ -98,7 +101,7 @@ Page({
     },
     nextExercises() {
         if (this.data.currentIndex === this.data.exercisesList.length - 1) {
-            $Message({
+            zlMessage(this,{
                 content: "已经事最后一题了",
                 type: "warning"
             })

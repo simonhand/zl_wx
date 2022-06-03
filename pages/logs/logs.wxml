@@ -1,5 +1,5 @@
 <ui-sys title="我的记录" img="/static/img/4put2.png" imgBottom navBg="bg-cyan-gradient" isTabbar footer="" needLoading="{{isLoading}}">
-    <i-message id="message" />
+    <ui-notify bg="{{bgVal}}" msg="{{msgVal}}" show="{{isShow}}" />
     <view class="p-3 text-center">
         <ui-tab wx:if="{{userType === 1}}" tab="{{[{ name:'测验',icon:'cicon-event-list',tag:tabTotal.exerciseCount},{icon:'cicon-community-o', name:'通知',tag:tabTotal.notifyCount},{name:'口算',icon:'cicon-numcode',tag:tabTotal.calcCount}]}}" tpl="btn" mark="bg-white radius" ui="bg-cyan-gradient radius" curColor="text-orange" inline bind:change="tabChange" />
         <ui-tab wx:else tab="{{[{ name:'我创建的测验',icon:'cicon-event-list',tag:tabTotal.exerciseCount},{icon:'cicon-community-o', name:'我创建的通知',tag:tabTotal.notifyCount}]}}" tpl="btn" mark="bg-white radius" ui="bg-cyan-gradient radius" curColor="text-orange" inline bind:change="tabChange" />

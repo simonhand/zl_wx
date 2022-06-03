@@ -11,6 +11,7 @@
     "ui-modal":"../../components/mp-cu/colorUI/components/ui-modal/ui-modal",
     "app-nav-li": "../../components/mp-sdk/components/app-nav-li/app-nav-li",
     "ui-loading":"../../components/mp-cu/colorUI/components/ui-loading/ui-loading",
-    "i-message":"../../components/Iview/message/index"
+    "i-message":"../../components/Iview/message/index",
+    "ui-notify":"../../components/mp-cu/colorUI/components/ui-notify/ui-notify"
   }
 }

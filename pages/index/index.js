@@ -70,7 +70,7 @@ Page({
         myNotify: {
             icon: 'cicon-level_13',
             fontSize: 30,
-            title: '我的通知'
+            title: '我的'
         },
         myExam:{
             icon: 'cicon-level_14',
@@ -174,6 +174,14 @@ Page({
         })
     },
     calcClick() {
+        haveUserInfo();
+        if (this.data.userType !== 1) {
+            $Message({
+                content:"口算功能需要学生身份使用,如需更换请在个人中心修改",
+                type:"warning"
+            }) 
+            return;
+        }
         wx.navigateTo({
             url: '../calcIndex/calcIndex',
         })
