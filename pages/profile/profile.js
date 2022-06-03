@@ -33,6 +33,12 @@ Page({
       url: '../personalinfos/personalinfos',
     })
   },
+  //about
+  aboutClick(){
+      wx.navigateTo({
+        url: '../about/about',
+      })
+  },
   // modal窗取消函数
   handleCloseModal() {
     this.setData({

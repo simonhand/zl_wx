@@ -17,7 +17,7 @@
             <ui-menu-item arrow title="我的课程" bindtap="MyclassClick" icon="cicon-title" isIcon>
                 <image slot="icon" src="/static/profile/book.png" mode="aspectFill" class="ui-menu-item-image"/>
             </ui-menu-item>
-            <ui-menu-item arrow title="关于程序" isIcon>
+            <ui-menu-item arrow title="关于程序" isIcon bindtap="aboutClick">
                 <image slot="icon" src="/static/profile/about.png" mode="aspectFill" class="ui-menu-item-image"/>
             </ui-menu-item>
             <ui-menu-item arrow title="退出登录" bindtap="logout" isIcon>

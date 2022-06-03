@@ -1,0 +1,10 @@
+    /* pages/about/about.wxss */
+.textarea {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    width: 650rpx;
+    max-height:max-content;
+    /* margin-top: 80rpx; */
+}
