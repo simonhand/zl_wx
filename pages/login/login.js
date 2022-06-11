@@ -94,7 +94,7 @@ Page({
             })
             return;
         }
-        if (this.data.registerpwd.length <=8 || this.data.registerpwd.length >= 16) {
+        if (this.data.registerpwd.length <8 || this.data.registerpwd.length > 16) {
             zlMessage(this,{
                 content:"密码长度不能少于8位多于16位",
                 type:"warning"

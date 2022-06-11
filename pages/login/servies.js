@@ -93,6 +93,7 @@ export const registerUser = ({registeruname = "",registerpwd ="",hasRegister=fal
                 nickName,
                 avatarUrl,
                 isWxUser,
+                userType,
                 course { invitationCode }
             }
           }

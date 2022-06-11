@@ -165,7 +165,7 @@ Page({
         this.nextExercises('submit')
         for (const iterator of this.data.exercisesList) {
             if (!iterator.iscorrectExerciseType) {
-                $zlMessage(this,{
+                zlMessage(this,{
                     content: "存在不符合规则的题目",
                     type: "wraning"
                 })
@@ -211,7 +211,7 @@ Page({
               url: '../index/index',
             })
         }).catch((error) => {
-            $zlMessage({
+            zlMessage({
                 content:"创建失败" + error,
                 type:"error"
             })

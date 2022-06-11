@@ -70,21 +70,12 @@ Page({
         myNotify: {
             icon: 'cicon-level_13',
             fontSize: 30,
-            title: '我的'
+            title: '我的通知'
         },
         myExam:{
             icon: 'cicon-level_14',
             fontSize: 30,
             title: '我的测验'
-        }
-    },
-    // 页面显示触发
-    onShow() {
-        if (typeof this.getTabBar === 'function' &&
-            this.getTabBar()) {
-            this.getTabBar().setData({
-                selected: 0
-            })
         }
     },
     // 事件处理函数
@@ -293,6 +284,10 @@ Page({
                 selected: 0 // 数字是当前页面在tabbar的索引,如我的查询页索引是2，因此这边为2，同理首页就为0，消息中心页面为1
             })
         }
+        console.log("app.globalData.userInfo",app.globalData.userInfo);
+        this.setData({
+            userType:app.globalData.userInfo.userType
+        })
         const that = this;
         // 请求有多少个测验未做
         // 这里之所以从缓存里拿数据，按理说全局变量userinfo数据是和缓存中同步的，但是从缓存中拿是异步的又因为这是首页这个时候直接从usereinfo拿是undefined
